@@ -1,26 +1,27 @@
 # feta
 
-TODO:
+GNU ustar tar implementation written using effect-ts
 
 ## Motivation/ideation :bulb:
 
-TODO:
+I needed a tar implementation that could be used in the browser
 
 ## Goals :white_check_mark:
 
-- [] - TODO:
+- [x] - tar
+- [x] - untar
 
 ## WIP/Todo :construction:
 
-- TODO:
+- tests
 
 ## Blocked :ambulance:
 
-- TODO:
+- nothing atm
 
 ## Non-Goals :wastebasket:
 
-- TODO:
+- nothing atm
 
 ## Library docs :card_file_box:
 
