@@ -10,29 +10,15 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
       packages: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-
-      # Setup go and node
-      - uses: actions/setup-go@v5
       - uses: actions/setup-node@v4
-        with:
-          node-version: "18.x"
-          registry-url: "https://registry.npmjs.org/"
-
-      # Setup pnpm and pnpm cache
       - uses: pnpm/action-setup@v4
-
-      # Install build deps
-      - shell: bash
-        run: sudo apt-get -y install mingw-w64 libarchive-tools clang cmake libxml2-dev imagemagick librsvg2-bin openresolv
 
       # Check, lint, and build
       - shell: bash
