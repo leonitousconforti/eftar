@@ -1,7 +1,7 @@
 #!/bin/bash -i
 
 set -eo pipefail
-echo "🚀 Setting up feta devcontainer..."
+echo "🚀 Setting up r devcontainer..."
 
 echo "📦 Installing repo dependencies..."
 npm install -g corepack@latest
@@ -16,4 +16,4 @@ pnpm build
 pnpm test --run
 
 echo "✅ Devcontainer setup complete!"
-echo "🙏 Thank you for contributing to feta!"
+echo "🙏 Thank you for contributing to eftar!"

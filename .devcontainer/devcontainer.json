@@ -1,6 +1,6 @@
 // spell-checker: disable
 {
-    "name": "feta",
+    "name": "eftar",
     "image": "mcr.microsoft.com/devcontainers/base:bullseye",
 
     "features": {

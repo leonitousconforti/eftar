@@ -1,5 +1,5 @@
 {
-    "name": "feta",
+    "name": "eftar",
     "version": "0.0.1",
     "description": "GNU ustar tar implementation written using effect-ts",
     "keywords": [
@@ -7,14 +7,14 @@
         "gnu",
         "effect-ts"
     ],
-    "homepage": "https://github.com/leonitousconforti/feta",
+    "homepage": "https://github.com/leonitousconforti/eftar",
     "bugs": {
-        "url": "https://github.com/leonitousconforti/feta/issues",
+        "url": "https://github.com/leonitousconforti/eftar/issues",
         "email": "leo@leoconforti.us"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/leonitousconforti/feta.git"
+        "url": "git+https://github.com/leonitousconforti/eftar.git"
     },
     "license": "GPL-3.0-only",
     "author": "Leo Conforti <leo@leoconforti.us> (https://leoconforti.us)",

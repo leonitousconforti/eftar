@@ -1,4 +1,4 @@
-# feta
+# eftar
 
 GNU ustar tar implementation written using effect-ts
 
@@ -25,7 +25,7 @@ I needed a tar implementation that could be used in the browser
 
 ## Library docs :card_file_box:
 
-[https://leonitousconforti.github.io/feta/](https://leonitousconforti.github.io/feta/)
+[https://leonitousconforti.github.io/eftar/](https://leonitousconforti.github.io/eftar/)
 
 ## Contributing and getting help :speech_balloon: :beers:
 

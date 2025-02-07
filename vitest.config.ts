@@ -27,7 +27,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            feta: path.resolve(__dirname, "src"),
+            eftar: path.resolve(__dirname, "src"),
         },
     },
 });

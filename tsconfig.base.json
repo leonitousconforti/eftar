@@ -36,8 +36,8 @@
         "declarationMap": true,
         "baseUrl": ".",
         "paths": {
-            "feta": ["./src/index.js"],
-            "feta/*": ["./src/*.js"]
+            "eftar": ["./src/index.js"],
+            "eftar/*": ["./src/*.js"]
         },
         "types": ["node"],
         "plugins": [
