@@ -36,8 +36,8 @@
         "declarationMap": true,
         "baseUrl": ".",
         "paths": {
-            "the-wireguard-effect": ["./src/index.js"],
-            "the-wireguard-effect/*": ["./src/*.js"]
+            "feta": ["./src/index.js"],
+            "feta/*": ["./src/*.js"]
         },
         "types": ["node"],
         "plugins": [

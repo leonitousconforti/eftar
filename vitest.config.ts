@@ -27,7 +27,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            "the-wireguard-effect": path.resolve(__dirname, "src"),
+            feta: path.resolve(__dirname, "src"),
         },
     },
 });

@@ -24,7 +24,7 @@ TODO:
 
 ## Library docs :card_file_box:
 
-[https://leonitousconforti.github.io/the-wireguard-effect/](https://leonitousconforti.github.io/the-wireguard-effect/)
+[https://leonitousconforti.github.io/feta/](https://leonitousconforti.github.io/feta/)
 
 ## Contributing and getting help :speech_balloon: :beers:
 
