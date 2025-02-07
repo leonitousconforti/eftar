@@ -1,0 +1,26 @@
+diff --git a/main.js b/main.js
+index fb6da086f6a60ac42e69e86860b2adad8fac1658..32bc6fb9253ac053c84a22a9624950ff876d5712 100755
+--- a/main.js
++++ b/main.js
+@@ -32030,6 +32030,10 @@ var _PackageJson = class _PackageJson extends Class3("PackageJson")({
+     provenance: optionalWith(Boolean$, { default: () => false }),
+     executableFiles: optional(Array$(String$))
+   })),
++  homepage: optional(String$),
++  keywords: optional(Array$(String$)),
++  bugs: optional(Record({ key: String$, value: String$ })),
++  engines: optional(Record({ key: String$, value: String$ })),
+   license: String$,
+   author: optional(
+     Union2(
+@@ -32287,6 +32291,10 @@ var run11 = gen2(function* () {
+     addOptional("gitHead");
+     addOptional("bin");
+     addOptional("bin");
++   addOptional("keywords");
++   addOptional("homepage");
++   addOptional("bugs");
++   addOptional("engines");
+     if (ctx.packageJson.publishConfig?.provenance === true) {
+       out.publishConfig = { provenance: true };
+     }

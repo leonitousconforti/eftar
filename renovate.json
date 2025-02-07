@@ -1,0 +1,30 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": ["config:recommended"],
+    "prHourlyLimit": 0,
+    "git-submodules": {
+        "enabled": true
+    },
+    "packageRules": [
+        {
+            "description": "Group @effect Node.JS packages together",
+            "groupName": "Effect-ts",
+            "groupSlug": "effect-ts",
+            "matchDatasources": ["npm"],
+            "matchPackageNames": ["@effect/**", "effect"]
+        },
+        {
+            "matchUpdateTypes": ["minor", "patch"],
+            "matchCurrentVersion": "!/^0/",
+            "automerge": true,
+            "automergeType": "pr",
+            "platformAutomerge": true
+        }
+    ],
+    "lockFileMaintenance": {
+        "enabled": true,
+        "automerge": true,
+        "automergeType": "pr",
+        "platformAutomerge": true
+    }
+}

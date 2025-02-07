@@ -1,0 +1,53 @@
+name: "Build"
+description: "Reusable build action"
+
+runs:
+  using: "composite"
+  steps:
+    # Setup go and node
+    - uses: actions/setup-go@v5
+    - uses: actions/setup-node@v4
+      with:
+        node-version: "18.x"
+
+    # Setup pnpm
+    - uses: pnpm/action-setup@v4
+
+    # Install build deps
+    - shell: bash
+      run: sudo apt-get -y install mingw-w64 libarchive-tools clang cmake libxml2-dev imagemagick librsvg2-bin
+
+    # Check, lint, and build
+    - shell: bash
+      run: pnpm install
+    - shell: bash
+      run: pnpm check
+    - shell: bash
+      run: pnpm lint
+    - shell: bash
+      run: pnpm circular
+    - shell: bash
+      run: pnpm build
+
+    # Clean up
+    - shell: bash
+      run: |
+        sudo rm -rf .git/
+        sudo rm -rf node_modules/
+        sudo rm -rf submodules/wintun
+        sudo rm -rf submodules/nvlist
+        sudo rm -rf submodules/osxcross
+        sudo rm -rf submodules/wireguard-apple
+        sudo rm -rf submodules/wireguard-go
+        sudo rm -rf submodules/wireguard-tools
+        sudo rm -rf submodules/wireguard-windows
+
+    # https://github.com/actions/download-artifact/tree/v4/?tab=readme-ov-file#limitations
+    - shell: bash
+      run: tar -cvf /tmp/the-wireguard-effect.tar .
+
+    # Upload the artifact
+    - uses: actions/upload-artifact@v4
+      with:
+        name: the-wireguard-effect
+        path: /tmp/the-wireguard-effect.tar

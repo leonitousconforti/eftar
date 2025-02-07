@@ -1,0 +1,9 @@
+*.tsbuildinfo
+.DS_Store
+
+/dist/
+/build/
+/coverage/
+/node_modules/
+/docs/examples/
+/.devcontainer/.devpod-internal/
