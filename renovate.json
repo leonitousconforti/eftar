@@ -22,6 +22,10 @@
             "automerge": true,
             "automergeType": "pr",
             "platformAutomerge": true
+        },
+        {
+            "matchPackageNames": ["pnpm"],
+            "automerge": false
         }
     ],
     "lockFileMaintenance": {
