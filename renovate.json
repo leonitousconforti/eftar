@@ -6,7 +6,7 @@
         "enabled": true
     },
     "constraints": {
-        "pnpm": "latest"
+        "pnpm": "10.2.1"
     },
     "packageRules": [
         {
