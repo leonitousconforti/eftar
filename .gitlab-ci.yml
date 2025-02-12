@@ -17,7 +17,6 @@ typescript:
   tags:
     - ubuntu-24.04
   script:
-    - sudo npm install -g corepack@latest
     - corepack install
     - corepack enable
     - pnpm install
