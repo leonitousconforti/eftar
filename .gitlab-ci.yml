@@ -17,7 +17,7 @@ typescript:
   tags:
     - ubuntu-24.04
   script:
-    - npm uninstall --global corepack@latest
+    - npm install --global corepack@latest
     - corepack install
     - corepack enable
     - pnpm install
