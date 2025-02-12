@@ -5,6 +5,9 @@
     "git-submodules": {
         "enabled": true
     },
+    "constraints": {
+        "pnpm": "latest"
+    },
     "packageRules": [
         {
             "description": "Group @effect Node.JS packages together",
