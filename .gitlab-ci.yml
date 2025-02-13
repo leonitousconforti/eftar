@@ -76,6 +76,11 @@ publish_job:
     - job: release_job
     - job: typescript_job
       artifacts: true
+  artifacts:
+    when: always
+    untracked: true
+    paths:
+      - /root/.npm/_logs/
   rules:
     - if: '$CI_COMMIT_TAG =~ /^v?\d+\.\d+\.\d+$/'
   script:
