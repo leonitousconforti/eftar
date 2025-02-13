@@ -70,6 +70,9 @@ publish_job:
     - if: '$CI_COMMIT_TAG =~ /^v?\d+\.\d+\.\d+$/'
   script:
     - npm version --no-git-tag-version $CI_COMMIT_TAG
+    - npm install --global corepack@latest
+    - corepack install
+    - corepack enable
     - echo "@leoconforti/eftar:registry=https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/" > .npmrc
     - echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
     - pnpm publish --no-git-checks --access public --registry https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/
