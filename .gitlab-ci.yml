@@ -69,18 +69,10 @@ release_job:
 publish_job:
   stage: publish
   image: node:latest
-  id_tokens:
-    SIGSTORE_ID_TOKEN:
-      aud: sigstore
   needs:
     - job: release_job
     - job: typescript_job
       artifacts: true
-  artifacts:
-    when: always
-    untracked: true
-    paths:
-      - npm_logs/
   rules:
     - if: '$CI_COMMIT_TAG =~ /^v?\d+\.\d+\.\d+$/'
   script:
@@ -107,7 +99,4 @@ publish_job:
       fi
 
     # Publish
-    - pnpm publish --no-git-checks --access public --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/ || true
-
-    - mkdir -p $CI_PROJECT_DIR/npm_logs
-    - cp -r /root/.npm/_logs/* $CI_PROJECT_DIR/npm_logs/ || true
+    - pnpm publish --no-git-checks --access public --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
