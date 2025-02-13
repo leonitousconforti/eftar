@@ -31,11 +31,8 @@ prepare_job:
 typescript_job:
   stage: build
   timeout: 10 minutes
-  tags:
-    - ubuntu-24.04
+  image: node:latest
   script:
-    - curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh" | sudo bash # FIXME: add this to the runner images
-    - sudo apt-get install --yes gitlab-runner # FIXME: add this to the runner images
     - npm install --global corepack@latest
     - corepack install
     - corepack enable
@@ -72,6 +69,9 @@ release_job:
 publish_job:
   stage: publish
   image: node:latest
+  id_tokens:
+    SIGSTORE_ID_TOKEN:
+      aud: sigstore
   needs:
     - job: release_job
     - job: typescript_job
