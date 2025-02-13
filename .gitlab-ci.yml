@@ -1,6 +1,8 @@
 stages:
+  - prepare
   - build
   - test
+  - release
 
 include:
   - template: Security/Secret-Detection.gitlab-ci.yml
