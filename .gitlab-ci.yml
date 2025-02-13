@@ -87,8 +87,8 @@ publish_job:
 
     # Add configuration to publish to GitLab's NPM registry
     # For more information, see https://docs.gitlab.com/ee/user/packages/npm_registry/#with-the-npmrc-file
-    - echo "@${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
-    - echo "${CI_API_V4_URL#http*:}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${CI_JOB_TOKEN}"
+    - echo "@${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/" > .npmrc
+    - echo "${CI_API_V4_URL#http*:}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${CI_JOB_TOKEN}" > .npmrc
     - echo "Using the following .npmrc:"; cat .npmrc
 
     # Validate that the package name is properly scoped to the project's root namespace.
