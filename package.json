@@ -1,6 +1,6 @@
 {
     "name": "eftar",
-    "version": "0.0.10",
+    "version": "0.0.0",
     "description": "GNU ustar tar implementation written using effect-ts",
     "keywords": [
         "tar",
