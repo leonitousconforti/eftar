@@ -100,7 +100,7 @@
     "publishConfig": {
         "access": "public",
         "directory": "dist",
-        "provenance": true
+        "provenance": false
     },
     "pnpm": {
         "patchedDependencies": {
