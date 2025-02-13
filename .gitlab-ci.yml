@@ -47,7 +47,7 @@ typescript_job:
       - dist/
     reports:
       junit:
-        - junit.xml
+        - coverage/junit.xml
 
 release_job:
   stage: release
