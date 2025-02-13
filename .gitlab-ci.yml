@@ -34,8 +34,8 @@ typescript_job:
   tags:
     - ubuntu-24.04
   script:
-    - sudo apt update
-    - sudo apt install --yes gitlab-runner
+    - curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh" | sudo bash
+    - sudo apt-get install --yes gitlab-runner
     - npm install --global corepack@latest
     - corepack install
     - corepack enable
