@@ -41,7 +41,7 @@ typescript_job:
     - pnpm lint
     - pnpm circular
     - pnpm build
-    - pnpm test
+    - pnpm coverage
 
 release_job:
   stage: release
