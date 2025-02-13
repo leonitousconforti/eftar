@@ -34,6 +34,7 @@ typescript_job:
   tags:
     - ubuntu-24.04
   script:
+    - sudo apt-get install --yes gitlab-runner
     - npm install --global corepack@latest
     - corepack install
     - corepack enable
