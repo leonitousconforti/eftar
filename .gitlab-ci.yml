@@ -3,6 +3,7 @@ stages:
   - build
   - test
   - release
+  - publish
 
 include:
   - template: Security/Secret-Detection.gitlab-ci.yml
@@ -47,6 +48,7 @@ release_job:
   stage: release
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   needs:
+    - job: typescript_job
     - job: prepare_job
       artifacts: true
   rules:
@@ -58,3 +60,15 @@ release_job:
     description: release_notes.md
     tag_name: "$CI_COMMIT_TAG"
     ref: "$CI_COMMIT_SHA"
+
+publish_job:
+  stage: publish
+  image: node:latest
+  needs:
+    - job: release_job
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^v?\d+\.\d+\.\d+$/'
+  script:
+    - echo "@leoconforti/eftar:registry=https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/" > .npmrc
+    - echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
+    - pnpm publish --no-git-checks --access public --registry https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/
