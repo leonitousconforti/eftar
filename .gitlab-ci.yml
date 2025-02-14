@@ -49,6 +49,8 @@ typescript_job:
       coverage_report:
         coverage_format: cobertura
         path: coverage/cobertura-coverage.xml
+      junit:
+        - coverage/junit.xml
 
 release_job:
   stage: release

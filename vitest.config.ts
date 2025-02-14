@@ -6,7 +6,7 @@ export default defineConfig({
         include: ["./test/**/*.test.ts"],
         globals: true,
         coverage: { provider: "v8", include: ["src/**/*.ts"], reporter: ["cobertura"] },
-        reporters: ["default", "hanging-process"],
+        reporters: ["default", "hanging-process", ["junit", { outputFile: "./coverage/junit.xml" }]],
     },
     resolve: {
         alias: {
