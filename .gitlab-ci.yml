@@ -42,7 +42,7 @@ typescript_job:
     - pnpm circular
     - pnpm build
     - pnpm coverage
-  coverage: /All files(?:[^|]*\|){4}\s*(\S+)/
+  coverage: /All files(?:[^|]*\|){2}\s*(\S+)/
   artifacts:
     paths:
       - dist/
