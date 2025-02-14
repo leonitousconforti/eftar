@@ -42,13 +42,13 @@ typescript_job:
     - pnpm circular
     - pnpm build
     - pnpm coverage
-  coverage: /All files(?:[^|]*\|){2}\s*(\S+)/
   artifacts:
     paths:
       - dist/
     reports:
-      junit:
-        - coverage/junit.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
 
 release_job:
   stage: release
