@@ -24,11 +24,10 @@ import * as TarCommon from "./Common.js";
  * @internal
  */
 export type FolderState = {
-    readonly dataBlocksRead: number;
-    readonly dataBlocksExpected: number;
+    readonly bytesRead: number;
     readonly endOfArchiveFlag: boolean;
+    readonly chunks: Chunk.Chunk<Uint8Array>;
     readonly headerBlock: TarCommon.TarHeader | undefined;
-    readonly dataStream: Stream.Stream<Uint8Array, never, never>;
 };
 
 /**
@@ -49,14 +48,16 @@ export const aggregateBlocksByHeadersSink: Sink.Sink<
 > = Sink.foldWeightedEffect({
     maxCost: Number(false),
     initial: {
-        dataBlocksRead: 0,
-        dataBlocksExpected: 1,
+        bytesRead: 0,
+        chunks: Chunk.empty<Uint8Array>(),
         endOfArchiveFlag: false as boolean,
-        dataStream: Stream.fromChunk(Chunk.empty<Uint8Array>()),
         headerBlock: undefined as TarCommon.TarHeader | undefined,
     },
-    cost: (state, _input) =>
-        Effect.succeed(Number(state.dataBlocksRead >= state.dataBlocksExpected) + Number(state.endOfArchiveFlag)),
+    cost: (state, _input) => {
+        const case1 = state.endOfArchiveFlag;
+        const case2 = state.bytesRead >= (state.headerBlock?.fileSize ?? TarCommon.BLOCK_SIZE);
+        return Effect.succeed(Number(case1) + Number(case2));
+    },
     body: (state, input) =>
         Effect.gen(function* () {
             /**
@@ -74,9 +75,18 @@ export const aggregateBlocksByHeadersSink: Sink.Sink<
              */
             if (Predicate.isUndefined(state.headerBlock)) {
                 const headerBlock = yield* TarCommon.TarHeader.read(input);
-                const dataBlocksExpected = Math.ceil(headerBlock.fileSize / TarCommon.BLOCK_SIZE);
-                return { ...state, headerBlock, dataBlocksExpected };
+                return { ...state, headerBlock };
             }
+
+            /**
+             * If we will read more than the content length, which can happen
+             * because the blocks must be padded to 512 bytes, then we should
+             * slice the data from this block to remove the padding.
+             */
+            const trimmedInput =
+                state.bytesRead + input.length > state.headerBlock.fileSize
+                    ? input.slice(0, state.headerBlock.fileSize - state.bytesRead)
+                    : input;
 
             /**
              * If we have already parsed the header, then keep appending data
@@ -84,8 +94,8 @@ export const aggregateBlocksByHeadersSink: Sink.Sink<
              */
             return {
                 ...state,
-                dataBlocksRead: state.dataBlocksRead + 1,
-                dataStream: Stream.concat(state.dataStream, Stream.make(input)),
+                bytesRead: state.bytesRead + input.length,
+                chunks: Chunk.append(state.chunks, trimmedInput),
             };
         }),
 });
@@ -111,7 +121,7 @@ export const collectorSink: Sink.Sink<
         (input) => input.headerBlock!,
         (_a, b) => b
     ),
-    HashMap.map(({ dataStream }) => dataStream)
+    HashMap.map(({ chunks }) => Stream.fromChunk(chunks))
 );
 
 /**
