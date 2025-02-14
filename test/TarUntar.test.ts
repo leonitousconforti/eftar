@@ -5,7 +5,7 @@ import { Effect, HashMap, Sink, Stream, Tuple } from "effect";
 
 import { Tar, Untar } from "eftar";
 
-it.live("should untar a tarball", () =>
+it.live("should tar and untar a tarball", () =>
     Effect.gen(function* () {
         const path = yield* Path.Path;
         const fileSystem = yield* FileSystem.FileSystem;
@@ -25,6 +25,14 @@ it.live("should untar a tarball", () =>
         const entries2 = yield* Untar.Untar(tarball2).pipe(Effect.map(HashMap.toEntries));
         const entries3 = yield* Untar.Untar(tarball3).pipe(Effect.map(HashMap.toEntries));
 
+        const headerMatcher = expect.objectContaining({
+            type: 0,
+            deviceMajorNumber: "",
+            deviceMinorNumber: "",
+            fileSize: contentSize,
+            filename: "content.txt",
+        });
+
         expect(entries1).toHaveLength(1);
         expect(entries2).toHaveLength(1);
         expect(entries3).toHaveLength(1);
@@ -33,16 +41,20 @@ it.live("should untar a tarball", () =>
         const [header2, content2] = entries2[0]!;
         const [header3, content3] = entries3[0]!;
 
-        expect(header1.filename).toBe("content.txt");
-        expect(header2.filename).toBe("content.txt");
-        expect(header3.filename).toBe("content.txt");
+        expect(header1).toStrictEqual(headerMatcher);
+        expect(header2).toStrictEqual(headerMatcher);
+        expect(header3).toStrictEqual(headerMatcher);
 
         const string1 = yield* content1.pipe(Stream.decodeText()).pipe(Stream.run(Sink.mkString));
         const string2 = yield* content2.pipe(Stream.decodeText()).pipe(Stream.run(Sink.mkString));
         const string3 = yield* content3.pipe(Stream.decodeText()).pipe(Stream.run(Sink.mkString));
 
-        expect(string1).toMatchSnapshot();
-        expect(string2).toMatchSnapshot();
-        expect(string3).toMatchSnapshot();
+        expect(string1).toHaveLength(contentSize);
+        expect(string2).toHaveLength(contentSize);
+        expect(string3).toHaveLength(contentSize);
+
+        expect(string1).toStrictEqual(contentString);
+        expect(string2).toStrictEqual(contentString);
+        expect(string3).toStrictEqual(contentString);
     }).pipe(Effect.provide(NodeContext.layer))
 );
