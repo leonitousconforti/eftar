@@ -28,7 +28,7 @@ prepare_job:
     paths:
       - release_notes.md
 
-typescript_job:
+build_job:
   stage: build
   timeout: 10 minutes
   image: node:latest
@@ -41,10 +41,24 @@ typescript_job:
     - pnpm lint
     - pnpm circular
     - pnpm build
-    - pnpm coverage
   artifacts:
     paths:
       - dist/
+
+test_job:
+  stage: test
+  timeout: 10 minutes
+  image: node:latest
+  needs:
+    - job: build_job
+      artifacts: true
+  script:
+    - npm install --global corepack@latest
+    - corepack install
+    - corepack enable
+    - pnpm install
+    - pnpm coverage
+  artifacts:
     reports:
       coverage_report:
         coverage_format: cobertura
@@ -56,7 +70,8 @@ release_job:
   stage: release
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   needs:
-    - job: typescript_job
+    - job: test_job
+    - job: build_job
     - job: prepare_job
       artifacts: true
   rules:
@@ -73,8 +88,9 @@ publish_job:
   stage: publish
   image: node:latest
   needs:
+    - job: test_job
     - job: release_job
-    - job: typescript_job
+    - job: build_job
       artifacts: true
   rules:
     - if: '$CI_COMMIT_TAG =~ /^v?\d+\.\d+\.\d+$/'
