@@ -1,3 +1,9 @@
+## 0.0.6 (2025-02-15)
+
+### changed (1 change)
+
+- [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/c21334195a6c18c924c827be39a57e2e5f94df9a) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/30))
+
 ## 0.0.5 (2025-02-14)
 
 ### changed (1 change)
