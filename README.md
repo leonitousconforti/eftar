@@ -2,6 +2,8 @@
 
 GNU ustar tar implementation written using effect-ts
 
+[![pipeline status](https://git.ltgk.net/leoconforti/eftar/badges/main/pipeline.svg)](https://git.ltgk.net/leoconforti/eftar/-/commits/main) [![coverage report](https://git.ltgk.net/leoconforti/eftar/badges/main/coverage.svg?job=build_job)](https://git.ltgk.net/leoconforti/eftar/-/commits/main) [![Latest Release](https://git.ltgk.net/leoconforti/eftar/-/badges/release.svg)](https://git.ltgk.net/leoconforti/eftar/-/releases)
+
 ## Motivation/ideation :bulb:
 
 I needed a tar implementation that could be used in the browser
