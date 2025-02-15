@@ -1,3 +1,9 @@
+## 0.0.7 (2025-02-15)
+
+### added (1 change)
+
+- [add badges](https://git.ltgk.net/leoconforti/eftar/-/commit/8180dada92c99e6e09d65d8722ace9e0efe31424)
+
 ## 0.0.6 (2025-02-15)
 
 ### changed (1 change)
