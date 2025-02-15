@@ -41,36 +41,22 @@ build_job:
     - pnpm lint
     - pnpm circular
     - pnpm build
+    - pnpm coverage
+  coverage: /All files(?:[^|]*\|){4}\s*(\S+)/
   artifacts:
     paths:
       - dist/
-
-test_job:
-  stage: test
-  timeout: 10 minutes
-  image: node:latest
-  needs:
-    - job: build_job
-      artifacts: true
-  script:
-    - npm install --global corepack@latest
-    - corepack install
-    - corepack enable
-    - pnpm install
-    - pnpm coverage
-  artifacts:
     reports:
       coverage_report:
         coverage_format: cobertura
         path: coverage/cobertura-coverage.xml
-    #   junit:
-    #     - coverage/junit.xml
+      junit:
+        - coverage/junit.xml
 
 release_job:
   stage: release
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   needs:
-    - job: test_job
     - job: build_job
     - job: prepare_job
       artifacts: true
@@ -88,7 +74,6 @@ publish_job:
   stage: publish
   image: node:latest
   needs:
-    - job: test_job
     - job: release_job
     - job: build_job
       artifacts: true
