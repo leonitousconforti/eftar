@@ -4,6 +4,7 @@
  * @since 1.0.0
  */
 
+import * as VariantSchema from "@effect/experimental/VariantSchema";
 import * as Effect from "effect/Effect";
 import * as Function from "effect/Function";
 import * as Number from "effect/Number";
@@ -11,13 +12,19 @@ import * as ParseResult from "effect/ParseResult";
 import * as Schema from "effect/Schema";
 
 /** @internal */
+export const HeaderVariants = VariantSchema.make({
+    defaultVariant: "non-full",
+    variants: ["non-full", "full"],
+});
+
+/** @internal */
 export const BLOCK_SIZE = 512;
 
 /** @internal */
-export const emptyBlock = Uint8Array.from(Buffer.alloc(BLOCK_SIZE));
+export const emptyBlock = new Uint8Array(BLOCK_SIZE).fill(0);
 
 /** @internal */
-export const isEmptyBlock = (block: Uint8Array) => Buffer.compare(block, emptyBlock) === 0;
+export const isEmptyBlock = (block: Uint8Array) => block.length === BLOCK_SIZE && block.every((byte) => byte === 0);
 
 /** @internal */
 export const textDecoder = new TextDecoder("utf-8");
@@ -44,7 +51,7 @@ export enum FileTypes {
  * @since 1.0.0
  * @category Schemas
  */
-export class TarHeader extends Schema.Class<TarHeader>("TarHeader")({
+export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
     filename: Schema.String.pipe(Schema.maxLength(100)),
     fileSize: Function.pipe(
         Schema.String,
@@ -174,24 +181,17 @@ export class TarHeader extends Schema.Class<TarHeader>("TarHeader")({
         Schema.propertySignature,
         Schema.withConstructorDefault(() => "")
     ),
-}) {
-    /**
-     * Extra things to decode that don't need to be exposed.
-     *
-     * TODO: Maybe look into implementing this with schema variants?
-     */
-    private static FullTarHeaderBlock = class FullTarHeaderBlock extends TarHeader.extend<FullTarHeaderBlock>(
-        "FullTarHeaderBlock"
-    )({
-        checksum: Schema.NumberFromString,
-        ustar: Schema.Literal("ustar\x20\x20\x00" as string, "ustar\x0000" as string),
-        padding: Schema.Literal("\0".repeat(12)),
-    }) {};
 
+    checksum: HeaderVariants.FieldOnly("full")(Schema.NumberFromString),
+    ustar: HeaderVariants.FieldOnly("full")(Schema.Literal("ustar\x20\x20\x00" as string, "ustar\x0000" as string)),
+    padding: HeaderVariants.FieldOnly("full")(Schema.Literal("\0".repeat(12))),
+}) {
     /** @since 1.0.0 */
-    public static read = (source: Uint8Array): Effect.Effect<TarHeader, ParseResult.ParseError, never> => {
+    public static read = (
+        source: Uint8Array
+    ): Effect.Effect<Schema.Schema.Type<(typeof TarHeader)["non-full"]>, ParseResult.ParseError, never> => {
         const asString = textDecoder.decode(source);
-        const fullHeader = Schema.decode(TarHeader.FullTarHeaderBlock)({
+        const fullHeader = Schema.decode(TarHeader["full"])({
             filename: asString.substring(0, 100).replaceAll("\0", ""),
             fileMode: asString.substring(100, 108).replaceAll("\0", ""),
             uid: asString.substring(108, 116).replaceAll("\0", ""),
