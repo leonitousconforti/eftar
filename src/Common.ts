@@ -187,7 +187,7 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
     padding: HeaderVariants.FieldOnly("full")(Schema.Literal("\0".repeat(12))),
 }) {
     /** @since 1.0.0 */
-    public static read = (
+    public static unpack = (
         source: Uint8Array
     ): Effect.Effect<Schema.Schema.Type<(typeof TarHeader)["non-full"]>, ParseResult.ParseError, never> => {
         const asString = textDecoder.decode(source);
@@ -213,7 +213,7 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
     };
 
     /** @since 1.0.0 */
-    public write = (): Effect.Effect<Uint8Array, ParseResult.ParseError, never> =>
+    public pack = (): Effect.Effect<Uint8Array, ParseResult.ParseError, never> =>
         Effect.gen(this, function* () {
             const uint8Array = new Uint8Array(BLOCK_SIZE);
             const self = yield* Schema.encode(TarHeader)(this);

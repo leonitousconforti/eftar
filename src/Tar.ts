@@ -16,6 +16,7 @@ import * as Match from "effect/Match";
 import * as Option from "effect/Option";
 import * as ParseResult from "effect/ParseResult";
 import * as Predicate from "effect/Predicate";
+import * as Schema from "effect/Schema";
 import * as Stream from "effect/Stream";
 import * as Tuple from "effect/Tuple";
 
@@ -40,11 +41,7 @@ export const padStream = <E1, R1>(stream: Stream.Stream<Uint8Array, E1, R1>): St
         Stream.map(padUint8Array)
     );
 
-/**
- * @since 1.0.0
- * @category Tar
- * @internal
- */
+/** @internal */
 const convertSingleEntry = <E1, R1>(
     entry: readonly [
         tarHeaderEntry: TarCommon.TarHeader,
@@ -55,7 +52,7 @@ const convertSingleEntry = <E1, R1>(
     tarEntryData: Stream.Stream<Uint8Array, ParseResult.ParseError | E1, R1>,
 ] =>
     Tuple.mapBoth(entry, {
-        onFirst: (tarHeader) => Stream.fromEffect(tarHeader.write()),
+        onFirst: (tarHeader) => Stream.fromEffect(tarHeader.pack()),
         onSecond: (tarHeader) =>
             Function.pipe(
                 Match.value(tarHeader),
@@ -88,14 +85,14 @@ export const tarball = <E1 = never, R1 = never>(
  */
 export const tarballFromMemory = <E1 = never, R1 = never>(
     entries: HashMap.HashMap<
-        string,
+        string | Omit<Schema.Struct.Constructor<(typeof TarCommon.TarHeader)["non-full"]["fields"]>, "fileSize">,
         string | Uint8Array | readonly [contentSize: number, stream: Stream.Stream<Uint8Array, E1, R1>]
     >
 ): Stream.Stream<Uint8Array, ParseResult.ParseError | E1, R1> =>
     Function.pipe(
         entries,
         HashMap.toEntries,
-        Array.map(([filename, data]) => {
+        Array.map(([head, data]) => {
             const contents = Function.pipe(
                 Match.value(data),
                 Match.when(Predicate.isString, (str) => str),
@@ -110,10 +107,15 @@ export const tarballFromMemory = <E1 = never, R1 = never>(
                 Match.orElse(([size, _]) => size)
             );
 
-            const header = TarCommon.TarHeader.make({
-                filename,
-                fileSize: contentLength,
-            });
+            const header = Predicate.isString(head)
+                ? TarCommon.TarHeader.make({
+                      filename: head,
+                      fileSize: contentLength,
+                  })
+                : TarCommon.TarHeader.make({
+                      ...head,
+                      fileSize: contentLength,
+                  });
 
             return Tuple.make(header, contents);
         }),
@@ -121,11 +123,7 @@ export const tarballFromMemory = <E1 = never, R1 = never>(
         tarball
     );
 
-/**
- * @since 1.0.0
- * @category Tar
- * @internal
- */
+/** @internal */
 const tarEntryFromFilesystem = (
     filename: string,
     base: string
