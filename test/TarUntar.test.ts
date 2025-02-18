@@ -96,6 +96,7 @@ it.live("should tar and untar a tarball", () =>
         );
 
         // Compare tarballs
+        console.log(header3);
         const buffer3 = yield* makeTarball3().pipe(Stream.run(Sink.collectAll())).pipe(Effect.map(concatChunks));
         expect(Buffer.compare(gnuTarballData, buffer3)).toBe(0);
     }).pipe(Effect.provide(NodeContext.layer))
