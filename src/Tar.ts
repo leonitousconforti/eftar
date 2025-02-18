@@ -16,6 +16,7 @@ import * as Match from "effect/Match";
 import * as Option from "effect/Option";
 import * as ParseResult from "effect/ParseResult";
 import * as Predicate from "effect/Predicate";
+import * as Schedule from "effect/Schedule";
 import * as Schema from "effect/Schema";
 import * as Stream from "effect/Stream";
 import * as Tuple from "effect/Tuple";
@@ -76,7 +77,7 @@ export const tarball = <E1 = never, R1 = never>(
         Array.flatMap(convertSingleEntry),
         Chunk.fromIterable,
         Stream.concatAll,
-        Stream.concat(Stream.make(TarCommon.emptyBlock))
+        Stream.concat(Stream.repeat(Stream.succeed(TarCommon.emptyBlock), Schedule.recurs(20)))
     );
 
 /**
@@ -140,11 +141,11 @@ const tarEntryFromFilesystem = (
         const stat = yield* filesystem.stat(fullPath);
         const header = TarCommon.TarHeader.make({
             filename,
+            uid: stat.uid,
+            gid: stat.gid,
             fileSize: Number(stat.size),
-            fileMode: "0" + (stat.mode & parseInt("777", 8)).toString(8),
-            ...(Option.isSome(stat.uid) ? { uid: stat.uid.value } : {}),
-            ...(Option.isSome(stat.gid) ? { gid: stat.gid.value } : {}),
-            ...(Option.isSome(stat.mtime) ? { mtime: stat.mtime.value } : {}),
+            fileMode: parseInt((stat.mode & 0o777).toString(8), 10),
+            ...Option.map(stat.mtime, (t) => ({ mtime: t })).pipe(Option.getOrElse(() => ({}))),
         });
         return Tuple.make(header, contents);
     });

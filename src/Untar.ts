@@ -12,6 +12,7 @@ import * as HashMap from "effect/HashMap";
 import * as ParseResult from "effect/ParseResult";
 import * as Predicate from "effect/Predicate";
 import * as Schedule from "effect/Schedule";
+import * as Schema from "effect/Schema";
 import * as Scope from "effect/Scope";
 import * as Sink from "effect/Sink";
 import * as Stream from "effect/Stream";
@@ -19,15 +20,28 @@ import * as Stream from "effect/Stream";
 import * as TarCommon from "./Common.js";
 
 /**
- * @since 1.0.0
- * @category Untar
+ * Data structure to keep track of the state while reading a tar stream.
+ *
  * @internal
  */
 export type FolderState = {
+    /** The number of bytes read so far. */
     readonly bytesRead: number;
+
+    /**
+     * If the end of the tar stream (denoted with an empty block) has been
+     * encountered before reading a header block, then we are done reading the
+     * tar ball and shouldn't aggregate in the sink anymore. This is a different
+     * ending than just reading the empty blocks until the end of the effect
+     * stream.
+     */
     readonly endOfArchiveFlag: boolean;
+
+    /** The data for the entry currently being read. */
     readonly chunks: Chunk.Chunk<Uint8Array>;
-    readonly headerBlock: TarCommon.TarHeader | undefined;
+
+    /** The header fot the entry currently being read. */
+    readonly headerBlock: Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]> | undefined;
 };
 
 /**
@@ -51,7 +65,7 @@ export const aggregateBlocksByHeadersSink: Sink.Sink<
         bytesRead: 0,
         chunks: Chunk.empty<Uint8Array>(),
         endOfArchiveFlag: false as boolean,
-        headerBlock: undefined as TarCommon.TarHeader | undefined,
+        headerBlock: undefined as Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]> | undefined,
     },
     cost: (state, _input) => {
         const case1 = state.endOfArchiveFlag;
@@ -74,7 +88,7 @@ export const aggregateBlocksByHeadersSink: Sink.Sink<
              * data blocks we are expecting
              */
             if (Predicate.isUndefined(state.headerBlock)) {
-                const headerBlock = yield* TarCommon.TarHeader.read(input);
+                const headerBlock = yield* TarCommon.TarHeader.unpack(input);
                 return { ...state, headerBlock };
             }
 
@@ -102,22 +116,26 @@ export const aggregateBlocksByHeadersSink: Sink.Sink<
 
 /**
  * When the stream is done, we will have a bunch of FolderState objects which
- * container their header blocks and data streams. We will collect them all into
- * a map, where the key is the Tar header block and the value is the data
- * stream. If we encounter two of the exact same header blocks in our stream,
- * then we will just take the second one.
+ * contain their header blocks and data chunks. We will collect them all into a
+ * map, where the key is the Tar header block and the value is the data chunks.
+ * If we encounter two of the exact same header blocks in our stream (not sure
+ * how this would happen for a correctly formatted tarball, but I guess its not
+ * impossible eo encounter), then we will just take the second entry.
  *
  * @since 1.0.0
  * @category Untar
  */
 export const collectorSink: Sink.Sink<
-    HashMap.HashMap<TarCommon.TarHeader, Stream.Stream<Uint8Array, never, never>>,
+    HashMap.HashMap<
+        Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>,
+        Stream.Stream<Uint8Array, never, never>
+    >,
     FolderState,
     never,
     never,
     never
 > = Sink.map(
-    Sink.collectAllToMap<FolderState, TarCommon.TarHeader>(
+    Sink.collectAllToMap<FolderState, Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>>(
         (input) => input.headerBlock!,
         (_a, b) => b
     ),
@@ -134,7 +152,10 @@ export const collectorSink: Sink.Sink<
 export const Untar = <E1, R1>(
     stream: Stream.Stream<Uint8Array, E1, R1>
 ): Effect.Effect<
-    HashMap.HashMap<TarCommon.TarHeader, Stream.Stream<Uint8Array, never, never>>,
+    HashMap.HashMap<
+        Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>,
+        Stream.Stream<Uint8Array, never, never>
+    >,
     E1 | ParseResult.ParseError,
     Exclude<R1, Scope.Scope>
 > =>
