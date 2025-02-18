@@ -25,7 +25,6 @@ it.live("should tar and untar a tarball", () =>
         const gid = os.userInfo().gid;
         const user = os.userInfo().username;
         const group = os.userInfo().username;
-        console.log({ uid, gid, user, group });
 
         // Make three different tarballs
         // 1. From filesystem
@@ -37,8 +36,8 @@ it.live("should tar and untar a tarball", () =>
             Tar.tarballFromMemory(
                 HashMap.make([
                     {
-                        gid: Option.some(uid),
-                        uid: Option.some(gid),
+                        uid: Option.some(uid),
+                        gid: Option.some(gid),
                         owner: Option.some(user),
                         group: Option.some(group),
                         filename: "./content.txt",
