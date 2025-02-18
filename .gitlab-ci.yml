@@ -41,6 +41,7 @@ build_job:
     - pnpm lint
     - pnpm circular
     - pnpm build
+    - (cd test/fixtures && tar -cvf BeeMovieScript.tar ./content.txt)
     - pnpm coverage
   coverage: /All files(?:[^|]*\|){4}\s*(\S+)/
   artifacts:
