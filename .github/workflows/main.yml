@@ -31,7 +31,7 @@ jobs:
       - shell: bash
         run: pnpm build
       - shell: bash
-        run: chown $USER:$USER test/fixtures/content.txt
+        run: sudo chown $USER:$USER test/fixtures/content.txt
       - shell: bash
         run: (cd test/fixtures && tar -cvf BeeMovieScript.tar ./content.txt)
       - shell: bash
