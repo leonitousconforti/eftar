@@ -41,7 +41,9 @@ build_job:
     - pnpm lint
     - pnpm circular
     - pnpm build
-    - useradd --uid 1000 aaaaahhhhh
+    - useradd vscode
+    - usermod --non-unique --uid 1000 vscode
+    - groupmod --non-unique --gid 1000 vscode
     - chown vscode:vscode test/fixtures/content.txt
     - chmod 644 test/fixtures/content.txt
     - (cd test/fixtures && tar -cvf BeeMovieScript.tar ./content.txt)

@@ -22,9 +22,13 @@ jobs:
       # Recreate our fixture with the correct permissions
       # owner=vscode, uid=1000, group=vscode, gid=1000, permissions=644
       - shell: bash
-        run: sudo useradd --uid 1001 aaaaahhhhh
+        run: sudo useradd vscode
       - shell: bash
-        run: sudo chown aaaaahhhhh:aaaaahhhhh test/fixtures/content.txt
+        run: sudo usermod --non-unique --uid 1000 vscode
+      - shell: bash
+        run: sudo groupmod --non-unique --gid 1000 vscode
+      - shell: bash
+        run: sudo chown vscode:vscode test/fixtures/content.txt
       - shell: bash
         run: sudo chmod 644 test/fixtures/content.txt
       - shell: bash

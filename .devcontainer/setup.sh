@@ -9,14 +9,10 @@ corepack install
 corepack enable
 pnpm install
 
-echo "🏗️ Building..."
+# echo "🏗️ Building..."
 pnpm build
 
-echo "🧪 Testing..."
-sudo useradd --uid 1001 aaaaahhhhh
-sudo chown aaaaahhhhh:aaaaahhhhh test/fixtures/content.txt
-sudo chmod 644 test/fixtures/content.txt
-(cd test/fixtures && tar -cvf BeeMovieScript.tar ./content.txt)
+# echo "🧪 Testing..."
 pnpm test -- --run
 
 echo "✅ Devcontainer setup complete!"
