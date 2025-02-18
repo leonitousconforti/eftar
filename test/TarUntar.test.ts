@@ -1,4 +1,4 @@
-import { FileSystem, Path } from "@effect/platform";
+import { Command, CommandExecutor, FileSystem, Path } from "@effect/platform";
 import { NodeContext } from "@effect/platform-node";
 import { expect, it } from "@effect/vitest";
 import { Chunk, Effect, HashMap, Option, Sink, Stream, Tuple } from "effect";
@@ -9,14 +9,16 @@ it.live("should tar and untar a tarball", () =>
     Effect.gen(function* () {
         const path = yield* Path.Path;
         const fileSystem = yield* FileSystem.FileSystem;
+        const commandExecutor = yield* CommandExecutor.CommandExecutor;
+
         const base = yield* path.fromFileUrl(new URL("fixtures", import.meta.url));
         const contentLocation = path.join(base, "content.txt");
+        const stat = yield* fileSystem.stat(contentLocation);
 
         const contentString = yield* fileSystem.readFileString(contentLocation);
         const contentStream = fileSystem.stream(contentLocation);
         const contentSize = contentString.length;
         const contentTuple = Tuple.make(contentSize, contentStream);
-        const stat = yield* fileSystem.stat(path.join(base, "content.txt"));
 
         // Make three different tarballs
         // 1. From filesystem
@@ -83,6 +85,10 @@ it.live("should tar and untar a tarball", () =>
         expect(string1).toStrictEqual(contentString);
         expect(string2).toStrictEqual(contentString);
         expect(string3).toStrictEqual(contentString);
+
+        // Recreate fixture (because there can be different permissions when on ci)
+        const command = Command.make("tar", "-cf", "BeeMovieScript.tar", "./content.txt");
+        yield* commandExecutor.exitCode(command.pipe(Command.workingDirectory(base)));
 
         // Compare with fixture
         const gnuTarball = path.join(base, "BeeMovieScript.tar");
