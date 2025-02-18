@@ -45,7 +45,7 @@ build_job:
     - usermod --non-unique --uid 1000 vscode
     - groupmod --non-unique --gid 1000 vscode
     - (cd test/fixtures && tar -cvf BeeMovieScript.tar ./content.txt)
-    - chown test/fixtures/BeeMovieScript.tar vscode:vscode
+    - chown vscode:vscode test/fixtures/BeeMovieScript.tar
     - chmod 644 test/fixtures/BeeMovieScript.tar
     - pnpm coverage
   coverage: /All files(?:[^|]*\|){4}\s*(\S+)/

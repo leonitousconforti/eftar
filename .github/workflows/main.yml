@@ -30,7 +30,7 @@ jobs:
       - shell: bash
         run: (cd test/fixtures && tar -cvf BeeMovieScript.tar ./content.txt)
       - shell: bash
-        run: sudo chown test/fixtures/BeeMovieScript.tar vscode:vscode
+        run: sudo chown vscode:vscode test/fixtures/BeeMovieScript.tar
       - shell: bash
         run: sudo chmod 644 test/fixtures/BeeMovieScript.tar
 
