@@ -16,6 +16,7 @@ it.live("should tar and untar a tarball", () =>
         const contentStream = fileSystem.stream(contentLocation);
         const contentSize = contentString.length;
         const contentTuple = Tuple.make(contentSize, contentStream);
+        const stat = yield* fileSystem.stat(path.join(base, "content.txt"));
 
         // Make three different tarballs
         // 1. From filesystem
@@ -28,12 +29,12 @@ it.live("should tar and untar a tarball", () =>
                 HashMap.make([
                     {
                         fileMode: 644,
-                        gid: Option.some(1000),
-                        uid: Option.some(1000),
+                        gid: stat.gid,
+                        uid: stat.uid,
                         owner: Option.some("vscode"),
                         group: Option.some("vscode"),
                         filename: "./content.txt",
-                        mtime: new Date("2025-02-17T14:08:15.000Z"),
+                        mtime: stat.mtime.pipe(Option.getOrThrow),
                     },
                     contentString,
                 ])
@@ -43,20 +44,20 @@ it.live("should tar and untar a tarball", () =>
         const entries2 = yield* Untar.Untar(makeTarball2()).pipe(Effect.map(HashMap.toEntries));
         const entries3 = yield* Untar.Untar(makeTarball3()).pipe(Effect.map(HashMap.toEntries));
 
-        // const headerMatcher = expect.objectContaining({
-        //     type: 0,
-        //     gid: Option.none(),
-        //     uid: Option.none(),
-        //     owner: Option.none(),
-        //     group: Option.none(),
-        //     fileSize: contentSize,
-        //     fileMode: 644,
-        //     filename: "./content.txt",
-        //     linkName: Option.none(),
-        //     filenamePrefix: Option.none(),
-        //     deviceMajorNumber: Option.none(),
-        //     deviceMinorNumber: Option.none(),
-        // });
+        const headerMatcher = expect.objectContaining({
+            type: 0,
+            gid: Option.none(),
+            uid: Option.none(),
+            owner: Option.none(),
+            group: Option.none(),
+            fileSize: contentSize,
+            fileMode: 644,
+            filename: "./content.txt",
+            linkName: Option.none(),
+            filenamePrefix: Option.none(),
+            deviceMajorNumber: Option.none(),
+            deviceMinorNumber: Option.none(),
+        });
 
         // Smoke test for tar entries
         expect(entries1).toHaveLength(1);
@@ -64,11 +65,11 @@ it.live("should tar and untar a tarball", () =>
         expect(entries3).toHaveLength(1);
 
         // Smoke test for entry header
-        const [_header1, content1] = entries1[0]!;
-        const [_header2, content2] = entries2[0]!;
-        const [_header3, content3] = entries3[0]!;
-        // expect(header2).toStrictEqual(headerMatcher);
-        // expect({ ...header1, owner: Option.some("vscode"), group: Option.some("vscode") }).toStrictEqual(header3);
+        const [header1, content1] = entries1[0]!;
+        const [header2, content2] = entries2[0]!;
+        const [header3, content3] = entries3[0]!;
+        expect(header2).toStrictEqual(headerMatcher);
+        expect({ ...header1, owner: Option.some("vscode"), group: Option.some("vscode") }).toStrictEqual(header3);
 
         // Smoke test for entry content
         const string1 = yield* content1.pipe(Stream.decodeText()).pipe(Stream.run(Sink.mkString));
