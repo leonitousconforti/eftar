@@ -12,6 +12,7 @@ it.live("should tar and untar a tarball", () =>
 
         const base = yield* path.fromFileUrl(new URL("fixtures", import.meta.url));
         const contentLocation = path.join(base, "content.txt");
+        const stat = yield* fileSystem.stat(contentLocation);
 
         const contentString = yield* fileSystem.readFileString(contentLocation);
         const contentStream = fileSystem.stream(contentLocation);
@@ -34,7 +35,7 @@ it.live("should tar and untar a tarball", () =>
                         owner: Option.some("vscode"),
                         group: Option.some("vscode"),
                         filename: "./content.txt",
-                        mtime: new Date("2025-02-17T14:08:15.000Z"),
+                        mtime: stat.mtime.pipe(Option.getOrThrow),
                     },
                     contentString,
                 ])
