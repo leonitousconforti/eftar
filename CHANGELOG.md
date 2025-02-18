@@ -1,3 +1,12 @@
+## 0.0.8 (2025-02-18)
+
+### changed (4 changes)
+
+- [Update dependency eslint-import-resolver-typescript to v3.8.2](https://git.ltgk.net/leoconforti/eftar/-/commit/bb5d17c23a833ae98fc6a4afc52b93307c22a9d2) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/35))
+- [Update dependency eslint-import-resolver-typescript to v3.8.1](https://git.ltgk.net/leoconforti/eftar/-/commit/fac97aaaa67f2ed90f4dde206e7ff01a474b8c0d) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/33))
+- [Update typescript-eslint monorepo to v8.24.1](https://git.ltgk.net/leoconforti/eftar/-/commit/3d8a014846ca153bfb03108fd7110a2a0f7d44f4) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/32))
+- [Lock file maintenance](https://git.ltgk.net/leoconforti/eftar/-/commit/c4910a88cc288c6127752fe857f74c779bf17e98) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/31))
+
 ## 0.0.7 (2025-02-15)
 
 ### added (1 change)
