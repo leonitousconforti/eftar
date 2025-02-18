@@ -22,15 +22,11 @@ jobs:
       # Recreate our fixture with the correct permissions
       # owner=vscode, uid=1000, group=vscode, gid=1000, permissions=644
       - shell: bash
-        run: sudo groupadd vscode
-      - shell: bash
-        run: sudo groupmod --non-unique --gid 1000 vscode
-      - shell: bash
         run: sudo useradd vscode
       - shell: bash
         run: sudo usermod --non-unique --uid 1000 vscode
       - shell: bash
-        run: sudo usermod --non-unique --gid 1000 vscode
+        run: sudo groupmod --non-unique --gid 1000 vscode
       - shell: bash
         run: (cd test/fixtures && tar -cvf BeeMovieScript.tar ./content.txt)
       - shell: bash
