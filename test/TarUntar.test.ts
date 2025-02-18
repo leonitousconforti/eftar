@@ -28,13 +28,13 @@ it.live("should tar and untar a tarball", () =>
             Tar.tarballFromMemory(
                 HashMap.make([
                     {
-                        fileMode: 644,
                         gid: stat.gid,
                         uid: stat.uid,
                         owner: Option.some("vscode"),
                         group: Option.some("vscode"),
                         filename: "./content.txt",
                         mtime: stat.mtime.pipe(Option.getOrThrow),
+                        fileMode: parseInt((stat.mode & 0o777).toString(8), 10),
                     },
                     contentString,
                 ])
