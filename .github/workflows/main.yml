@@ -22,13 +22,13 @@ jobs:
       # Recreate our fixture with the correct permissions
       # owner=vscode, uid=1000, group=vscode, gid=1000, permissions=644
       - shell: bash
-        run: addgroup --gid 1000 vscode && adduser --uid 1000 --gid 1000 vscode
+        run: sudo addgroup --gid 1000 vscode && sudo adduser --uid 1000 --gid 1000 vscode
       - shell: bash
         run: (cd test/fixtures && tar -cvf BeeMovieScript.tar ./content.txt)
       - shell: bash
-        run: chown test/fixtures/BeeMovieScript.tar vscode:vscode
+        run: sudo chown test/fixtures/BeeMovieScript.tar vscode:vscode
       - shell: bash
-        run: chmod 644 test/fixtures/BeeMovieScript.tar
+        run: sudo chmod 644 test/fixtures/BeeMovieScript.tar
 
       # Check, lint, and build
       - shell: bash
