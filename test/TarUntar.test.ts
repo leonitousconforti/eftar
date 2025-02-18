@@ -1,4 +1,4 @@
-import { Command, CommandExecutor, FileSystem, Path } from "@effect/platform";
+import { FileSystem, Path } from "@effect/platform";
 import { NodeContext } from "@effect/platform-node";
 import { expect, it } from "@effect/vitest";
 import { Chunk, Effect, HashMap, Option, Sink, Stream, Tuple } from "effect";
@@ -9,11 +9,9 @@ it.live("should tar and untar a tarball", () =>
     Effect.gen(function* () {
         const path = yield* Path.Path;
         const fileSystem = yield* FileSystem.FileSystem;
-        const commandExecutor = yield* CommandExecutor.CommandExecutor;
 
         const base = yield* path.fromFileUrl(new URL("fixtures", import.meta.url));
         const contentLocation = path.join(base, "content.txt");
-        const stat = yield* fileSystem.stat(contentLocation);
 
         const contentString = yield* fileSystem.readFileString(contentLocation);
         const contentStream = fileSystem.stream(contentLocation);
@@ -30,13 +28,13 @@ it.live("should tar and untar a tarball", () =>
             Tar.tarballFromMemory(
                 HashMap.make([
                     {
-                        gid: stat.gid,
-                        uid: stat.uid,
+                        fileMode: 644,
+                        gid: Option.some(1000),
+                        uid: Option.some(1000),
                         owner: Option.some("vscode"),
                         group: Option.some("vscode"),
                         filename: "./content.txt",
-                        mtime: stat.mtime.pipe(Option.getOrThrow),
-                        fileMode: parseInt((stat.mode & 0o777).toString(8), 10),
+                        mtime: new Date("2025-02-17T14:08:15.000Z"),
                     },
                     contentString,
                 ])
@@ -85,10 +83,6 @@ it.live("should tar and untar a tarball", () =>
         expect(string1).toStrictEqual(contentString);
         expect(string2).toStrictEqual(contentString);
         expect(string3).toStrictEqual(contentString);
-
-        // Recreate fixture (because there can be different permissions when on ci)
-        const command = Command.make("tar", "-cf", "BeeMovieScript.tar", "./content.txt");
-        yield* commandExecutor.exitCode(command.pipe(Command.workingDirectory(base)));
 
         // Compare with fixture
         const gnuTarball = path.join(base, "BeeMovieScript.tar");
