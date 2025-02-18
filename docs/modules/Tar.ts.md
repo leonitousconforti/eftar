@@ -55,7 +55,7 @@ Added in v1.0.0
 ```ts
 export declare const tarballFromMemory: <E1 = never, R1 = never>(
   entries: HashMap.HashMap<
-    string,
+    string | Omit<Schema.Struct.Constructor<(typeof TarCommon.TarHeader)["non-full"]["fields"]>, "fileSize">,
     string | Uint8Array | readonly [contentSize: number, stream: Stream.Stream<Uint8Array, E1, R1>]
   >
 ) => Stream.Stream<Uint8Array, ParseResult.ParseError | E1, R1>

@@ -34,7 +34,10 @@ streams.
 export declare const Untar: <E1, R1>(
   stream: Stream.Stream<Uint8Array, E1, R1>
 ) => Effect.Effect<
-  HashMap.HashMap<TarCommon.TarHeader, Stream.Stream<Uint8Array, never, never>>,
+  HashMap.HashMap<
+    Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>,
+    Stream.Stream<Uint8Array, never, never>
+  >,
   E1 | ParseResult.ParseError,
   Exclude<R1, Scope.Scope>
 >
@@ -66,16 +69,34 @@ Added in v1.0.0
 ## collectorSink
 
 When the stream is done, we will have a bunch of FolderState objects which
-container their header blocks and data streams. We will collect them all into
-a map, where the key is the Tar header block and the value is the data
-stream. If we encounter two of the exact same header blocks in our stream,
-then we will just take the second one.
+contain their header blocks and data chunks. We will collect them all into a
+map, where the key is the Tar header block and the value is the data chunks.
+If we encounter two of the exact same header blocks in our stream (not sure
+how this would happen for a correctly formatted tarball, but I guess its not
+impossible eo encounter), then we will just take the second entry.
 
 **Signature**
 
 ```ts
 export declare const collectorSink: Sink.Sink<
-  HashMap.HashMap<TarCommon.TarHeader, Stream.Stream<Uint8Array, never, never>>,
+  HashMap.HashMap<
+    {
+      readonly fileSize: number
+      readonly filename: string
+      readonly linkName: Option<string>
+      readonly filenamePrefix: Option<string>
+      readonly fileMode: number
+      readonly mtime: Date
+      readonly uid: Option<number>
+      readonly gid: Option<number>
+      readonly owner: Option<string>
+      readonly group: Option<string>
+      readonly type: TarCommon.FileTypes
+      readonly deviceMajorNumber: Option<string>
+      readonly deviceMinorNumber: Option<string>
+    },
+    Stream.Stream<Uint8Array, never, never>
+  >,
   FolderState,
   never,
   never,

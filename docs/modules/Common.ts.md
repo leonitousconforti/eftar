@@ -16,7 +16,7 @@ Added in v1.0.0
 
 - [Schemas](#schemas)
   - [TarHeader (class)](#tarheader-class)
-    - [write (property)](#write-property)
+    - [pack (property)](#pack-property)
 
 ---
 
@@ -32,12 +32,12 @@ export declare class TarHeader
 
 Added in v1.0.0
 
-### write (property)
+### pack (property)
 
 **Signature**
 
 ```ts
-write: () => Effect.Effect<Uint8Array, ParseResult.ParseError, never>
+pack: () => Effect.Effect<Uint8Array, ParseResult.ParseError, never>
 ```
 
 Added in v1.0.0
