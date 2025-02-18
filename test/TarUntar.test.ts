@@ -30,10 +30,10 @@ it.live("should tar and untar a tarball", () =>
                 HashMap.make([
                     {
                         fileMode: 644,
-                        gid: Option.some(1000),
-                        uid: Option.some(1000),
-                        owner: Option.some("vscode"),
-                        group: Option.some("vscode"),
+                        gid: Option.some(1001),
+                        uid: Option.some(1001),
+                        owner: Option.some("aaaaahhhhh"),
+                        group: Option.some("aaaaahhhhh"),
                         filename: "./content.txt",
                         mtime: stat.mtime.pipe(Option.getOrThrow),
                     },
@@ -70,7 +70,9 @@ it.live("should tar and untar a tarball", () =>
         const [header2, content2] = entries2[0]!;
         const [header3, content3] = entries3[0]!;
         expect(header2).toStrictEqual(headerMatcher);
-        expect({ ...header1, owner: Option.some("vscode"), group: Option.some("vscode") }).toStrictEqual(header3);
+        expect({ ...header1, owner: Option.some("aaaaahhhhh"), group: Option.some("aaaaahhhhh") }).toStrictEqual(
+            header3
+        );
 
         // Smoke test for entry content
         const string1 = yield* content1.pipe(Stream.decodeText()).pipe(Stream.run(Sink.mkString));
@@ -97,8 +99,6 @@ it.live("should tar and untar a tarball", () =>
 
         // Compare tarballs
         const buffer3 = yield* makeTarball3().pipe(Stream.run(Sink.collectAll())).pipe(Effect.map(concatChunks));
-        console.log(new TextDecoder().decode(buffer3).slice(0, 700));
-        console.log(new TextDecoder().decode(gnuTarballData).slice(0, 700));
         expect(Buffer.compare(gnuTarballData, buffer3)).toBe(0);
     }).pipe(Effect.provide(NodeContext.layer))
 );
