@@ -25,6 +25,7 @@ it.live("should tar and untar a tarball", () =>
         const gid = os.userInfo().gid;
         const user = os.userInfo().username;
         const group = os.userInfo().username;
+        console.log({ uid, gid, user, group });
 
         // Make three different tarballs
         // 1. From filesystem
@@ -104,8 +105,6 @@ it.live("should tar and untar a tarball", () =>
 
         // Compare tarballs
         const buffer3 = yield* makeTarball3().pipe(Stream.run(Sink.collectAll())).pipe(Effect.map(concatChunks));
-        console.log(new TextDecoder().decode(buffer3).slice(0, 700));
-        console.log(new TextDecoder().decode(gnuTarballData).slice(0, 700));
         expect(Buffer.compare(gnuTarballData, buffer3)).toBe(0);
     }).pipe(Effect.provide(NodeContext.layer))
 );
