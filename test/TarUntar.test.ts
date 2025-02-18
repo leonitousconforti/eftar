@@ -1,3 +1,5 @@
+import * as os from "node:os";
+
 import { FileSystem, Path } from "@effect/platform";
 import { NodeContext } from "@effect/platform-node";
 import { expect, it } from "@effect/vitest";
@@ -19,6 +21,11 @@ it.live("should tar and untar a tarball", () =>
         const contentSize = contentString.length;
         const contentTuple = Tuple.make(contentSize, contentStream);
 
+        const uid = os.userInfo().uid;
+        const gid = os.userInfo().gid;
+        const user = os.userInfo().username;
+        const group = os.userInfo().username;
+
         // Make three different tarballs
         // 1. From filesystem
         // 2. From memory (string)
@@ -29,13 +36,13 @@ it.live("should tar and untar a tarball", () =>
             Tar.tarballFromMemory(
                 HashMap.make([
                     {
-                        fileMode: 644,
-                        gid: Option.some(1000),
-                        uid: Option.some(1000),
-                        owner: Option.some("vscode"),
-                        group: Option.some("vscode"),
+                        gid: Option.some(uid),
+                        uid: Option.some(gid),
+                        owner: Option.some(user),
+                        group: Option.some(group),
                         filename: "./content.txt",
                         mtime: stat.mtime.pipe(Option.getOrThrow),
+                        fileMode: parseInt((stat.mode & 0o777).toString(8), 10),
                     },
                     contentString,
                 ])
@@ -70,7 +77,7 @@ it.live("should tar and untar a tarball", () =>
         const [header2, content2] = entries2[0]!;
         const [header3, content3] = entries3[0]!;
         expect(header2).toStrictEqual(headerMatcher);
-        expect({ ...header1, owner: Option.some("vscode"), group: Option.some("vscode") }).toStrictEqual(header3);
+        expect({ ...header1, owner: Option.some(user), group: Option.some(group) }).toStrictEqual(header3);
 
         // Smoke test for entry content
         const string1 = yield* content1.pipe(Stream.decodeText()).pipe(Stream.run(Sink.mkString));
@@ -97,8 +104,6 @@ it.live("should tar and untar a tarball", () =>
 
         // Compare tarballs
         const buffer3 = yield* makeTarball3().pipe(Stream.run(Sink.collectAll())).pipe(Effect.map(concatChunks));
-        console.log(new TextDecoder().decode(buffer3).slice(0, 700));
-        console.log(new TextDecoder().decode(gnuTarballData).slice(0, 700));
         expect(Buffer.compare(gnuTarballData, buffer3)).toBe(0);
     }).pipe(Effect.provide(NodeContext.layer))
 );
