@@ -13,6 +13,7 @@ echo "🏗️ Building..."
 pnpm build
 
 echo "🧪 Testing..."
+(cd test/fixtures/ && tar -cvf BeeMovieScript.tar ./content.txt)
 pnpm test -- --run
 
 echo "✅ Devcontainer setup complete!"
