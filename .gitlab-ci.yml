@@ -39,7 +39,6 @@ build_job:
   before_script:
     - apk add --update nodejs npm python3 make g++
     - npm install --global @devcontainers/cli
-    - chown -R 1000:1000 .
     - devcontainer build --no-cache --push false --image-name eftar-dev-container:latest --workspace-folder .
   script: |
     #!/bin/sh
