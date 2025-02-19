@@ -4,7 +4,7 @@ set -eo pipefail
 echo "🚀 Setting up r devcontainer..."
 
 echo "📦 Installing repo dependencies..."
-npm install -g corepack@latest
+npm install --global corepack@latest
 corepack install
 corepack enable
 pnpm install
