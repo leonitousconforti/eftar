@@ -16,7 +16,7 @@ pnpm circular
 pnpm build
 
 echo "🧪 Testing..."
-(cd test/fixtures/ && chown $USER:$USER ./content.txt && tar -cf BeeMovieScript.tar ./content.txt)
+(cd test/fixtures/ && sudo chown $USER:$USER ./content.txt && tar -cf BeeMovieScript.tar ./content.txt)
 pnpm coverage --run
 
 echo "✅ Devcontainer setup complete!"
