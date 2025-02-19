@@ -5,6 +5,7 @@
         "bgcolor",
         "bufferutil",
         "ccache",
+        "CERTDIR",
         "cloudimg",
         "codegen",
         "compat",
