@@ -39,7 +39,7 @@ build_job:
   before_script:
     - apk add --update nodejs npm python3 make g++
     - npm install --global @devcontainers/cli
-    - devcontainer build --no-cache --push false --image-name ${CI_REGISTRY_IMAGE}:latest --workspace-folder .
+    - devcontainer build --no-cache --push false --image-name eftar-dev-container:latest --workspace-folder .
   script: |
     #!/bin/sh
     set -e
