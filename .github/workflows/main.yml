@@ -16,23 +16,13 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-      - uses: pnpm/action-setup@v4
-
-      # Check, lint, and build
-      - shell: bash
-        run: pnpm install
-      - shell: bash
-        run: pnpm check
-      - shell: bash
-        run: pnpm lint
-      - shell: bash
-        run: pnpm circular
-      - shell: bash
-        run: pnpm build
-      - shell: bash
-        run: sudo chown $USER:$USER test/fixtures/content.txt
-      - shell: bash
-        run: (cd test/fixtures && tar -cvf BeeMovieScript.tar ./content.txt)
-      - shell: bash
-        run: pnpm test
+      - uses: devcontainers/ci@v0.3
+        with:
+          push: never
+          runCmd: |
+            pnpm install
+            pnpm check
+            pnpm lint
+            pnpm circular
+            pnpm build
+            pnpm test --run
