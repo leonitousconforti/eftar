@@ -9,10 +9,10 @@ corepack install
 corepack enable
 pnpm install
 
-# echo "🏗️ Building..."
+echo "🏗️ Building..."
 pnpm build
 
-# echo "🧪 Testing..."
+echo "🧪 Testing..."
 pnpm test -- --run
 
 echo "✅ Devcontainer setup complete!"
