@@ -61,5 +61,6 @@
         }
     },
 
+    "remoteUser": "vscode",
     "postCreateCommand": "bash -i -c './.devcontainer/setup.sh'"
 }
