@@ -17,7 +17,7 @@ pnpm build
 
 echo "🧪 Testing..."
 (cd test/fixtures/ && tar -cf BeeMovieScript.tar ./content.txt)
-pnpm coverage
+pnpm coverage --run
 
 echo "✅ Devcontainer setup complete!"
 echo "🙏 Thank you for contributing to eftar!"

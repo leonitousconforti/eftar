@@ -19,4 +19,4 @@ jobs:
       - uses: devcontainers/ci@v0.3
         with:
           push: never
-          runCmd: pnpm coverage
+          runCmd: pnpm coverage --run

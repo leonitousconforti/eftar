@@ -39,6 +39,7 @@ build_job:
   before_script:
     - apk add --update nodejs npm python3 make g++
     - npm install --global @devcontainers/cli
+    - chown -R 1000:1000 .
     - devcontainer build --no-cache --push false --image-name eftar-dev-container:latest --workspace-folder .
   script: |
     #!/bin/sh
@@ -52,7 +53,7 @@ build_job:
     # Run build
     devcontainer up --id-label ${id_label} --workspace-folder .
     set +e
-    devcontainer exec --id-label ${id_label} --workspace-folder . pnpm coverage
+    devcontainer exec --id-label ${id_label} --workspace-folder . pnpm coverage --run
     build_exit_code=$?
     set -e
 
