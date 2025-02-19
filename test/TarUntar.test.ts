@@ -22,6 +22,7 @@ it.live("should tar and untar a tarball", () =>
         const contentTuple = Tuple.make(contentSize, contentStream);
 
         const uid = os.userInfo().uid;
+        const gid = os.userInfo().gid;
         const user = os.userInfo().username;
         const group = os.userInfo().username;
 
@@ -36,7 +37,7 @@ it.live("should tar and untar a tarball", () =>
                 HashMap.make([
                     {
                         uid: Option.some(uid),
-                        gid: Option.some(uid),
+                        gid: Option.some(gid),
                         owner: Option.some(user),
                         group: Option.some(group),
                         filename: "./content.txt",
