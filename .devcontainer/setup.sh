@@ -10,6 +10,9 @@ corepack enable
 pnpm install
 
 echo "🏗️ Building..."
+pnpm check
+pnpm lint
+pnpm circular
 pnpm build
 
 echo "🧪 Testing..."
