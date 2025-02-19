@@ -31,18 +31,17 @@ prepare_job:
 build_job:
   stage: build
   timeout: 10 minutes
-  image: node:latest
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - apk add --update nodejs npm python3 make g++
+    - npm install --global @devcontainers/cli
+    - devcontainer build --workspace-folder . --push false --image-name ${CI_REGISTRY_IMAGE}:latest
   script:
-    - npm install --global corepack@latest
-    - corepack install
-    - corepack enable
-    - pnpm install
-    - pnpm check
-    - pnpm lint
-    - pnpm circular
-    - pnpm build
-    - (cd test/fixtures && tar -cvf BeeMovieScript.tar ./content.txt)
-    - pnpm coverage
+    - docker run --rm ${CI_REGISTRY_IMAGE}:latest pnpm coverage
   coverage: /All files(?:[^|]*\|){4}\s*(\S+)/
   artifacts:
     paths:

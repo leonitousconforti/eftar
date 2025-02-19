@@ -13,6 +13,7 @@
         "debhelper",
         "Devcontainer",
         "devcontainers",
+        "dind",
         "dism",
         "distfiles",
         "distros",
