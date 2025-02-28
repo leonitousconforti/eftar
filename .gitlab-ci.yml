@@ -42,12 +42,11 @@ devcontainer_job:
     # the one shipped with Fedora 30, cannot handle the format.
     BUILDAH_FORMAT: docker
     FQ_IMAGE_NAME: "$CI_REGISTRY_IMAGE/dev-container:latest"
-  before_script:
-    - echo "$CI_REGISTRY_PASSWORD" | buildah login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
     - apk add --update nodejs npm python3 make g++
     - npm install --global @devcontainers/cli
     - buildah images
+    - echo "$CI_REGISTRY_PASSWORD" | buildah login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
     - devcontainer build --push true --image-name ${CI_REGISTRY_IMAGE}/ --workspace-folder .
     - buildah images
 
