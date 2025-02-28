@@ -1,3 +1,9 @@
+## 0.0.11 (2025-02-19)
+
+### changed (1 change)
+
+- [Update dependency tsx to v4.19.3](https://git.ltgk.net/leoconforti/eftar/-/commit/f189fb7e000c7ae3705695aa0ee648477b6b9b03) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/36))
+
 ## 0.0.10 (2025-02-18)
 
 No changes.
