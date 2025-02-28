@@ -32,7 +32,7 @@ prepare_job:
 devcontainer_job:
   stage: devcontainer
   timeout: 10 minutes
-  image: quay.io/buildah/stable
+  image: quay.io/buildah/stable:latest
   variables:
     # Use vfs with buildah. Docker offers overlayfs as a default, but Buildah
     # cannot stack overlayfs on top of another overlayfs filesystem.
@@ -43,7 +43,7 @@ devcontainer_job:
     BUILDAH_FORMAT: docker
     FQ_IMAGE_NAME: "$CI_REGISTRY_IMAGE/dev-container:latest"
   script:
-    - apt install nodejs npm python3 make g++
+    - yum install -y nodejs npm python3 make gcc-c++
     - npm install --global @devcontainers/cli
     - buildah images
     - echo "$CI_REGISTRY_PASSWORD" | buildah login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
