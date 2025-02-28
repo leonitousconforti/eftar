@@ -43,13 +43,14 @@ devcontainer_job:
     # Newer versions of docker can handle the OCI format, but older versions, like
     # the one shipped with Fedora 30, cannot handle the format.
     BUILDAH_FORMAT: docker
-    FQ_IMAGE_NAME: "$CI_REGISTRY_IMAGE/dev-container:latest"
+    FQ_IMAGE_NAME: "$CI_REGISTRY_IMAGE/dev-container:$CI_COMMIT_REF_SLUG"
   script:
     - yum install -y nodejs npm python3 make gcc-c++
     - npm install --global @devcontainers/cli
-    - buildah images
     - echo "$CI_REGISTRY_PASSWORD" | buildah login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-    - devcontainer build --push false --image-name ${CI_REGISTRY_IMAGE}/ --workspace-folder .
+    - buildah pull $FQ_IMAGE_NAME || true
+    - buildah images
+    - devcontainer build --docker-path buildah --push false --cache-from $FQ_IMAGE_NAME --image-name $FQ_IMAGE_NAME --workspace-folder .
     - buildah images
     - buildah push $FQ_IMAGE_NAME
 
