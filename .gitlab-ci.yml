@@ -153,9 +153,3 @@ publish_job:
 
     # Publish to gitlab
     - pnpm publish --no-git-checks --access public --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
-
-pages:
-  image: busybox
-  stage: deploy
-  rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
