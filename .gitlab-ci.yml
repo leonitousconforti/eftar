@@ -41,7 +41,7 @@ devcontainer_job:
     - apk add --update nodejs npm python3 make g++
     - npm install --global @devcontainers/cli
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-    - devcontainer build --push true --image-name ${CI_REGISTRY_IMAGE}-dev-container:latest --workspace-folder .
+    - devcontainer build --push true --image-name ${CI_REGISTRY_IMAGE}/dev-container:latest --workspace-folder .
 
 build_job:
   stage: build
