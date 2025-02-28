@@ -32,16 +32,26 @@ prepare_job:
 devcontainer_job:
   stage: devcontainer
   timeout: 10 minutes
-  image: docker:latest
+  image: quay.io/buildah/stable
   services:
     - docker:dind
   variables:
-    DOCKER_TLS_CERTDIR: "/certs"
+    # Use vfs with buildah. Docker offers overlayfs as a default, but Buildah
+    # cannot stack overlayfs on top of another overlayfs filesystem.
+    STORAGE_DRIVER: vfs
+    # Write all image metadata in the docker format, not the standard OCI format.
+    # Newer versions of docker can handle the OCI format, but older versions, like
+    # the one shipped with Fedora 30, cannot handle the format.
+    BUILDAH_FORMAT: docker
+    FQ_IMAGE_NAME: "$CI_REGISTRY_IMAGE/dev-container:latest"
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | buildah login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
     - apk add --update nodejs npm python3 make g++
     - npm install --global @devcontainers/cli
-    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-    - devcontainer build --push true --image-name ${CI_REGISTRY_IMAGE}/dev-container:latest --workspace-folder .
+    - buildah images
+    - devcontainer build --push true --image-name ${CI_REGISTRY_IMAGE}/ --workspace-folder .
+    - buildah images
 
 build_job:
   stage: build
@@ -49,8 +59,6 @@ build_job:
   image: docker:latest
   services:
     - docker:dind
-  variables:
-    DOCKER_TLS_CERTDIR: "/certs"
   needs:
     - job: devcontainer_job
   script: |
@@ -64,6 +72,7 @@ build_job:
     # Create a label for use during cleanup since the devcontainer CLI does
     # not have a "remove" or "down" command yet (though this is planned).
     id_label="ci-container=${build_date}"
+    exit 1
 
     # Run build
     devcontainer up --id-label ${id_label} --workspace-folder .
@@ -144,3 +153,9 @@ publish_job:
 
     # Publish to gitlab
     - pnpm publish --no-git-checks --access public --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
+
+pages:
+  image: busybox
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
