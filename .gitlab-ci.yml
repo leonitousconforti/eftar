@@ -59,6 +59,7 @@ build_job:
     build_date="$(date +%s)"
     apk add --update nodejs npm python3 make g++
     npm install --global @devcontainers/cli
+    docker pull ${CI_REGISTRY_IMAGE}/dev-container:latest
 
     # Create a label for use during cleanup since the devcontainer CLI does
     # not have a "remove" or "down" command yet (though this is planned).
