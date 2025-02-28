@@ -43,6 +43,7 @@ devcontainer_job:
     # Newer versions of docker can handle the OCI format, but older versions, like
     # the one shipped with Fedora 30, cannot handle the format.
     BUILDAH_FORMAT: docker
+    BUILDAH_ISOLATION: chroot
     FQ_IMAGE_NAME: "$CI_REGISTRY_IMAGE/dev-container:$CI_COMMIT_REF_SLUG"
   before_script:
     - dnf install -y nodejs npm python3 make gcc-c++
