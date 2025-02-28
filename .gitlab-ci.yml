@@ -1,5 +1,6 @@
 stages:
   - prepare
+  - devcontainer
   - build
   - test
   - release
@@ -28,6 +29,19 @@ prepare_job:
     paths:
       - release_notes.md
 
+devcontainer_job:
+  stage: devcontainer
+  timeout: 10 minutes
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  script:
+    - apk add --update nodejs npm python3 make g++
+    - npm install --global @devcontainers/cli
+    - devcontainer build --push false --image-name eftar-dev-container:latest --workspace-folder .
+
 build_job:
   stage: build
   timeout: 10 minutes
@@ -36,10 +50,8 @@ build_job:
     - docker:dind
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
-  before_script:
-    - apk add --update nodejs npm python3 make g++
-    - npm install --global @devcontainers/cli
-    - devcontainer build --no-cache --push false --image-name eftar-dev-container:latest --workspace-folder .
+  needs:
+    - job: devcontainer_job
   script: |
     #!/bin/sh
     set -e
