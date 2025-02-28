@@ -45,10 +45,11 @@ devcontainer_job:
   script:
     - yum install -y nodejs npm python3 make gcc-c++
     - npm install --global @devcontainers/cli
-    - buildah images
+    - sudo buildah images
     - echo "$CI_REGISTRY_PASSWORD" | buildah login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-    - devcontainer build --push true --image-name ${CI_REGISTRY_IMAGE}/ --workspace-folder .
-    - buildah images
+    - devcontainer build --push false --image-name ${CI_REGISTRY_IMAGE}/ --workspace-folder .
+    - sudo buildah images
+    - sudo buildah push $FQ_IMAGE_NAME
 
 build_job:
   stage: build
