@@ -51,9 +51,8 @@ devcontainer_job:
     # BUILDAH_ISOLATION: chroot
     FQ_IMAGE_NAME: "$CI_REGISTRY_IMAGE/dev-container:$CI_COMMIT_REF_SLUG"
   before_script:
-    - dnf install -y nodejs npm python3 make gcc-c++
+    - dnf install --yes nodejs npm python3 make gcc-c++
     - npm install --global @devcontainers/cli
-    - buildah unshare
     - echo "$CI_REGISTRY_PASSWORD" | buildah login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
     - buildah pull $FQ_IMAGE_NAME || buildah pull $CI_REGISTRY_IMAGE/dev-container:main || true
