@@ -43,11 +43,17 @@ devcontainer_job:
     # Newer versions of docker can handle the OCI format, but older versions, like
     # the one shipped with Fedora 30, cannot handle the format.
     BUILDAH_FORMAT: docker
+    # We don’t need to run with extra isolation because we are already running
+    # within a container. Having Buildah create its own namespace separated containers
+    # requires SYS_ADMIN privileges and requires us to relax SELinux and SECCOMP rules
+    # on the running container, defeating the purpose of running builds within
+    # a locked-down container.
     BUILDAH_ISOLATION: chroot
     FQ_IMAGE_NAME: "$CI_REGISTRY_IMAGE/dev-container:$CI_COMMIT_REF_SLUG"
   before_script:
     - dnf install -y nodejs npm python3 make gcc-c++
     - npm install --global @devcontainers/cli
+    - buildah unshare
     - echo "$CI_REGISTRY_PASSWORD" | buildah login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
     - buildah pull $FQ_IMAGE_NAME || buildah pull $CI_REGISTRY_IMAGE/dev-container:main || true
