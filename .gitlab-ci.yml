@@ -33,21 +33,23 @@ prepare_job:
 devcontainer_job:
   stage: devcontainer
   timeout: 10 minutes
-  image: quay.io/buildah/stable:latest
+  image: docker:24.0.5
   tags: [docker]
+  services:
+    - docker:24.0.5-dind
   variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: "/certs"
     FQ_IMAGE_NAME: "$CI_REGISTRY_IMAGE/dev-container:$CI_COMMIT_REF_SLUG"
   before_script:
-    - dnf install -y nodejs npm python3 make gcc-c++
+    - apt install -y nodejs npm python3 make gcc-c++
     - npm install --global @devcontainers/cli
-    - echo "$CI_REGISTRY_PASSWORD" | buildah login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
-    - buildah pull $FQ_IMAGE_NAME || buildah pull $CI_REGISTRY_IMAGE/dev-container:main || true
-    - buildah tag $CI_REGISTRY_IMAGE/dev-container:main $FQ_IMAGE_NAME || true
-    - buildah images
-    - devcontainer build --docker-path buildah --cache-from $FQ_IMAGE_NAME --image-name $FQ_IMAGE_NAME --workspace-folder .
-    - buildah images
-    - buildah push $FQ_IMAGE_NAME
+    - docker pull $FQ_IMAGE_NAME || docker pull $CI_REGISTRY_IMAGE/dev-container:main || true
+    - docker tag $CI_REGISTRY_IMAGE/dev-container:main $FQ_IMAGE_NAME || true
+    - devcontainer build --cache-from $FQ_IMAGE_NAME --image-name $FQ_IMAGE_NAME --workspace-folder .
+    - docker push $FQ_IMAGE_NAME
 
 build_job:
   stage: build
