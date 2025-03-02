@@ -60,18 +60,20 @@ build_job:
     - docker:dind
   needs:
     - job: devcontainer_job
+  variables:
+    FQ_IMAGE_NAME: "$CI_REGISTRY_IMAGE/dev-container:$CI_COMMIT_REF_SLUG"
+  before_script:
+    - docker pull $FQ_IMAGE_NAME
   script: |
     #!/bin/sh
     set -e
     build_date="$(date +%s)"
     apk add --update nodejs npm python3 make g++
     npm install --global @devcontainers/cli
-    docker pull ${CI_REGISTRY_IMAGE}/dev-container:latest
 
     # Create a label for use during cleanup since the devcontainer CLI does
     # not have a "remove" or "down" command yet (though this is planned).
     id_label="ci-container=${build_date}"
-    exit 1
 
     # Run build
     devcontainer up --id-label ${id_label} --workspace-folder .
