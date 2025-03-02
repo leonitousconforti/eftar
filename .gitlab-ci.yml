@@ -177,6 +177,7 @@ pages_job:
   script:
     - gem install jekyll
     - jekyll build --source docs --destination public
+    - ls -la docs
     - ls -la public
   artifacts:
     paths:
