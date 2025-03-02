@@ -175,9 +175,7 @@ pages_job:
     - job: build_job
       artifacts: true
   script:
-    - gem install bundler
-    - bundle add jekyll
-    - bundle install
+    - gem install jekyll
     - bundle exec jekyll build -d public
   artifacts:
     paths:
