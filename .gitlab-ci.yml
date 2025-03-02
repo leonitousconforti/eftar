@@ -176,7 +176,7 @@ pages_job:
       artifacts: true
   script:
     - gem install jekyll
-    - bundle exec jekyll build -d public
+    - jekyll build --source docs --destination public
   artifacts:
     paths:
       - public
