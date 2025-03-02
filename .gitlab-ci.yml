@@ -5,6 +5,7 @@ stages:
   - test
   - release
   - publish
+  - pages
 
 include:
   - template: Security/Secret-Detection.gitlab-ci.yml
@@ -165,7 +166,7 @@ publish_job:
 
 pages_job:
   image: ruby:latest
-  stage: deploy
+  stage: pages
   pages: true
   tags: [docker]
   only:
