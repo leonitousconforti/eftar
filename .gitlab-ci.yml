@@ -42,7 +42,7 @@ devcontainer_job:
     DOCKER_TLS_CERTDIR: "/certs"
     FQ_IMAGE_NAME: "$CI_REGISTRY_IMAGE/dev-container:$CI_COMMIT_REF_SLUG"
   before_script:
-    - apk install --update nodejs npm python3 make gcc-c++
+    - apk add --update nodejs npm python3 make gcc-c++
     - npm install --global @devcontainers/cli
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
