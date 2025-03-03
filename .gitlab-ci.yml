@@ -169,8 +169,8 @@ pages_job:
   stage: deploy
   pages: true
   tags: [docker]
-  only:
-    - ${CI_DEFAULT_BRANCH}
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
   needs:
     - job: build_job
       artifacts: true
