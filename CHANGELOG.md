@@ -1,3 +1,20 @@
+## 0.0.12 (2025-03-03)
+
+### changed (12 changes)
+
+- [Update dependency prettier to v3.5.3](https://git.ltgk.net/leoconforti/eftar/-/commit/7e3ead269d687fd8036b7659451aedb30d691f56) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/60))
+- [Lock file maintenance](https://git.ltgk.net/leoconforti/eftar/-/commit/255bc3aee574e518b2e7b74ba7cbbffba51dc1ac) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/59))
+- [Update dependency prettier-plugin-packagejson to v2.5.10](https://git.ltgk.net/leoconforti/eftar/-/commit/30aa4c0e61a14a6d18f4004a6f343c9600ec37ce) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/58))
+- [Update pnpm to v9.15.6](https://git.ltgk.net/leoconforti/eftar/-/commit/4b0c04799b94de0e6d7248691cc42a075846d73c) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/48))
+- [Update dependency @effect/language-service to v0.3.1](https://git.ltgk.net/leoconforti/eftar/-/commit/45f0b6af4bb2308836dc51fb70716b131225081e) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/57))
+- [Update docker Docker tag to v28](https://git.ltgk.net/leoconforti/eftar/-/commit/be12ea8fb76b0bf436c4718e7629276c68557e6c) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/56))
+- [Update dependency @types/node to v22.13.8](https://git.ltgk.net/leoconforti/eftar/-/commit/22a1b17ae21666dc9b9f53ac8c631a11e94bee23) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/53))
+- [Update docker Docker tag to v24.0.9](https://git.ltgk.net/leoconforti/eftar/-/commit/b3d70875994f38b788eb09bbfc771d82bbc96a54) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/55))
+- [Update dependency @effect/language-service to v0.3.0](https://git.ltgk.net/leoconforti/eftar/-/commit/c035dda015ba56d772ee5baff07509f3fd26867e) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/54))
+- [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/bd1acc260de1fd2b590e4cbd536ec886fabfb14b) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/45))
+- [Update dependency @eslint/eslintrc to v3.3.0](https://git.ltgk.net/leoconforti/eftar/-/commit/c5de002762d48f3ed97161c0f1980d89e1b98fd1) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/42))
+- [Update dependency vite to v6.1.1](https://git.ltgk.net/leoconforti/eftar/-/commit/5c7803ebb63395c77f9daf06b416cb7a5c2e59d4) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/37))
+
 ## 0.0.11 (2025-02-19)
 
 ### changed (1 change)
