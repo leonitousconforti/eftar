@@ -174,9 +174,12 @@ pages_job:
   needs:
     - job: build_job
       artifacts: true
+  variables:
+    JEKYLL_ENV: "production"
+    PAGES_REPO_NWO: $CI_PROJECT_PATH
   script:
-    - gem install jekyll
-    - jekyll build --source docs --destination public
+    - gem install github-pages
+    - github-pages build --source docs --destination public
     - ls -la docs
     - ls -la public
   artifacts:
