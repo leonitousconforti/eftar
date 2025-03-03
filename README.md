@@ -27,7 +27,7 @@ I needed a tar implementation that could be used in the browser (for the-moby-ef
 
 ## Library docs :card_file_box:
 
-[https://leonitousconforti.github.io/eftar/](https://leonitousconforti.github.io/eftar/)
+[https://leoconforti.pages.ltgk.net/eftar/](https://leoconforti.pages.ltgk.net/eftar/)
 
 ## Contributing and getting help :speech_balloon: :beers:
 
