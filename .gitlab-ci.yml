@@ -61,10 +61,10 @@ devcontainer_job:
 build_job:
   stage: build
   timeout: 10 minutes
-  image: docker:latest
+  image: docker:28.0.1
   tags: [docker]
   services:
-    - docker:dind
+    - docker:28.0.1-dind
   needs:
     - job: devcontainer_job
   variables:
