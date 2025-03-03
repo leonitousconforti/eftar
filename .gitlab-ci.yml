@@ -45,8 +45,11 @@ devcontainer_job:
   services:
     - docker:28.0.1-dind
   variables:
-    DOCKER_DRIVER: overlay2
+    DOCKER_BUILDKIT: "1"
+    DOCKER_DRIVER: "overlay2"
     DOCKER_TLS_CERTDIR: "/certs"
+    DOCKER_BUILDKIT_INLINE_CACHE: "1"
+    DOCKER_CONTAINERD_IMAGE_STORE: "1"
     FQ_IMAGE_NAME: "$CI_REGISTRY_IMAGE/dev-container:$CI_COMMIT_REF_SLUG"
   before_script:
     - apk add --update nodejs npm python3 make g++
