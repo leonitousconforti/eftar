@@ -176,7 +176,7 @@ pages_job:
       artifacts: true
   variables:
     JEKYLL_ENV: "production"
-    PAGES_REPO_NWO: $CI_PROJECT_PATH
+    PAGES_REPO_NWO: ""
   script:
     - gem install github-pages
     - github-pages build --source docs --destination public
