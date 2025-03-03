@@ -1,3 +1,9 @@
+## 0.0.14 (2025-03-03)
+
+### changed (1 change)
+
+- [Update dependency @effect/language-service to v0.3.2](https://git.ltgk.net/leoconforti/eftar/-/commit/0d71ac0350ae980410b73a5f5cc9e6d12ed48a30) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/64))
+
 ## 0.0.13 (2025-03-03)
 
 ### changed (3 changes)
