@@ -170,7 +170,7 @@ pages_job:
   pages: true
   tags: [docker]
   only:
-    - $CI_DEFAULT_BRANCH
+    - ${CI_DEFAULT_BRANCH}
   needs:
     - job: build_job
       artifacts: true
