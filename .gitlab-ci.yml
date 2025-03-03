@@ -55,7 +55,7 @@ devcontainer_job:
   script:
     - docker pull $FQ_IMAGE_NAME || docker pull $CI_REGISTRY_IMAGE/dev-container:$CI_DEFAULT_BRANCH || true
     - docker tag $CI_REGISTRY_IMAGE/dev-container:$CI_DEFAULT_BRANCH $FQ_IMAGE_NAME || true
-    - devcontainer build --cache-from $FQ_IMAGE_NAME --image-name $FQ_IMAGE_NAME --workspace-folder .
+    - devcontainer build --cache-from $FQ_IMAGE_NAME --cache-to $FQ_IMAGE_NAME --image-name $FQ_IMAGE_NAME --workspace-folder .
     - docker push $FQ_IMAGE_NAME
 
 build_job:
