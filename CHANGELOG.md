@@ -1,3 +1,9 @@
+## 0.0.15 (2025-03-04)
+
+### changed (1 change)
+
+- [fix exports](https://git.ltgk.net/leoconforti/eftar/-/commit/6943cc2f20a994c901df531c5373c27cd72316da)
+
 ## 0.0.14 (2025-03-03)
 
 ### changed (1 change)
