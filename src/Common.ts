@@ -13,12 +13,6 @@ import * as ParseResult from "effect/ParseResult";
 import * as Schema from "effect/Schema";
 
 /** @internal */
-export const HeaderVariants = VariantSchema.make({
-    defaultVariant: "non-full",
-    variants: ["non-full", "full"],
-});
-
-/** @internal */
 export const BLOCK_SIZE = 512;
 
 /** @internal */
@@ -48,14 +42,29 @@ export enum FileTypes {
     "contiguous-file" = 7,
 }
 
-/** @internal */
+/**
+ * @since 1.0.0
+ * @category Schemas
+ */
+export const HeaderVariants = VariantSchema.make({
+    defaultVariant: "non-full",
+    variants: ["non-full", "full"],
+});
+
+/**
+ * @since 1.0.0
+ * @category Schemas
+ */
 export class Octal extends Schema.transform(Schema.Int, Schema.Int, {
     strict: true,
     decode: (n) => parseInt(n.toString(), 8),
     encode: (n) => parseInt(n.toString(8)),
 }) {}
 
-/** @internal */
+/**
+ * @since 1.0.0
+ * @category Schemas
+ */
 export const maxDigits =
     <A extends number>(maxDigits: number, annotations?: Schema.Annotations.Filter<A>) =>
     <I, R>(self: Schema.Schema<A, I, R>): Schema.filter<Schema.Schema<A, I, R>> =>
