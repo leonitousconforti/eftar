@@ -1,3 +1,9 @@
+## 0.0.17 (2025-03-05)
+
+### changed (1 change)
+
+- [Lock file maintenance](https://git.ltgk.net/leoconforti/eftar/-/commit/63bc392d010c2050528415bb2b1003a118eabc0b) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/65))
+
 ## 0.0.16 (2025-03-04)
 
 No changes.
