@@ -1,3 +1,12 @@
+## 0.0.18 (2025-03-06)
+
+### changed (4 changes)
+
+- [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/a3e84cc33f9e71afa2e245d69d1a7a5b4de6a8b5) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/69))
+- [Update vitest monorepo to v3.0.8](https://git.ltgk.net/leoconforti/eftar/-/commit/7ea3a2d9bcc11da466734055a5cfb57f1211d034) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/68))
+- [Update pnpm to v9.15.7](https://git.ltgk.net/leoconforti/eftar/-/commit/b5e7666419917cf403e5f66d22957aad7f1f3a5a) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/67))
+- [Update dependency @effect/language-service to v0.4.0](https://git.ltgk.net/leoconforti/eftar/-/commit/475f87548cccc1fbc10130c3d71e2d2cf382c06d) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/66))
+
 ## 0.0.17 (2025-03-05)
 
 ### changed (1 change)
