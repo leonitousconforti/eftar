@@ -1,3 +1,11 @@
+## 0.0.21 (2025-03-10)
+
+### changed (3 changes)
+
+- [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/2ce21dc04d5b2b702effe3a116c331695c28b886) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/82))
+- [Update dependency eslint-import-resolver-typescript to v3.8.4](https://git.ltgk.net/leoconforti/eftar/-/commit/e0eddedaa6280a69bdb8122f47ad05af1bbd3df4) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/81))
+- [Update typescript-eslint monorepo to v8.26.1](https://git.ltgk.net/leoconforti/eftar/-/commit/d37595d4f45ec24a4dde817fa1a99fb6c6c3991f) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/80))
+
 ## 0.0.20 (2025-03-10)
 
 ### changed (5 changes)
