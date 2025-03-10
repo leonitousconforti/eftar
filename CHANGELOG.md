@@ -1,3 +1,13 @@
+## 0.0.20 (2025-03-10)
+
+### changed (5 changes)
+
+- [Update pnpm to v9.15.9](https://git.ltgk.net/leoconforti/eftar/-/commit/059f6c786064370f4ea2139f755c4b7379249051) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/79))
+- [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/6c6cb550c47858db1493bf15e48a5cf0f8d9e8f6) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/78))
+- [Update dependency @types/node to v22.13.10](https://git.ltgk.net/leoconforti/eftar/-/commit/621e00147500e3b4ce860c1464bcce0c513c5dcb) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/77))
+- [Update dependency eslint to v9.22.0](https://git.ltgk.net/leoconforti/eftar/-/commit/53fe68541398c03b10db9c06529ed7711b43df0c) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/76))
+- [Update dependency @eslint/js to v9.22.0](https://git.ltgk.net/leoconforti/eftar/-/commit/694edb9cbdedd6da2825b0a88b85a2dd0bf2ce50) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/75))
+
 ## 0.0.19 (2025-03-07)
 
 ### changed (5 changes)
