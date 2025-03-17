@@ -1,3 +1,11 @@
+## 0.0.24 (2025-03-17)
+
+### changed (3 changes)
+
+- [Update dependency eslint-import-resolver-typescript to v4.1.1](https://git.ltgk.net/leoconforti/eftar/-/commit/d4055f9c0b1ad7253042fd8b7ed4976473e30bb4) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/100))
+- [Update vitest monorepo to v3.0.9](https://git.ltgk.net/leoconforti/eftar/-/commit/0ccd903273a3269c167563a66b5ea8d8f42f4159) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/99))
+- [Update dependency eslint-import-resolver-typescript to v4.1.0](https://git.ltgk.net/leoconforti/eftar/-/commit/720135a1bf6a6c2502964db2adbdb97f18fbe984) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/98))
+
 ## 0.0.23 (2025-03-17)
 
 ### changed (14 changes)
