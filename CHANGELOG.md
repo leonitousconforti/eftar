@@ -1,3 +1,22 @@
+## 0.0.23 (2025-03-17)
+
+### changed (14 changes)
+
+- [Update dependency eslint-import-resolver-typescript to v4](https://git.ltgk.net/leoconforti/eftar/-/commit/b2b3a0fcc6243b34dc1aadb75b6bc674110add29) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/96))
+- [Lock file maintenance](https://git.ltgk.net/leoconforti/eftar/-/commit/657db8780d22fc21938d4cd8aa27ba261a45dac2) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/97))
+- [Update dependency eslint-import-resolver-typescript to v3.9.1](https://git.ltgk.net/leoconforti/eftar/-/commit/fcc8ebb284da94212bb7e5a24b5b561676ba5854) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/95))
+- [Update dependency eslint-plugin-import-x to v4.8.0](https://git.ltgk.net/leoconforti/eftar/-/commit/70959fec370741b7e5c260ff0312c69a6fefbb08) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/94))
+- [Update dependency eslint-plugin-import-x to v4.7.2](https://git.ltgk.net/leoconforti/eftar/-/commit/38f461d5d7b646320b87b477fcb3f2eb7dbabb00) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/93))
+- [Update dependency eslint-plugin-import-x to v4.7.1](https://git.ltgk.net/leoconforti/eftar/-/commit/bf3db72e308fa7b66172b928977667edded3f02c) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/92))
+- [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/c3e21f4af5d534655f089c7c8390b4ca2ed54b96) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/91))
+- [Update dependency eslint-import-resolver-typescript to v3.9.0](https://git.ltgk.net/leoconforti/eftar/-/commit/9640295bb7787839c79769cd22badd8c752f9ad5) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/90))
+- [Update dependency eslint-plugin-import-x to v4.7.0](https://git.ltgk.net/leoconforti/eftar/-/commit/5f10baba1c0022a19709116f47622aada6112e8a) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/89))
+- [Update dependency vite to v6.2.2](https://git.ltgk.net/leoconforti/eftar/-/commit/b1951f7395d1dc97b16f4865ca15c21ec9336883) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/88))
+- [Update dependency eslint-import-resolver-typescript to v3.8.7](https://git.ltgk.net/leoconforti/eftar/-/commit/3e48600e75a80871409a768757741f1be52cdc03) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/87))
+- [Update dependency eslint-import-resolver-typescript to v3.8.6](https://git.ltgk.net/leoconforti/eftar/-/commit/b7d357361f67cf9a0ab87cf5e58e005c0ce42d51) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/86))
+- [Update dependency eslint-import-resolver-typescript to v3.8.5](https://git.ltgk.net/leoconforti/eftar/-/commit/c77dbd63782a2f53a252aa0de314c93e75e84eae) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/85))
+- [Update dependency @babel/core to v7.26.10](https://git.ltgk.net/leoconforti/eftar/-/commit/586efd7b8fedcc7d4ead137938ca510357bbcb08) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/84))
+
 ## 0.0.22 (2025-03-11)
 
 ### changed (1 change)
