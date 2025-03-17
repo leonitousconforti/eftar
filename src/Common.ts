@@ -206,26 +206,26 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
             let j: number = end;
             while (options?.skipLeadingNulls === true && i < end && view[i] === 0) i++;
             while (options?.skipTrailingNulls === true && j > i && view[j - 1] === 0) j--;
-            if (i === j) return undefined;
-            else return textDecoder.decode(view.subarray(i, j));
+            if (i !== j) return textDecoder.decode(view.subarray(i, j));
+            else return undefined;
         };
 
         const readInteger = (start: number, end: number): number | undefined => {
             const options = { skipLeadingNulls: true, skipTrailingNulls: true } as const;
             const str = readString(start, end, options);
             if (str === undefined) return undefined;
-            return parseInt(str, 10);
+            else return parseInt(str, 10);
         };
 
-        const fullHeader = Schema.decode(TarHeader["full"])({
-            filename: readString(0, 100, { skipTrailingNulls: true })!,
-            fileMode: readInteger(100, 108)!,
+        const fullHeader = Schema.decodeUnknown(TarHeader["full"])({
+            filename: readString(0, 100, { skipTrailingNulls: true }),
+            fileMode: readInteger(100, 108),
             uid: readInteger(108, 116),
             gid: readInteger(116, 124),
-            fileSize: readInteger(124, 136)!,
-            mtime: readString(136, 148, { skipTrailingNulls: true })!,
-            checksum: readString(148, 155, { skipTrailingNulls: true })!,
-            type: readInteger(156, 157)!,
+            fileSize: readInteger(124, 136),
+            mtime: readString(136, 148, { skipTrailingNulls: true }),
+            checksum: readString(148, 155, { skipTrailingNulls: true }),
+            type: readInteger(156, 157),
             linkName: readString(157, 257, { skipTrailingNulls: true }),
             ustar: textDecoder.decode(view.subarray(257, 265)),
             owner: readString(265, 297, { skipTrailingNulls: true }),
