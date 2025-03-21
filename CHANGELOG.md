@@ -1,3 +1,19 @@
+## 0.0.26 (2025-03-21)
+
+### changed (11 changes)
+
+- [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/8151e5efe555a0055c9d9b314a4b6d649f9b9a9e) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/110))
+- [Update dependency @types/node to v22.13.11](https://git.ltgk.net/leoconforti/eftar/-/commit/86a72b7fd1cd2aff490a76c7b7dd82e4200fe2cf) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/112))
+- [Update docker Docker tag to v28.0.2](https://git.ltgk.net/leoconforti/eftar/-/commit/f33d9bc97464a437c9e461bb50be6c964792c49f) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/111))
+- [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/765ae95fe5c94e36ae7d88b95eb6970a87838bc8) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/109))
+- [Update dependency eslint-plugin-import-x to v4.9.1](https://git.ltgk.net/leoconforti/eftar/-/commit/baf5c43d097f5940aca101bfd22a078d6416dcd3) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/108))
+- [Update typescript-eslint monorepo to v8.27.0](https://git.ltgk.net/leoconforti/eftar/-/commit/b412808f36ef94756c2575fa3839b8fbcc47c23c) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/107))
+- [Update dependency eslint-import-resolver-typescript to v4.2.2](https://git.ltgk.net/leoconforti/eftar/-/commit/2316558a342034b7eaa6aa2de0126f68bd9456a9) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/106))
+- [Update dependency eslint-plugin-import-x to v4.9.0](https://git.ltgk.net/leoconforti/eftar/-/commit/05b07b563684dd0f95987f8ae0478c58a36ecdf0) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/105))
+- [Update dependency eslint-plugin-import-x to v4.8.1](https://git.ltgk.net/leoconforti/eftar/-/commit/683c1d56ea3472a99fd7817aa70a84c3a95d3d38) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/104))
+- [Update dependency eslint-import-resolver-typescript to v4.2.1](https://git.ltgk.net/leoconforti/eftar/-/commit/5683f8e0edc32c5b0797d41116478295e849d997) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/103))
+- [Update dependency eslint-import-resolver-typescript to v4.2.0](https://git.ltgk.net/leoconforti/eftar/-/commit/039f748317dc9a730a7e3785f2f1f33e6c029c4f) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/102))
+
 ## 0.0.25 (2025-03-17)
 
 ### changed (1 change)
