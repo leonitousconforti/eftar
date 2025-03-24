@@ -1,3 +1,17 @@
+## 0.0.28 (2025-03-24)
+
+### changed (9 changes)
+
+- [Update dependency @types/node to v22.13.13](https://git.ltgk.net/leoconforti/eftar/-/commit/7a22407c46bfa035f054095d526405d23b26c7d7) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/123))
+- [Update dependency vite to v6.2.3](https://git.ltgk.net/leoconforti/eftar/-/commit/f1cfdc025ed52088c23bd3461901e4b85f8a5bec) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/122))
+- [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/d1d90fc5d35dd48a0ff5e3d723d7c2cc68351edb) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/121))
+- [Update dependency @types/node to v22.13.12](https://git.ltgk.net/leoconforti/eftar/-/commit/6fc650564b0268aeee8849ece9c757b5465eb5b8) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/120))
+- [Update dependency eslint-plugin-prettier to v5.2.4](https://git.ltgk.net/leoconforti/eftar/-/commit/580372efc297253839ab92f0bd6fab3a45d3187b) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/119))
+- [Lock file maintenance](https://git.ltgk.net/leoconforti/eftar/-/commit/92827603693f46c27b5f73eb0eeaa23a00c663fa) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/118))
+- [Update dependency eslint to v9.23.0](https://git.ltgk.net/leoconforti/eftar/-/commit/99d6e20e3d98abb11cd034826d98e38183f993d2) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/117))
+- [Update dependency @eslint/js to v9.23.0](https://git.ltgk.net/leoconforti/eftar/-/commit/ecdc51bbd6130f811a0ab8872e052e5e1bad334c) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/116))
+- [Update dependency @eslint/eslintrc to v3.3.1](https://git.ltgk.net/leoconforti/eftar/-/commit/daf333e11d5331baa3facd96803273f2ba63b504) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/115))
+
 ## 0.0.27 (2025-03-21)
 
 ### changed (2 changes)
