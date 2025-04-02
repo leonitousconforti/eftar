@@ -1,3 +1,18 @@
+## 0.0.30 (2025-04-02)
+
+### changed (10 changes)
+
+- [Update dependency @effect/language-service to v0.5.1](https://git.ltgk.net/leoconforti/eftar/-/commit/1fc39af23b6b0442165ed634c53bee472ce72a57) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/157))
+- [Update dependency @effect/language-service to v0.5.0](https://git.ltgk.net/leoconforti/eftar/-/commit/c84073129ebe9cf0056fc11f155505252f38c6d2) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/156))
+- [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/551089f882edd5ee8bcf8f59d2df82455c04e3f2) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/155))
+- [Update ghcr.io/devcontainers/features/github-cli Docker tag to v1.0.14](https://git.ltgk.net/leoconforti/eftar/-/commit/33343a2ef7728d04af5aad126bcebc404dd465c3) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/153))
+- [Update ghcr.io/devcontainers/features/node Docker tag to v1.6.2](https://git.ltgk.net/leoconforti/eftar/-/commit/4f4d0862ec443e69532ae037b6ecb9308a3d87e7) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/154))
+- [Update dependency @eslint/compat to v1.2.8](https://git.ltgk.net/leoconforti/eftar/-/commit/3a36810679aa86e91043d04e92fe7316d28108f3) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/152))
+- [Update dependency @types/node to v22.13.17](https://git.ltgk.net/leoconforti/eftar/-/commit/1919a32e1d41ac27b45324faeccbdb6cafcd5085) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/151))
+- [Update dependency @types/node to v22.13.16](https://git.ltgk.net/leoconforti/eftar/-/commit/2eea122e0531b55bd24967fce27abd9c4f410cc4) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/150))
+- [Update dependency @types/node to v22.13.15](https://git.ltgk.net/leoconforti/eftar/-/commit/a88d0909e5cae218e24918e1ac1b5cf144d37f3b) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/149))
+- [Update dependency eslint-plugin-import-x to v4.10.0](https://git.ltgk.net/leoconforti/eftar/-/commit/615ad4159e3cfb1ed3a642d87e4088c8fd5c8b2d) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/148))
+
 ## 0.0.29 (2025-04-01)
 
 ### changed (24 changes)
