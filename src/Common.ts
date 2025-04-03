@@ -4,12 +4,13 @@
  * @since 1.0.0
  */
 
+import type * as ParseResult from "effect/ParseResult";
+
 import * as VariantSchema from "@effect/experimental/VariantSchema";
 import * as Effect from "effect/Effect";
 import * as Function from "effect/Function";
 import * as Number from "effect/Number";
 import * as Option from "effect/Option";
-import * as ParseResult from "effect/ParseResult";
 import * as Schema from "effect/Schema";
 
 /** @internal */
