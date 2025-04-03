@@ -1,7 +1,7 @@
 #!/bin/bash -i
 
 set -eo pipefail
-echo "🚀 Setting up r devcontainer..."
+echo "🚀 Setting up eftar devcontainer..."
 
 echo "📦 Installing repo dependencies..."
 npm install --global corepack@latest
