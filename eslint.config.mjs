@@ -1,66 +1,108 @@
-import * as effectEslint from "@effect/eslint-plugin";
-import eslint from "@eslint/js";
-import * as tsResolver from "eslint-import-resolver-typescript";
-import importPlugin from "eslint-plugin-import-x";
+import path from "node:path";
+import url from "node:url";
+
+import { FlatCompat } from "@eslint/eslintrc";
+import js from "@eslint/js";
+
+import tsParser from "@typescript-eslint/parser";
+import codegen from "eslint-plugin-codegen";
+import _import from "eslint-plugin-import";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import sortDestructureKeys from "eslint-plugin-sort-destructure-keys";
-import * as Path from "node:path";
-import * as Url from "node:url";
-import tseslint from "typescript-eslint";
 
-const __filename = Url.fileURLToPath(import.meta.url);
-const __dirname = Path.dirname(__filename);
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const compat = new FlatCompat({
+    baseDirectory: __dirname,
+    allConfig: js.configs.all,
+    recommendedConfig: js.configs.recommended,
+});
 
-export default tseslint.config(
+export default [
     {
         ignores: ["**/dist", "**/build", "**/docs", "**/*.md"],
     },
-    eslint.configs.recommended,
-    tseslint.configs.strict,
-    importPlugin.flatConfigs.recommended,
-    importPlugin.flatConfigs.typescript,
-    effectEslint.configs.dprint,
+    ...compat.extends(
+        "eslint:recommended",
+        "plugin:import/recommended",
+        "plugin:import/typescript",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/strict"
+    ),
     {
         plugins: {
+            codegen,
+            import: _import,
             "simple-import-sort": simpleImportSort,
             "sort-destructure-keys": sortDestructureKeys,
         },
 
         languageOptions: {
-            parser: tseslint.parser,
+            parser: tsParser,
             ecmaVersion: 2018,
             sourceType: "module",
         },
 
         settings: {
-            "import-x/resolver": {
-                name: "tsResolver",
-                resolver: tsResolver,
-                options: {
+            "import/parsers": {
+                "@typescript-eslint/parser": [".ts", ".tsx"],
+            },
+            "import/resolver": {
+                typescript: {
                     alwaysTryTypes: true,
                 },
             },
         },
 
         rules: {
-            "no-console": "error",
+            "codegen/codegen": "error",
+            "no-fallthrough": "warn",
+            "no-irregular-whitespace": "warn",
             "object-shorthand": "error",
-            "@typescript-eslint/no-namespace": "off",
-            "@typescript-eslint/no-empty-object-type": "off",
+            "@typescript-eslint/no-namespace": "warn",
+            "@typescript-eslint/no-empty-object-type": "warn",
             "@typescript-eslint/no-non-null-assertion": "warn",
             "sort-destructure-keys/sort-destructure-keys": "error",
             "prefer-destructuring": "off",
             "sort-imports": "off",
-            "import-x/export": "off",
-            "import-x/first": "error",
-            "import-x/newline-after-import": "error",
-            "import-x/no-duplicates": "error",
-            "import-x/no-named-as-default-member": "off",
-            "import-x/no-unresolved": "off",
-            "import-x/order": "off",
+
+            "no-restricted-syntax": [
+                "error",
+                {
+                    selector: "CallExpression[callee.property.name='push'] > SpreadElement.arguments",
+                    message: "Do not use spread arguments in Array.push",
+                },
+            ],
+
+            "no-unused-vars": "off",
+            "require-yield": "off",
+            "prefer-rest-params": "off",
+            "prefer-spread": "off",
+            "import/first": "error",
+            "import/newline-after-import": "error",
+            "import/no-duplicates": "error",
+            "import/no-unresolved": "off",
+            "import/order": "off",
             "simple-import-sort/imports": "off",
-            "@typescript-eslint/array-type": ["warn", { default: "generic", readonly: "generic" }],
-            "@typescript-eslint/consistent-type-imports": "off",
+            "sort-destructure-keys/sort-destructure-keys": "error",
+            "deprecation/deprecation": "off",
+
+            "@typescript-eslint/array-type": [
+                "warn",
+                {
+                    default: "generic",
+                    readonly: "generic",
+                },
+            ],
+
+            "@typescript-eslint/member-delimiter-style": 0,
+            "@typescript-eslint/no-non-null-assertion": "off",
+            "@typescript-eslint/ban-types": "off",
+            "@typescript-eslint/no-explicit-any": "off",
+            "@typescript-eslint/no-empty-interface": "off",
+            "@typescript-eslint/consistent-type-imports": "warn",
+
             "@typescript-eslint/no-unused-vars": [
                 "error",
                 {
@@ -69,21 +111,20 @@ export default tseslint.config(
                 },
             ],
 
-            "@effect/dprint": "off",
-            // "@effect/dprint": [
-            //     "error",
-            //     {
-            //         config: {
-            //             indentWidth: 2,
-            //             lineWidth: 120,
-            //             semiColons: "asi",
-            //             quoteStyle: "alwaysDouble",
-            //             trailingCommas: "never",
-            //             operatorPosition: "maintain",
-            //             "arrowFunction.useParentheses": "force",
-            //         },
-            //     },
-            // ],
+            "@typescript-eslint/ban-ts-comment": "off",
+            "@typescript-eslint/camelcase": "off",
+            "@typescript-eslint/explicit-function-return-type": "off",
+            "@typescript-eslint/explicit-module-boundary-types": "off",
+            "@typescript-eslint/interface-name-prefix": "off",
+            "@typescript-eslint/no-array-constructor": "off",
+            "@typescript-eslint/no-use-before-define": "off",
+            "@typescript-eslint/no-namespace": "off",
         },
-    }
-);
+    },
+    {
+        files: ["src/**/*", "test/**/*"],
+        rules: {
+            "no-console": "error",
+        },
+    },
+];
