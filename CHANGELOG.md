@@ -1,3 +1,13 @@
+## 0.0.31 (2025-04-04)
+
+### changed (5 changes)
+
+- [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/40f2f6a911f1add2c156762aba3cd1049d72d264) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/162))
+- [Update dependency vite to v6.2.5](https://git.ltgk.net/leoconforti/eftar/-/commit/0a274a37a2256d3f2cf9a4a4aa704eb36a4afa65) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/161))
+- [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/43af0b47124aca729901a976437acc3d49fc2d76) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/160))
+- [Update dependency @types/node to v22.14.0](https://git.ltgk.net/leoconforti/eftar/-/commit/444c9d8ffb05537f15ebb1367317929841d2fad9) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/159))
+- [Update dependency eslint-plugin-prettier to v5.2.6](https://git.ltgk.net/leoconforti/eftar/-/commit/4d00d540e34712d60bd9237b7b9f7d5d5863a23c) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/158))
+
 ## 0.0.30 (2025-04-02)
 
 ### changed (10 changes)
