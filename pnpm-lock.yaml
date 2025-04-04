@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   '@effect/build-utils':
-    hash: l5kgl23lx2gxuhhyvqfmhjtllq
+    hash: db084384c707ff9e683140e446c649d56d56b94e53c4e09699e8ffb806926486
     path: patches/@effect__build-utils.patch
 
 importers:
@@ -27,7 +27,7 @@ importers:
         version: 7.26.3(@babel/core@7.26.10)
       '@effect/build-utils':
         specifier: 0.7.9
-        version: 0.7.9(patch_hash=l5kgl23lx2gxuhhyvqfmhjtllq)
+        version: 0.7.9(patch_hash=db084384c707ff9e683140e446c649d56d56b94e53c4e09699e8ffb806926486)
       '@effect/cluster':
         specifier: 0.29.10
         version: 0.29.10(@effect/platform@0.80.6(effect@3.14.6))(@effect/rpc@0.55.8(@effect/platform@0.80.6(effect@3.14.6))(effect@3.14.6))(@effect/sql@0.33.6(@effect/experimental@0.44.6(@effect/platform@0.80.6(effect@3.14.6))(effect@3.14.6))(@effect/platform@0.80.6(effect@3.14.6))(effect@3.14.6))(effect@3.14.6)
@@ -2839,7 +2839,7 @@ snapshots:
       gonzales-pe: 4.3.0
       node-source-walk: 7.0.1
 
-  '@effect/build-utils@0.7.9(patch_hash=l5kgl23lx2gxuhhyvqfmhjtllq)': {}
+  '@effect/build-utils@0.7.9(patch_hash=db084384c707ff9e683140e446c649d56d56b94e53c4e09699e8ffb806926486)': {}
 
   '@effect/cluster@0.29.10(@effect/platform@0.80.6(effect@3.14.6))(@effect/rpc@0.55.8(@effect/platform@0.80.6(effect@3.14.6))(effect@3.14.6))(@effect/sql@0.33.6(@effect/experimental@0.44.6(@effect/platform@0.80.6(effect@3.14.6))(effect@3.14.6))(@effect/platform@0.80.6(effect@3.14.6))(effect@3.14.6))(effect@3.14.6)':
     dependencies:
