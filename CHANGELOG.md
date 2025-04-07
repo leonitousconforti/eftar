@@ -1,3 +1,18 @@
+## 0.0.32 (2025-04-07)
+
+### changed (10 changes)
+
+- [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/e578ee7fd0ba507ade33c4c6af76416463efcb59) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/173))
+- [Lock file maintenance](https://git.ltgk.net/leoconforti/eftar/-/commit/539f02417bb9693920cf37f91db9c0342b89ece1) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/172))
+- [Update dependency eslint-plugin-import-x to v4.10.1](https://git.ltgk.net/leoconforti/eftar/-/commit/c1da7a7be58264fcf83057bc8481c8a712843d8e) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/171))
+- [Update dependency @effect/language-service to v0.6.0](https://git.ltgk.net/leoconforti/eftar/-/commit/84959337e5bb072fa9cffd466095fe336126a199) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/170))
+- [Lock file maintenance](https://git.ltgk.net/leoconforti/eftar/-/commit/27dd0705fe1553220eecda9a0d9daf92c9d2a71b) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/169))
+- [Update dependency typescript to v5.8.3](https://git.ltgk.net/leoconforti/eftar/-/commit/7adc8248cb86f5e8ada5c1a065a3a302384d1e27) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/168))
+- [Lock file maintenance](https://git.ltgk.net/leoconforti/eftar/-/commit/63a414c8182dc768ee197703a24e427c13b0985f) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/166))
+- [Update pnpm to v10](https://git.ltgk.net/leoconforti/eftar/-/commit/7554e66b762057929fa6d4c03297fe7198ab1669) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/164))
+- [Update dependency eslint to v9.24.0](https://git.ltgk.net/leoconforti/eftar/-/commit/e33d398b36fe869cb3e71aadb44e349ea617c7a8) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/165))
+- [Update dependency @eslint/js to v9.24.0](https://git.ltgk.net/leoconforti/eftar/-/commit/53b15b43040110e86c7efe51a4a6579317f6a3f5) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/163))
+
 ## 0.0.31 (2025-04-04)
 
 ### changed (5 changes)
