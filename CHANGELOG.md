@@ -1,3 +1,14 @@
+## 0.0.33 (2025-04-09)
+
+### changed (6 changes)
+
+- [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/eadc5f8445052dce63785f83ece9ed37093d15c8) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/179))
+- [Update ghcr.io/devcontainers/features/git Docker tag to v1.3.3](https://git.ltgk.net/leoconforti/eftar/-/commit/df52a04523e2c9c95e488c69891c3a6e15a90596) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/178))
+- [Update typescript-eslint monorepo to v8.29.1](https://git.ltgk.net/leoconforti/eftar/-/commit/a955d4235fe4aa7ee46f37d95de06f309cbbbfa5) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/177))
+- [Update dependency eslint-import-resolver-typescript to v4.3.2](https://git.ltgk.net/leoconforti/eftar/-/commit/e900f2f6fbb647b6fc04773d6b374a4f3aa5f215) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/176))
+- [Update dependency eslint-plugin-import-x to v4.10.2](https://git.ltgk.net/leoconforti/eftar/-/commit/a67b30ef7319b212fb0f62b16cdc1420160590a0) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/175))
+- [Lock file maintenance](https://git.ltgk.net/leoconforti/eftar/-/commit/cef3ad13013e0b91e14a85865eea0083702cd6cf) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/174))
+
 ## 0.0.32 (2025-04-07)
 
 ### changed (10 changes)
