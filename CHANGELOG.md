@@ -1,3 +1,16 @@
+## 0.0.36 (2025-04-15)
+
+### changed (8 changes)
+
+- [Update dependency eslint-plugin-import-x to v4.10.5](https://git.ltgk.net/leoconforti/eftar/-/commit/fa0a6220e023eb3b401e2823b5051477288775ca) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/192))
+- [Update dependency eslint-plugin-import-x to v4.10.4](https://git.ltgk.net/leoconforti/eftar/-/commit/c54dc90ee7b30b213ced4c19d28eb2ed79b4f711) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/191))
+- [Update typescript-eslint monorepo to v8.30.1](https://git.ltgk.net/leoconforti/eftar/-/commit/62fc61a70dd74e924ff57ea2d8459bcfce784044) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/190))
+- [Update typescript-eslint monorepo to v8.30.0](https://git.ltgk.net/leoconforti/eftar/-/commit/995d21e660cd2d4c032984aafb3c987e4b1e6ae2) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/189))
+- [Update dependency @effect/language-service to v0.6.1](https://git.ltgk.net/leoconforti/eftar/-/commit/fec3fc995b36e10e39f9c979737809521a6f89a4) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/188))
+- [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/315d1d55d16e427466b6fc049cf161ba6128aa91) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/187))
+- [Lock file maintenance](https://git.ltgk.net/leoconforti/eftar/-/commit/43439025333155c289bda4cab016ae8c8def22a8) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/186))
+- [Update dependency eslint-plugin-import-x to v4.10.3](https://git.ltgk.net/leoconforti/eftar/-/commit/0cf2720e38da071aa17b6c9e031c007aec7e8040) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/185))
+
 ## 0.0.35 (2025-04-12)
 
 ### changed (1 change)
