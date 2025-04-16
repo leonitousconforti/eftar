@@ -22,7 +22,7 @@ cache:
 
 comment:
   image: node:lts-alpine
-  tags: [changesets]
+  tags: [docker]
   stage: comment
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
@@ -34,7 +34,7 @@ comment:
 
 release:
   image: node:lts-alpine
-  tags: [changesets]
+  tags: [docker]
   stage: release
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
