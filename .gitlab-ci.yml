@@ -21,7 +21,7 @@ cache:
     - node_modules/
 
 comment:
-  image: node:lts-alpine
+  image: node:lts
   tags: [docker]
   stage: comment
   rules:
@@ -33,7 +33,7 @@ comment:
   script: pnpm changesets-gitlab comment
 
 release:
-  image: node:lts-alpine
+  image: node:lts
   tags: [docker]
   stage: release
   rules:
