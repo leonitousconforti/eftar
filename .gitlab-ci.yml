@@ -70,38 +70,11 @@ devcontainer_job:
 build_job:
   stage: build
   timeout: 30 minutes
-  image: docker:28.0.4
+  image: $CI_REGISTRY_IMAGE/dev-container:$CI_COMMIT_REF_SLUG
   tags: [docker]
-  services:
-    - docker:28.0.4-dind
   needs:
     - job: devcontainer_job
-  variables:
-    FQ_IMAGE_NAME: "$CI_REGISTRY_IMAGE/dev-container:$CI_COMMIT_REF_SLUG"
-  before_script:
-    - docker pull $FQ_IMAGE_NAME
-  script: |
-    #!/bin/sh
-    set -e
-    build_date="$(date +%s)"
-    apk add --update nodejs npm python3 make g++
-    npm install --global @devcontainers/cli
-
-    # Create a label for use during cleanup since the devcontainer CLI does
-    # not have a "remove" or "down" command yet (though this is planned).
-    id_label="ci-container=${build_date}"
-
-    # Run build
-    rm -r node_modules/
-    devcontainer up --cache-from $FQ_IMAGE_NAME --id-label ${id_label} --workspace-folder .
-    set +e
-    devcontainer exec --id-label ${id_label} --workspace-folder . pnpm coverage --run
-    build_exit_code=$?
-    set -e
-
-    # Clean up.
-    docker rm -f $(docker ps -aq --filter label=${id_label})
-    exit ${build_exit_code}
+  script: pnpm coverage --run
   coverage: /All files(?:[^|]*\|){4}\s*(\S+)/
   artifacts:
     paths:
@@ -114,18 +87,13 @@ build_job:
         - coverage/junit.xml
 
 release:
-  image: node:lts
+  image: $CI_REGISTRY_IMAGE/dev-container:$CI_COMMIT_REF_SLUG
   tags: [docker]
   stage: release
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   needs:
     - job: build_job
-  before_script:
-    - corepack install
-    - corepack enable
-    - pnpm install
-    - pnpm build
   script:
     - |
       cat << EOF > ".npmrc"
