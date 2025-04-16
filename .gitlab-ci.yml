@@ -79,6 +79,7 @@ build_job:
   needs:
     - job: devcontainer_job
   variables:
+    CI: true
     FQ_IMAGE_NAME: "$CI_REGISTRY_IMAGE/dev-container:$CI_COMMIT_REF_SLUG"
   before_script:
     - docker pull $FQ_IMAGE_NAME

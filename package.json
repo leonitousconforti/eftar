@@ -38,7 +38,6 @@
         "clean": "rimraf .tsbuildinfo docs build dist coverage",
         "codegen": "build-utils prepare-v2",
         "coverage": "vitest --coverage",
-        "docs": "pnpm docgen",
         "lint": "eslint \"**/{src,test,examples,scripts,dtslint}/**/*.{ts,mjs}\"",
         "lint-fix": "pnpm lint --fix",
         "test": "vitest"
