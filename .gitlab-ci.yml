@@ -62,6 +62,7 @@ devcontainer_job:
     - npm install --global @devcontainers/cli
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
+    - rm -r node_modules || true
     - docker pull $FQ_IMAGE_NAME || docker pull $CI_REGISTRY_IMAGE/dev-container:$CI_DEFAULT_BRANCH || true
     - docker tag $CI_REGISTRY_IMAGE/dev-container:$CI_DEFAULT_BRANCH $FQ_IMAGE_NAME || true
     - devcontainer build --cache-from $FQ_IMAGE_NAME --cache-to type=inline,mode=max --image-name $FQ_IMAGE_NAME --workspace-folder .
