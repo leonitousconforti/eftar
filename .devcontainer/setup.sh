@@ -14,6 +14,7 @@ pnpm check
 pnpm lint
 pnpm circular
 pnpm build
+pnpm docs
 
 echo "🧪 Testing..."
 (cd test/fixtures/ && sudo chown $USER:$USER ./content.txt && tar -cf BeeMovieScript.tar ./content.txt)
