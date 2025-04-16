@@ -1,6 +1,6 @@
 {
     "name": "eftar",
-    "version": "0.0.0",
+    "version": "0.0.38",
     "description": "GNU ustar tar implementation written using effect-ts",
     "keywords": [
         "tar",
@@ -33,6 +33,8 @@
         "build-annotate": "babel build/esm --plugins annotate-pure-calls --out-dir build/esm --source-maps",
         "build-cjs": "babel build/esm --plugins @babel/transform-export-namespace-from --plugins @babel/transform-modules-commonjs --out-dir build/cjs --source-maps",
         "build-esm": "tsc -b tsconfig.build.json",
+        "changeset-publish": "pnpm build && TEST_DIST= pnpm vitest && changeset publish",
+        "changeset-version": "changeset version",
         "check": "tsc -b tsconfig.json",
         "circular": "node ./scripts/circular.mjs",
         "clean": "rimraf .tsbuildinfo docs build dist coverage",
@@ -47,6 +49,7 @@
         "@babel/core": "7.26.10",
         "@babel/plugin-transform-export-namespace-from": "7.25.9",
         "@babel/plugin-transform-modules-commonjs": "7.26.3",
+        "@changesets/cli": "2.28.1",
         "@effect/build-utils": "0.7.9",
         "@effect/cluster": "0.29.19",
         "@effect/docgen": "0.5.2",
@@ -62,6 +65,7 @@
         "@typescript-eslint/parser": "8.30.1",
         "@vitest/coverage-v8": "3.1.1",
         "babel-plugin-annotate-pure-calls": "0.5.0",
+        "changesets-gitlab": "0.13.3",
         "effect": "3.14.10",
         "eslint": "9.24.0",
         "eslint-config-prettier": "10.1.2",
