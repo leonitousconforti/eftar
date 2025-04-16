@@ -1,5 +1,6 @@
 stages:
   - comment
+  - clean
   - devcontainer
   - build
   - test
@@ -31,6 +32,16 @@ comment:
     - corepack enable
     - pnpm install
   script: pnpm changesets-gitlab comment
+
+clean:
+  image: node:lts
+  tags: [docker]
+  stage: clean
+  before_script:
+    - corepack install
+    - corepack enable
+    - pnpm install
+  script: pnpm clean
 
 devcontainer_job:
   stage: devcontainer
