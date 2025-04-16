@@ -32,27 +32,6 @@ comment:
     - pnpm install
   script: pnpm changesets-gitlab comment
 
-release:
-  image: node:lts
-  tags: [docker]
-  stage: release
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  before_script:
-    - corepack install
-    - corepack enable
-    - pnpm install
-  script:
-    - |
-      cat << EOF > ".npmrc"
-        //registry.npmjs.org/:_authToken=$NPM_TOKEN
-      EOF
-    - pnpm changesets-gitlab
-  variables:
-    GITLAB_TOKEN: $CI_API_TOKEN
-    INPUT_VERSION: pnpm changeset-version
-    INPUT_PUBLISH: pnpm changeset-publish
-
 devcontainer_job:
   stage: devcontainer
   timeout: 30 minutes
@@ -121,6 +100,30 @@ build_job:
         path: coverage/cobertura-coverage.xml
       junit:
         - coverage/junit.xml
+
+release:
+  image: node:lts
+  tags: [docker]
+  stage: release
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  needs:
+    - job: build_job
+  before_script:
+    - corepack install
+    - corepack enable
+    - pnpm install
+    - pnpm build
+  script:
+    - |
+      cat << EOF > ".npmrc"
+        //registry.npmjs.org/:_authToken=$NPM_TOKEN
+      EOF
+    - pnpm changesets-gitlab
+  variables:
+    GITLAB_TOKEN: $CI_API_TOKEN
+    INPUT_VERSION: pnpm changeset-version
+    INPUT_PUBLISH: pnpm changeset-publish
 
 pages_job:
   image: ruby:latest
