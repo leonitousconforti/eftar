@@ -1,10 +1,10 @@
 stages:
   - comment
-  - release
   - devcontainer
   - build
   - test
   - deploy
+  - release
 
 include:
   - template: Security/Secret-Detection.gitlab-ci.yml
