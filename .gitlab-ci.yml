@@ -1,7 +1,5 @@
 stages:
-  - comment
-  - clean
-  - devcontainer
+  - prepare
   - build
   - test
   - deploy
@@ -29,7 +27,7 @@ variables:
 comment:
   image: node:lts
   tags: [docker]
-  stage: comment
+  stage: prepare
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   before_script:
@@ -38,12 +36,12 @@ comment:
     - pnpm install
   script: pnpm changesets-gitlab comment
   variables:
-    GITLAB_TOKEN: $CI_API_TOKEN
+    GITLAB_TOKEN: $CI_JOB_TOKEN
 
 clean:
   image: node:lts
   tags: [docker]
-  stage: clean
+  stage: prepare
   before_script:
     - corepack install
     - corepack enable
@@ -51,14 +49,12 @@ clean:
   script: pnpm clean
 
 devcontainer_job:
-  stage: devcontainer
+  stage: build
   timeout: 30 minutes
   tags: [docker]
   image: docker:28.0.4
   services:
     - docker:28.0.4-dind
-  needs:
-    - job: clean
   variables:
     DOCKER_BUILDKIT: "1"
     DOCKER_DRIVER: "overlay2"
