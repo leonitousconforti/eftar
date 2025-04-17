@@ -47,7 +47,7 @@
         "@babel/core": "7.26.10",
         "@babel/plugin-transform-export-namespace-from": "7.25.9",
         "@babel/plugin-transform-modules-commonjs": "7.26.3",
-        "@changesets/cli": "2.28.1",
+        "@changesets/cli": "2.29.2",
         "@effect/build-utils": "0.7.9",
         "@effect/cluster": "0.29.19",
         "@effect/docgen": "0.5.2",
