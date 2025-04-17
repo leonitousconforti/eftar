@@ -23,6 +23,8 @@ cache:
 
 variables:
   CI: true
+  GIT_DEPTH: 2
+  GIT_STRATEGY: fetch
 
 comment:
   image: node:lts
@@ -35,6 +37,8 @@ comment:
     - corepack enable
     - pnpm install
   script: pnpm changesets-gitlab comment
+  variables:
+    GITLAB_TOKEN: $CI_API_TOKEN
 
 clean:
   image: node:lts
