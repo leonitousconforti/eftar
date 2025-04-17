@@ -36,7 +36,7 @@ comment:
     - pnpm install
   script: pnpm changesets-gitlab comment
   variables:
-    GITLAB_TOKEN: $CI_JOB_TOKEN
+    GITLAB_TOKEN: $CI_API_TOKEN
 
 clean:
   image: node:lts
