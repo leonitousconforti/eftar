@@ -29,7 +29,7 @@ comment:
   tags: [docker]
   stage: prepare
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /dependency/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate\//
   before_script:
     - corepack install
     - corepack enable
@@ -43,17 +43,13 @@ comment-renovate:
   tags: [docker]
   stage: prepare
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /dependency/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate\//
   before_script:
     - corepack install
     - corepack enable
     - pnpm install
   script: |
     pnpm changesets-gitlab comment
-
-    # Look for a discussion comment that starts with "###  ⚠️  No Changeset found"
-    # and extract the ```yaml ... ``` block from it. Then upload that content as a
-    # comment on the discussion.
     echo "Looking for changeset template in discussions..."
 
     # Get merge request discussions
@@ -84,8 +80,24 @@ comment-renovate:
       exit 0
     fi
 
-    echo "Found YAML template, crating file..."
-    echo "$CHANGESET"
+    # Extract the filename from "you can copy and paste the following template into .changeset/purple-frogs-enter.md instead"
+    FILENAME=$(echo "$WARNING_NOTES" | grep -oP '(?<=\*\*\*You can copy and paste the following template into ).*(?= instead)' | sed 's/\.md//')
+
+    if [ -z "$FILENAME" ]; then
+      echo "No filename found in warning note"
+      exit 0
+    fi
+
+    # Create the file in the .changeset directory with the extracted YAML
+    mkdir -p .changeset
+    echo "$CHANGESET" | sed '1d;$d' > ".changeset/$FILENAME.md"
+
+    # Commit and push the changeset file using the GITLAB_TOKEN for authentication
+    git config --global user.name "Renovate Bot"
+    git config --global user.email "gitlab-renovate-bot@ltgk.net"
+    git add ".changeset/$FILENAME.md"
+    git commit -m "Add changeset for $FILENAME"
+    git push "https://oauth2:${CI_API_TOKEN}@git.ltgk.net/${CI_PROJECT_PATH}.git" HEAD:${CI_COMMIT_REF_NAME}
   variables:
     GITLAB_TOKEN: $CI_API_TOKEN
 
