@@ -29,12 +29,63 @@ comment:
   tags: [docker]
   stage: prepare
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /dependency/
   before_script:
     - corepack install
     - corepack enable
     - pnpm install
   script: pnpm changesets-gitlab comment
+  variables:
+    GITLAB_TOKEN: $CI_API_TOKEN
+
+comment-renovate:
+  image: node:lts
+  tags: [docker]
+  stage: prepare
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /dependency/
+  before_script:
+    - corepack install
+    - corepack enable
+    - pnpm install
+  script: |
+    pnpm changesets-gitlab comment
+
+    # Look for a discussion comment that starts with "###  ⚠️  No Changeset found"
+    # and extract the ```yaml ... ``` block from it. Then upload that content as a
+    # comment on the discussion.
+    echo "Looking for changeset template in discussions..."
+
+    # Get merge request discussions
+    DISCUSSIONS=$(curl --silent --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+      "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/discussions")
+
+    if [ $? -ne 0 ] || [ -z "$DISCUSSIONS" ]; then
+      echo "Failed to fetch discussions or no discussions found"
+      exit 1
+    fi
+
+    # Extract notes containing our warning pattern
+    WARNING_NOTES=$(echo "$DISCUSSIONS" | jq -r '.[] | .notes[] |
+      select(.body | contains("###  ⚠️  No Changeset found")) | .body')
+
+    if [ -z "$WARNING_NOTES" ]; then
+      echo "No changeset warning found in discussions"
+      exit 0
+    fi
+
+    echo "Found warning note, extracting YAML template..."
+
+    # Extract YAML block between ```yaml and ```
+    CHANGESET=$(echo "$WARNING_NOTES" | sed -n '/```yaml/,/```/p')
+
+    if [ -z "$CHANGESET" ]; then
+      echo "No YAML template found in warning note"
+      exit 0
+    fi
+
+    echo "Found YAML template, crating file..."
+    echo "$CHANGESET"
   variables:
     GITLAB_TOKEN: $CI_API_TOKEN
 
