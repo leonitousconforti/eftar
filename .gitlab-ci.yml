@@ -29,7 +29,7 @@ comment:
   tags: [docker]
   stage: prepare
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate\//
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /dependency/
   before_script:
     - corepack install
     - corepack enable
@@ -43,13 +43,16 @@ comment-renovate:
   tags: [docker]
   stage: prepare
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate\//
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /dependency/
   before_script:
     - corepack install
     - corepack enable
     - pnpm install
   script: |
+    apk add --no-cache jq
     pnpm changesets-gitlab comment
+
+    sleep 5s
     echo "Looking for changeset template in discussions..."
 
     # Get merge request discussions
