@@ -29,7 +29,7 @@ comment:
   tags: [docker]
   stage: prepare
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /dependency/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH && $CI_MERGE_REQUEST_BRANCH !~ /^renovate\// && $CI_MERGE_REQUEST_LABELS !~ /dependency/
   before_script:
     - corepack install
     - corepack enable
@@ -43,7 +43,7 @@ comment-renovate:
   tags: [docker]
   stage: prepare
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /dependency/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH && $CI_MERGE_REQUEST_BRANCH =~ /^renovate\// && $CI_MERGE_REQUEST_LABELS =~ /dependency/
   before_script:
     - corepack install
     - corepack enable
