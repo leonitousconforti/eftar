@@ -1,10 +1,12 @@
-## 0.0.38 (2025-04-16)
+# Changelog
 
 ## 0.0.39
 
 ### Patch Changes
 
 - fb4f624: Update dependency @changesets/cli to v2.29.2
+
+## 0.0.38 (2025-04-16)
 
 ### changed (1 change)
 
