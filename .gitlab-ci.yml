@@ -140,6 +140,7 @@ release:
     - pnpm changesets-gitlab
   variables:
     GITLAB_TOKEN: $CI_API_TOKEN
+    INPUT_VERSION: pnpm changeset version
 
 pages_job:
   image: ruby:latest
