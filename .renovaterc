@@ -1,11 +1,13 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": [
-        "config:recommended",
-        ":label(dependency)"
+        "config:recommended"
     ],
     "gitIgnoredAuthors": [
         "gitlab[bot]@users.noreply.gitlab.com"
+    ],
+    "labels": [
+        "dependency"
     ],
     "prHourlyLimit": 0,
     "git-submodules": {
