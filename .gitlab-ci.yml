@@ -25,7 +25,7 @@ variables:
   GIT_STRATEGY: fetch
 
 comment:
-  image: node:lts
+  image: node:lts-alpine
   tags: [docker]
   stage: prepare
   rules:
@@ -39,7 +39,7 @@ comment:
     GITLAB_TOKEN: $CI_API_TOKEN
 
 comment-renovate:
-  image: node:lts
+  image: node:lts-alpine
   tags: [docker]
   stage: prepare
   rules:
@@ -105,7 +105,7 @@ comment-renovate:
     GITLAB_TOKEN: $CI_API_TOKEN
 
 clean:
-  image: node:lts
+  image: node:lts-alpine
   tags: [docker]
   stage: prepare
   before_script:
@@ -186,7 +186,7 @@ build_job:
         - coverage/junit.xml
 
 release:
-  image: node:lts
+  image: node:lts-alpine
   tags: [docker]
   stage: release
   rules:
