@@ -1,5 +1,11 @@
 ## 0.0.38 (2025-04-16)
 
+## 0.0.39
+
+### Patch Changes
+
+- fb4f624: Update dependency @changesets/cli to v2.29.2
+
 ### changed (1 change)
 
 - [Update Effect-ts](https://git.ltgk.net/leoconforti/eftar/-/commit/bf0f84713124094992bc872b67c75827338dfb1e) ([merge request](https://git.ltgk.net/leoconforti/eftar/-/merge_requests/194))
