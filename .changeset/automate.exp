@@ -7,7 +7,7 @@ set dep_name [lindex $argv 3]
 set current_version [lindex $argv 4]
 set new_version [lindex $argv 5]
 
-if {$dep_type == "dependencies" && $package_file == "package.json"} {
+if {($dep_type == "dependencies" || $dep_type == "optionalDependencies" || $dep_type == "peerDependencies") && $package_file == "package.json"} {
     spawn npx changeset
 
     expect "What kind of change is this"
