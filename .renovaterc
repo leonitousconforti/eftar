@@ -13,6 +13,7 @@
     "postUpgradeTasks": {
         "executionMode": "branch",
         "commands": [
+            "apk add --no-cache expect",
             "./.changeset/automate.exp \"{{depType}}\" \"{{packageFile}}\" \"patch\" \"{{depName}}\" \"{{currentVersion}}\" \"{{newVersion}}\""
         ],
         "fileFilters": [
