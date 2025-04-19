@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.40
+
+### Patch Changes
+
+- 7346cf1: Update @effect/cluster @effect/cluster @effect/experimental @effect/experimental @effect/platform @effect/platform @effect/platform-node @effect/rpc @effect/rpc @effect/sql @effect/sql @effect/vitest effect effect from 0.29.19 to 0.29.21
+
 ## 0.0.39
 
 ### Patch Changes
