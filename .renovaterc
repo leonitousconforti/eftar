@@ -14,9 +14,6 @@
         "executionMode": "branch",
         "commands": [
             "./.changeset/automate.exp \"{{depType}}\" \"{{packageFile}}\" \"patch\" \"{{depName}}\" \"{{currentVersion}}\" \"{{newVersion}}\""
-        ],
-        "fileFilters": [
-            "changeset/**"
         ]
     },
     "packageRules": [
