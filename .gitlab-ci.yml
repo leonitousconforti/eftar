@@ -129,6 +129,7 @@ release:
     - job: build_job
       artifacts: true
   before_script:
+    - apk add --update git
     - corepack install
     - corepack enable
     - pnpm install
