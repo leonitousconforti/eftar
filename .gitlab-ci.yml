@@ -32,7 +32,6 @@ comment:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   variables:
     GITLAB_TOKEN: $CI_API_TOKEN
-    GITLAB_COMMENT_DISCUSSION_AUTO_RESOLVE: true
   before_script:
     - corepack install
     - corepack enable
