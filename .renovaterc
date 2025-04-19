@@ -13,7 +13,6 @@
     "postUpgradeTasks": {
         "executionMode": "branch",
         "commands": [
-            "which expect",
             "./.changeset/automate.exp \"{{depType}}\" \"{{packageFile}}\" \"patch\" \"{{depName}}\" \"{{currentVersion}}\" \"{{newVersion}}\""
         ],
         "fileFilters": [
