@@ -1,0 +1,17 @@
+#!/usr/bin/expect -f
+
+set change_type [lindex $argv 0]
+set message [lindex $argv 1]
+
+spawn pnpm changeset
+
+expect "What kind of change is this"
+send "$change_type\r"
+
+expect "Please enter a summary for this change"
+send "$message\r"
+
+expect "Is this your desired changeset?"
+send "Y"
+
+expect eof

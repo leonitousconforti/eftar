@@ -13,6 +13,15 @@
     "git-submodules": {
         "enabled": true
     },
+    "postUpgradeTasks": {
+        "executionMode": "branch",
+        "commands": [
+            "./.changeset/automate.exp \"patch\" \"test message\""
+        ],
+        "fileFilters": [
+            ".changeset/**"
+        ]
+    },
     "packageRules": [
         {
             "description": "Group @effect Node.JS packages together",
