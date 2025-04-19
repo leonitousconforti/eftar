@@ -55,9 +55,9 @@ devcontainer_job:
   stage: build
   timeout: 30 minutes
   tags: [docker]
-  image: docker:28.0.4
+  image: docker:28.1.1@sha256:f49e1c71b5d9f8ebe53715f78996ce42b8be4b1ec03875d187dfe3c03de1dc00
   services:
-    - docker:28.0.4-dind
+    - docker:28.1.1-dind@sha256:f49e1c71b5d9f8ebe53715f78996ce42b8be4b1ec03875d187dfe3c03de1dc00
   variables:
     DOCKER_BUILDKIT: "1"
     DOCKER_DRIVER: "overlay2"
@@ -78,10 +78,10 @@ devcontainer_job:
 build_job:
   stage: build
   timeout: 30 minutes
-  image: docker:28.0.4
+  image: docker:28.1.1@sha256:f49e1c71b5d9f8ebe53715f78996ce42b8be4b1ec03875d187dfe3c03de1dc00
   tags: [docker]
   services:
-    - docker:28.0.4-dind
+    - docker:28.1.1-dind@sha256:f49e1c71b5d9f8ebe53715f78996ce42b8be4b1ec03875d187dfe3c03de1dc00
   needs:
     - job: devcontainer_job
   variables:
