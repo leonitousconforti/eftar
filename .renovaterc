@@ -13,7 +13,8 @@
     "postUpgradeTasks": {
         "executionMode": "branch",
         "commands": [
-            "apk add --no-cache expect",
+            "apt-get update",
+            "apt-get install --no-install-recommends --yes expect",
             "./.changeset/automate.exp \"{{depType}}\" \"{{packageFile}}\" \"patch\" \"{{depName}}\" \"{{currentVersion}}\" \"{{newVersion}}\""
         ],
         "fileFilters": [
