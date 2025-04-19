@@ -8,7 +8,8 @@ set current_version [lindex $argv 4]
 set new_version [lindex $argv 5]
 
 # Check if this is a production dependency from package.json
-if {$dep_type == "dependencies" && $package_file == "package.json"} {
+# if {$dep_type == "dependencies" && $package_file == "package.json"} {
+
     # Run normal changeset with message
     spawn npx changeset
 
@@ -29,9 +30,10 @@ if {$dep_type == "dependencies" && $package_file == "package.json"} {
 
     expect "Is this your desired changeset?"
     send "Y\r"
-} else {
-    # Run empty changeset
-    spawn npx changeset add --empty
-}
+
+# } else {
+#     # Run empty changeset
+#     spawn npx changeset add --empty
+# }
 
 expect eof
