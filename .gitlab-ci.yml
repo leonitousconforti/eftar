@@ -29,14 +29,14 @@ comment:
   tags: [docker]
   stage: prepare
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH && $CI_MERGE_REQUEST_BRANCH !~ /^renovate\// && $CI_MERGE_REQUEST_LABELS !~ /dependency/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  variables:
+    GITLAB_TOKEN: $CI_API_TOKEN
   before_script:
     - corepack install
     - corepack enable
     - pnpm install
   script: pnpm changesets-gitlab comment
-  variables:
-    GITLAB_TOKEN: $CI_API_TOKEN
 
 clean:
   image: node:lts-alpine
