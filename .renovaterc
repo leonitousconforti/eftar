@@ -3,9 +3,6 @@
     "extends": [
         "config:recommended"
     ],
-    "gitIgnoredAuthors": [
-        "gitlab[bot]@users.noreply.gitlab.com"
-    ],
     "labels": [
         "dependency"
     ],
