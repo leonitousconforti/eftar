@@ -13,7 +13,7 @@
     "postUpgradeTasks": {
         "executionMode": "branch",
         "commands": [
-            "npm install -g @changesets/cli",
+            "npm install -g @changesets/cli prettier-plugin-packagejson prettier-plugin-jsdoc",
             "./.changeset/automate.exp \"{{depType}}\" \"{{packageFile}}\" \"patch\" \"{{depName}}\" \"{{currentVersion}}\" \"{{newVersion}}\""
         ]
     },
