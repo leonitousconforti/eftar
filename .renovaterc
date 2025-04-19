@@ -16,7 +16,7 @@
     "postUpgradeTasks": {
         "executionMode": "branch",
         "commands": [
-            "./.changeset/automate.exp \"patch\" \"test message\""
+            "./.changeset/automate.exp \"{{depType}}\" \"{{packageFile}}\" \"patch\" \"Update dependency {{depName}} from {{currentVersion}} to {{newVersion}}\""
         ],
         "fileFilters": [
             ".changeset/**"

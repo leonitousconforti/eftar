@@ -1,17 +1,26 @@
 #!/usr/bin/expect -f
 
-set change_type [lindex $argv 0]
-set message [lindex $argv 1]
+set dep_type [lindex $argv 0]
+set package_file [lindex $argv 1]
+set change_type [lindex $argv 2]
+set message [lindex $argv 3]
 
-spawn pnpm changeset
+# Check if this is a production dependency from package.json
+if {$dep_type == "dependencies" && $package_file == "package.json"} {
+    # Run normal changeset with message
+    spawn pnpm changeset
 
-expect "What kind of change is this"
-send "$change_type\r"
+    expect "What kind of change is this"
+    send "$change_type\r"
 
-expect "Please enter a summary for this change"
-send "$message\r"
+    expect "Please enter a summary for this change"
+    send "$message\r"
 
-expect "Is this your desired changeset?"
-send "Y"
+    expect "Is this your desired changeset?"
+    send "Y\r"
+} else {
+    # Run empty changeset
+    spawn pnpm changeset add --empty
+}
 
 expect eof
