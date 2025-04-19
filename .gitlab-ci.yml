@@ -141,6 +141,8 @@ release:
   variables:
     GITLAB_TOKEN: $CI_API_TOKEN
     INPUT_VERSION: pnpm changeset version
+    INPUT_REMOVE_SOURCE_BRANCH: true
+    INPUT_CREATE_GITLAB_RELEASES: true
 
 pages_job:
   image: ruby:latest
