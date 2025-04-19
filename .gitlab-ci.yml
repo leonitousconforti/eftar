@@ -37,7 +37,9 @@ comment:
     - corepack install
     - corepack enable
     - pnpm install
-  script: pnpm changesets-gitlab comment
+  script:
+    - pnpm changesets-gitlab comment
+    - pnpm changesets-gitlab comment
 
 clean:
   image: node:lts-alpine
