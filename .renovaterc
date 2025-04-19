@@ -13,6 +13,7 @@
     "postUpgradeTasks": {
         "executionMode": "branch",
         "commands": [
+            "npm install -g @changesets/cli",
             "./.changeset/automate.exp \"{{depType}}\" \"{{packageFile}}\" \"patch\" \"{{depName}}\" \"{{currentVersion}}\" \"{{newVersion}}\""
         ]
     },
