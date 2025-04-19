@@ -10,7 +10,7 @@ set new_version [lindex $argv 5]
 # Check if this is a production dependency from package.json
 if {$dep_type == "dependencies" && $package_file == "package.json"} {
     # Run normal changeset with message
-    spawn pnpm changeset
+    spawn npx changeset
 
     expect "What kind of change is this"
     send "$change_type\r"
@@ -31,7 +31,7 @@ if {$dep_type == "dependencies" && $package_file == "package.json"} {
     send "Y\r"
 } else {
     # Run empty changeset
-    spawn pnpm changeset add --empty
+    spawn npx changeset add --empty
 }
 
 expect eof
