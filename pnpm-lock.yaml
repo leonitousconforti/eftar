@@ -87,10 +87,10 @@ importers:
         version: 10.1.2(eslint@9.25.0)
       eslint-import-resolver-typescript:
         specifier: 4.3.3
-        version: 4.3.3(eslint-plugin-import-x@4.10.5(eslint@9.25.0)(typescript@5.8.3))(eslint@9.25.0)
+        version: 4.3.3(eslint-plugin-import-x@4.10.6(eslint@9.25.0)(typescript@5.8.3))(eslint@9.25.0)
       eslint-plugin-import-x:
-        specifier: 4.10.5
-        version: 4.10.5(eslint@9.25.0)(typescript@5.8.3)
+        specifier: 4.10.6
+        version: 4.10.6(eslint@9.25.0)(typescript@5.8.3)
       eslint-plugin-prettier:
         specifier: 5.2.6
         version: 5.2.6(eslint-config-prettier@10.1.2(eslint@9.25.0))(eslint@9.25.0)(prettier@3.5.3)
@@ -1586,8 +1586,8 @@ packages:
       eslint-plugin-import-x:
         optional: true
 
-  eslint-plugin-import-x@4.10.5:
-    resolution: {integrity: sha512-cmteCl8P5q1lkuL/4qqQw1uvnQHytpv2fjHFZ2UIqSfkM0RwWm/KLgasXKIqDRjgMnmUJTeyP8+9hDpJJuiZgg==}
+  eslint-plugin-import-x@4.10.6:
+    resolution: {integrity: sha512-sWIaoezWK7kuPA7u29ULsO8WzlYYC8uivaipsazyHiZDykjNsuPtwRsYZIK2luqc5wppwXOop8iFdW7xffo/Xw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
@@ -4673,7 +4673,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@4.3.3(eslint-plugin-import-x@4.10.5(eslint@9.25.0)(typescript@5.8.3))(eslint@9.25.0):
+  eslint-import-resolver-typescript@4.3.3(eslint-plugin-import-x@4.10.6(eslint@9.25.0)(typescript@5.8.3))(eslint@9.25.0):
     dependencies:
       debug: 4.4.0
       eslint: 9.25.0
@@ -4683,11 +4683,11 @@ snapshots:
       tinyglobby: 0.2.13
       unrs-resolver: 1.6.0
     optionalDependencies:
-      eslint-plugin-import-x: 4.10.5(eslint@9.25.0)(typescript@5.8.3)
+      eslint-plugin-import-x: 4.10.6(eslint@9.25.0)(typescript@5.8.3)
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import-x@4.10.5(eslint@9.25.0)(typescript@5.8.3):
+  eslint-plugin-import-x@4.10.6(eslint@9.25.0)(typescript@5.8.3):
     dependencies:
       '@pkgr/core': 0.2.4
       '@types/doctrine': 0.0.9
