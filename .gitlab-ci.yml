@@ -133,7 +133,7 @@ release:
         @${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
       EOF
     - pnpm changesets-gitlab
-    - export PUBLISHED=$(grep "PUBLISHED" ${GITHUB_ENV} | cut -d= -f2)
+    - export PUBLISHED=$(cat ${GITHUB_ENV})
     - echo "The value is $PUBLISHED"
     - NPM_PACKAGE_NAME=$(node -p "require('./dist/package.json').name")
     - |
