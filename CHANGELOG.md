@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.44
+
+### Patch Changes
+
+- f7510ef: test
+
 ## 0.0.43
 
 ### Patch Changes
