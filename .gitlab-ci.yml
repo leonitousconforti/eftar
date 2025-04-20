@@ -133,8 +133,8 @@ release:
         @${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
       EOF
     - pnpm changesets-gitlab
-    - PUBLISHED=$(cat .github-env-file)
-    - echo "The value is $PUBLISHED"
+    - PUBLISHED=$(sed -n '/^PUBLISHED<<.*$/,/^.*ghadelimiter_.*$/p' ${GITHUB_ENV} | sed '1d;$d')
+    - echo "PUBLISHED = $PUBLISHED"
     - NPM_PACKAGE_NAME=$(node -p "require('./dist/package.json').name")
     - |
       if [ "$PUBLISHED" = "true" ]; then
