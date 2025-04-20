@@ -8,6 +8,7 @@ npm install --global corepack@latest
 corepack install
 corepack enable
 pnpm install
+pnpm clean
 
 echo "🏗️ Building..."
 pnpm check

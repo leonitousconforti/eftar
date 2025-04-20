@@ -13,16 +13,28 @@ workflow:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - .pnpm-store
-    - node_modules/
-
 variables:
   CI: true
   GIT_DEPTH: 2
   GIT_STRATEGY: fetch
+
+pnpm-dependencies:
+  image: node:lts-alpine@sha256:9bef0ef1e268f60627da9ba7d7605e8831d5b56ad07487d24d1aa386336d1944
+  tags: [docker]
+  stage: prepare
+  before_script:
+    - npm install --global corepack@latest
+    - corepack install
+    - corepack enable
+    - pnpm config set store-dir .pnpm-store
+  script:
+    - pnpm install
+  cache:
+    paths:
+      - .pnpm-store
+    key:
+      files:
+        - pnpm-lock.yaml
 
 comment:
   image: node:lts-alpine@sha256:9bef0ef1e268f60627da9ba7d7605e8831d5b56ad07487d24d1aa386336d1944
@@ -30,25 +42,13 @@ comment:
   stage: prepare
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  needs:
+    - job: pnpm-dependencies
   variables:
     GITLAB_TOKEN: $CI_API_TOKEN
-  before_script:
-    - corepack install
-    - corepack enable
-    - pnpm install
   script:
     - pnpm changesets-gitlab comment
     - pnpm changesets-gitlab comment
-
-clean:
-  image: node:lts-alpine@sha256:9bef0ef1e268f60627da9ba7d7605e8831d5b56ad07487d24d1aa386336d1944
-  tags: [docker]
-  stage: prepare
-  before_script:
-    - corepack install
-    - corepack enable
-    - pnpm install
-  script: pnpm clean
 
 devcontainer_job:
   stage: build
@@ -132,9 +132,6 @@ release:
       artifacts: true
   before_script:
     - apk add --update git
-    - corepack install
-    - corepack enable
-    - pnpm install
   script:
     - |
       cat << EOF > ".npmrc"
