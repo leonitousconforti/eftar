@@ -22,6 +22,12 @@ default:
   image: node:lts-alpine@sha256:9bef0ef1e268f60627da9ba7d7605e8831d5b56ad07487d24d1aa386336d1944
   tags: [docker]
   timeout: 10 minutes
+  before_script:
+    - npm install --global corepack@latest
+    - corepack install
+    - corepack enable
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install
   cache:
     paths:
       - .pnpm-store
@@ -29,29 +35,12 @@ default:
       files:
         - pnpm-lock.yaml
 
-pnpm-dependencies:
-  stage: prepare
-  before_script:
-    - npm install --global corepack@latest
-    - corepack install
-    - corepack enable
-    - pnpm config set store-dir .pnpm-store
-  script:
-    - pnpm install
-
 comment:
   stage: prepare
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-  needs:
-    - job: pnpm-dependencies
   variables:
     GITLAB_TOKEN: $CI_API_TOKEN
-  before_script:
-    - npm install --global corepack@latest
-    - corepack install
-    - corepack enable
-    - pnpm config set store-dir .pnpm-store
   script:
     - pnpm changesets-gitlab comment
     - pnpm changesets-gitlab comment
@@ -130,13 +119,8 @@ release:
   needs:
     - job: build_job
       artifacts: true
-  before_script:
-    - apk add --update git
-    - npm install --global corepack@latest
-    - corepack install
-    - corepack enable
-    - pnpm config set store-dir .pnpm-store
   script:
+    - apk add --update git
     - |
       cat << EOF > ".npmrc"
         //registry.npmjs.org/:_authToken=$NPM_TOKEN
@@ -157,6 +141,7 @@ pages_job:
   needs:
     - job: build_job
       artifacts: true
+  before_script: ""
   script:
     - gem install github-pages
     - github-pages build --source docs --destination public
