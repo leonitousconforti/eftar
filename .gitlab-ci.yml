@@ -128,6 +128,8 @@ release:
     - |
       cat << EOF > "$HOME/.npmrc"
         //registry.npmjs.org/:_authToken=$NPM_TOKEN
+        ${CI_API_V4_URL#http*:}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${CI_JOB_TOKEN}
+        @${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
       EOF
     - pnpm changesets-gitlab
   variables:
