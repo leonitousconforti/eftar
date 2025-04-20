@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.43
+
+### Patch Changes
+
+- 6958f85: test
+
 ## 0.0.42
 
 ### Patch Changes
