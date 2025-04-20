@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.42
+
+### Patch Changes
+
+- bb44ab1: test changeset2
+
 ## 0.0.41
 
 ### Patch Changes
