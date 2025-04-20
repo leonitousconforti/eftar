@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.46
+
+### Patch Changes
+
+- 7dfb148: test
+
 ## 0.0.45
 
 ### Patch Changes
