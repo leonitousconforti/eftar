@@ -125,6 +125,7 @@ release:
       artifacts: true
   script:
     - apk add --update git
+    - touch ${GITHUB_ENV}
     - |
       cat << EOF > "$HOME/.npmrc"
         //registry.npmjs.org/:_authToken=$NPM_TOKEN
@@ -132,6 +133,8 @@ release:
         @${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
       EOF
     - pnpm changesets-gitlab
+    - export PUBLISHED=$(grep "PUBLISHED" ${GITHUB_ENV} | cut -d= -f2)
+    - echo "The value is $PUBLISHED"
     - NPM_PACKAGE_NAME=$(node -p "require('./dist/package.json').name")
     - |
       if [ "$PUBLISHED" = "true" ]; then
@@ -141,9 +144,10 @@ release:
       fi
   variables:
     GITLAB_TOKEN: $CI_API_TOKEN
-    INPUT_PUBLISH: pnpm changeset publish
     INPUT_REMOVE_SOURCE_BRANCH: true
     INPUT_CREATE_GITLAB_RELEASES: true
+    INPUT_PUBLISH: pnpm changeset publish
+    GITHUB_ENV: "${CI_PROJECT_DIR}/.github-env-file"
 
 pages_job:
   image: ruby:latest@sha256:07c880a5e0fd72fa6cf0ff353633c488899082839578776201266e5f9fa95de0
