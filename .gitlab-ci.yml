@@ -127,6 +127,10 @@ release:
       artifacts: true
   before_script:
     - apk add --update git
+    - npm install --global corepack@latest
+    - corepack install
+    - corepack enable
+    - pnpm config set store-dir .pnpm-store
   script:
     - |
       cat << EOF > ".npmrc"
