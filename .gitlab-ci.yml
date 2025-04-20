@@ -114,6 +114,7 @@ build_job:
 
 secret_detection:
   before_script: []
+  cache: []
 
 release:
   stage: release
