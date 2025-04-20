@@ -125,7 +125,7 @@ release:
   script:
     - apk add --update git
     - |
-      cat << EOF > ".npmrc"
+      cat << EOF > "$HOME/.npmrc"
         //registry.npmjs.org/:_authToken=$NPM_TOKEN
       EOF
     - pnpm changesets-gitlab
