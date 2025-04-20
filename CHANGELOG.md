@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.48
+
+### Patch Changes
+
+- 0297da0: a
+
 ## 0.0.47
 
 ### Patch Changes
