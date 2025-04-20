@@ -18,9 +18,18 @@ variables:
   GIT_DEPTH: 2
   GIT_STRATEGY: fetch
 
-pnpm-dependencies:
+default:
   image: node:lts-alpine@sha256:9bef0ef1e268f60627da9ba7d7605e8831d5b56ad07487d24d1aa386336d1944
   tags: [docker]
+  timeout: 10 minutes
+  cache:
+    paths:
+      - .pnpm-store
+    key:
+      files:
+        - pnpm-lock.yaml
+
+pnpm-dependencies:
   stage: prepare
   before_script:
     - npm install --global corepack@latest
@@ -29,16 +38,8 @@ pnpm-dependencies:
     - pnpm config set store-dir .pnpm-store
   script:
     - pnpm install
-  cache:
-    paths:
-      - .pnpm-store
-    key:
-      files:
-        - pnpm-lock.yaml
 
 comment:
-  image: node:lts-alpine@sha256:9bef0ef1e268f60627da9ba7d7605e8831d5b56ad07487d24d1aa386336d1944
-  tags: [docker]
   stage: prepare
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
@@ -52,8 +53,6 @@ comment:
 
 devcontainer_job:
   stage: build
-  timeout: 30 minutes
-  tags: [docker]
   image: docker:28.1.1@sha256:f49e1c71b5d9f8ebe53715f78996ce42b8be4b1ec03875d187dfe3c03de1dc00
   services:
     - docker:28.1.1-dind@sha256:f49e1c71b5d9f8ebe53715f78996ce42b8be4b1ec03875d187dfe3c03de1dc00
@@ -76,9 +75,7 @@ devcontainer_job:
 
 build_job:
   stage: build
-  timeout: 30 minutes
   image: docker:28.1.1@sha256:f49e1c71b5d9f8ebe53715f78996ce42b8be4b1ec03875d187dfe3c03de1dc00
-  tags: [docker]
   services:
     - docker:28.1.1-dind@sha256:f49e1c71b5d9f8ebe53715f78996ce42b8be4b1ec03875d187dfe3c03de1dc00
   needs:
@@ -122,8 +119,6 @@ build_job:
         - coverage/junit.xml
 
 release:
-  image: node:lts-alpine@sha256:9bef0ef1e268f60627da9ba7d7605e8831d5b56ad07487d24d1aa386336d1944
-  tags: [docker]
   stage: release
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
@@ -148,7 +143,6 @@ pages_job:
   image: ruby:latest@sha256:07c880a5e0fd72fa6cf0ff353633c488899082839578776201266e5f9fa95de0
   stage: deploy
   pages: true
-  tags: [docker]
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
   needs:
