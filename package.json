@@ -52,7 +52,7 @@
         "@effect/cluster": "0.29.21",
         "@effect/docgen": "0.5.2",
         "@effect/experimental": "0.44.11",
-        "@effect/language-service": "0.6.2",
+        "@effect/language-service": "0.7.0",
         "@effect/platform": "0.80.11",
         "@effect/platform-node": "0.76.21",
         "@effect/rpc": "0.55.16",
