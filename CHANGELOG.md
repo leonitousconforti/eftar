@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.41
+
+### Patch Changes
+
+- 55ae3dd: test changeset
+
 ## 0.0.40
 
 ### Patch Changes
