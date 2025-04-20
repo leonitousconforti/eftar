@@ -131,10 +131,9 @@ release:
         ${CI_API_V4_URL#http*:}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${CI_JOB_TOKEN}
         @${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
       EOF
-    - pnpm changesets-gitlab
-    - NPM_PACKAGE_NAME=$(node -p "require('./dist/package.json').name")
-    - echo "$PUBLISHED"
-    - echo "${PUBLISHED}"
+    - pnpm changesets-gitlab && echo "$PUBLISHED"
+    - NPM_PACKAGE_NAME=$(node -p "require('./dist/package.json').name") && echo "$NPM_PACKAGE_NAME"
+    - echo "$NPM_PACKAGE_NAME"
     - |
       if [ "$PUBLISHED" = "true" ]; then
         pnpm publish --access public --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/ --publish-option.name="@${CI_PROJECT_ROOT_NAMESPACE}/${NPM_PACKAGE_NAME}"
