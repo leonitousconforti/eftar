@@ -133,7 +133,12 @@ release:
       EOF
     - pnpm changesets-gitlab
     - NPM_PACKAGE_NAME=$(node -p "require('./dist/package.json').name")
-    - pnpm publish --access public --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/ --publish-option.name="@leoconforti/${NPM_PACKAGE_NAME}"
+    - |
+      if [ "$PUBLISHED" = "true" ]; then
+        pnpm publish --access public --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/ --publish-option.name="@${CI_PROJECT_ROOT_NAMESPACE}/${NPM_PACKAGE_NAME}"
+      else
+        echo "Skipping publish to GitLab NPM registry"
+      fi
   variables:
     GITLAB_TOKEN: $CI_API_TOKEN
     INPUT_PUBLISH: pnpm changeset publish
