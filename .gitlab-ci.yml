@@ -113,8 +113,6 @@ build_job:
         - coverage/junit.xml
 
 secret_detection:
-  rules:
-    - if: $CI_PROJECT_PATH == "leoconforti/eftar"
   before_script: []
   cache: []
 
