@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.53
+
+### Patch Changes
+
+- 5a4dc59: Update readme.md (and workflow testing)
+
 ## 0.0.52
 
 ### Patch Changes
