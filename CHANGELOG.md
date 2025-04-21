@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.50
+
+### Patch Changes
+
+- ac71be0: a
+
 ## 0.0.49
 
 ### Patch Changes
