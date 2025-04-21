@@ -127,17 +127,16 @@ release:
     - apk add --update git
     - touch ${GITHUB_ENV}
     - |
-      cat << EOF > "$HOME/.npmrc"
+      cat << EOF > ".npmrc"
         //registry.npmjs.org/:_authToken=$NPM_TOKEN
-        ${CI_API_V4_URL#http*:}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${CI_JOB_TOKEN}
+        //${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}
         @${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
       EOF
     - pnpm changesets-gitlab
-    - NPM_PACKAGE_NAME=$(node -p "require('./dist/package.json').name")
     - PUBLISHED=$(sed -n '/^PUBLISHED<<.*$/,/^.*ghadelimiter_.*$/p' ${GITHUB_ENV} | sed '1d;$d')
     - |
       if [ "$PUBLISHED" = "true" ]; then
-        pnpm publish --access public --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/ --publishConfig.name="@${CI_PROJECT_ROOT_NAMESPACE}/${NPM_PACKAGE_NAME}"
+        pnpm publish --access public --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
       else
         echo "Skipping publish to GitLab NPM registry"
       fi
