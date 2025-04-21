@@ -136,7 +136,7 @@ release:
     - PUBLISHED=$(sed -n '/^PUBLISHED<<.*$/,/^.*ghadelimiter_.*$/p' ${GITHUB_ENV} | sed '1d;$d')
     - |
       if [ "$PUBLISHED" = "true" ]; then
-        pnpm publish --access public --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
+        pnpm publish --access public --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/ --no-git-checks
       else
         echo "Skipping publish to GitLab NPM registry"
       fi
