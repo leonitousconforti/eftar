@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.52
+
+### Patch Changes
+
+- b5dc96d: finally get changesets working
+
 ## 0.0.51
 
 ### Patch Changes
