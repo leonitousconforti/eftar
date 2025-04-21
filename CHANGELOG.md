@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.49
+
+### Patch Changes
+
+- e55030a: a
+
 ## 0.0.48
 
 ### Patch Changes
