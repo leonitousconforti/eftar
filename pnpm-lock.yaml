@@ -29,8 +29,8 @@ importers:
         specifier: 2.29.2
         version: 2.29.2
       '@effect/build-utils':
-        specifier: 0.7.9
-        version: 0.7.9(patch_hash=l5kgl23lx2gxuhhyvqfmhjtllq)
+        specifier: 0.8.0
+        version: 0.8.0(patch_hash=l5kgl23lx2gxuhhyvqfmhjtllq)
       '@effect/cluster':
         specifier: 0.30.1
         version: 0.30.1(@effect/platform@0.80.13(effect@3.14.13))(@effect/rpc@0.56.1(@effect/platform@0.80.13(effect@3.14.13))(effect@3.14.13))(@effect/sql@0.33.13(@effect/experimental@0.44.13(@effect/platform@0.80.13(effect@3.14.13))(effect@3.14.13))(@effect/platform@0.80.13(effect@3.14.13))(effect@3.14.13))(effect@3.14.13)
@@ -306,8 +306,8 @@ packages:
     resolution: {integrity: sha512-Y6+WUMsTFWE5jb20IFP4YGa5IrGY/+a/FbOSjDF/wz9gepU2hwCYSXRHP/vPwBvwcY3SVMASt4yXxbXNXigmZQ==}
     engines: {node: '>=18'}
 
-  '@effect/build-utils@0.7.9':
-    resolution: {integrity: sha512-I9tuSvKOnhF2NNsCzHulsUvEwJBQKqiZ1RtbJA+DfxqXZ9J1QSh4txnfnDC2D2bygMYuWqMJWg7TvAWun7cs6w==}
+  '@effect/build-utils@0.8.0':
+    resolution: {integrity: sha512-Prnu1w0CdxEClKtcpRX/rSG1W7Pr5kTMonOfGIoEHn+x0MP0I4yk1nmC6bv5SJEOMNqr2RGj4HXQNL0rIR+wug==}
     engines: {node: '>=16.17.1'}
     hasBin: true
 
@@ -3584,7 +3584,7 @@ snapshots:
       gonzales-pe: 4.3.0
       node-source-walk: 7.0.1
 
-  '@effect/build-utils@0.7.9(patch_hash=l5kgl23lx2gxuhhyvqfmhjtllq)': {}
+  '@effect/build-utils@0.8.0(patch_hash=l5kgl23lx2gxuhhyvqfmhjtllq)': {}
 
   '@effect/cluster@0.30.1(@effect/platform@0.80.13(effect@3.14.13))(@effect/rpc@0.56.1(@effect/platform@0.80.13(effect@3.14.13))(effect@3.14.13))(@effect/sql@0.33.13(@effect/experimental@0.44.13(@effect/platform@0.80.13(effect@3.14.13))(effect@3.14.13))(@effect/platform@0.80.13(effect@3.14.13))(effect@3.14.13))(effect@3.14.13)':
     dependencies:
