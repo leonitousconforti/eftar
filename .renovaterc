@@ -23,7 +23,25 @@
     },
     "packageRules": [
         {
-            "description": "Group @effect Node.JS packages together",
+            "description": "Group @effect dev packages together",
+            "groupName": "Effect-ts dev",
+            "groupSlug": "effect-ts dev",
+            "matchDatasources": [
+                "npm"
+            ],
+            "matchPackageNames": [
+                "@effect/**",
+                "effect"
+            ],
+            "matchDepTypes": [
+                "devDependencies"
+            ],
+            "automerge": true,
+            "automergeType": "pr",
+            "platformAutomerge": true
+        },
+        {
+            "description": "Group @effect other packages together",
             "groupName": "Effect-ts",
             "groupSlug": "effect-ts",
             "matchDatasources": [
@@ -32,6 +50,11 @@
             "matchPackageNames": [
                 "@effect/**",
                 "effect"
+            ],
+            "matchDepTypes": [
+                "optionalDependencies",
+                "peerDependencies",
+                "dependencies"
             ],
             "automerge": true,
             "automergeType": "pr",
