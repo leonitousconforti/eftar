@@ -4,15 +4,15 @@ nav_order: 1
 parent: Modules
 ---
 
-## Common overview
+## Common.ts overview
 
 Shared GNU ustar tar details.
 
-Added in v1.0.0
+Since v1.0.0
 
 ---
 
-<h2 class="text-delta">Table of contents</h2>
+## Exports Grouped by Category
 
 - [Schemas](#schemas)
   - [TarHeader (class)](#tarheader-class)
@@ -27,10 +27,12 @@ Added in v1.0.0
 **Signature**
 
 ```ts
-export declare class TarHeader
+declare class TarHeader
 ```
 
-Added in v1.0.0
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Common.ts#L76)
+
+Since v1.0.0
 
 ### pack (property)
 
@@ -40,4 +42,6 @@ Added in v1.0.0
 pack: () => Effect.Effect<Uint8Array, ParseResult.ParseError, never>
 ```
 
-Added in v1.0.0
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Common.ts#L244)
+
+Since v1.0.0

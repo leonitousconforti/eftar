@@ -4,15 +4,15 @@ nav_order: 3
 parent: Modules
 ---
 
-## Tar overview
+## Tar.ts overview
 
 GNU ustar tar implementation.
 
-Added in v1.0.0
+Since v1.0.0
 
 ---
 
-<h2 class="text-delta">Table of contents</h2>
+## Exports Grouped by Category
 
 - [Tar](#tar)
   - [tarball](#tarball)
@@ -28,32 +28,36 @@ Added in v1.0.0
 **Signature**
 
 ```ts
-export declare const tarball: <E1 = never, R1 = never>(
+declare const tarball: <E1 = never, R1 = never>(
   entries: HashMap.HashMap<TarCommon.TarHeader, string | Uint8Array | Stream.Stream<Uint8Array, E1, R1>>
 ) => Stream.Stream<Uint8Array, ParseResult.ParseError | E1, R1>
 ```
 
-Added in v1.0.0
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Tar.ts#L71)
+
+Since v1.0.0
 
 ## tarballFromFilesystem
 
 **Signature**
 
 ```ts
-export declare const tarballFromFilesystem: (
+declare const tarballFromFilesystem: (
   base: string,
   entries: Array<string>
 ) => Stream.Stream<Uint8Array, PlatformError.PlatformError | ParseResult.ParseError, Path.Path | FileSystem.FileSystem>
 ```
 
-Added in v1.0.0
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Tar.ts#L157)
+
+Since v1.0.0
 
 ## tarballFromMemory
 
 **Signature**
 
 ```ts
-export declare const tarballFromMemory: <E1 = never, R1 = never>(
+declare const tarballFromMemory: <E1 = never, R1 = never>(
   entries: HashMap.HashMap<
     string | Omit<Schema.Struct.Constructor<(typeof TarCommon.TarHeader)["non-full"]["fields"]>, "fileSize">,
     string | Uint8Array | readonly [contentSize: number, stream: Stream.Stream<Uint8Array, E1, R1>]
@@ -61,4 +65,6 @@ export declare const tarballFromMemory: <E1 = never, R1 = never>(
 ) => Stream.Stream<Uint8Array, ParseResult.ParseError | E1, R1>
 ```
 
-Added in v1.0.0
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Tar.ts#L87)
+
+Since v1.0.0

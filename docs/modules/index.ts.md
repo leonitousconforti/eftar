@@ -4,28 +4,28 @@ nav_order: 2
 parent: Modules
 ---
 
-## index overview
+## index.ts overview
 
 Shared GNU ustar tar details.
 
-Added in v1.0.0
+Since v1.0.0
 
 ---
 
-<h2 class="text-delta">Table of contents</h2>
+## Exports Grouped by Category
 
-- [exports](#exports)
-  - [From "./Common.js"](#from-commonjs)
-  - [From "./Tar.js"](#from-tarjs)
-  - [From "./Untar.js"](#from-untarjs)
+- [utils](#utils)
+  - [Common (namespace export)](#common-namespace-export)
+  - [Tar (namespace export)](#tar-namespace-export)
+  - [Untar (namespace export)](#untar-namespace-export)
 
 ---
 
-# exports
+# utils
 
-## From "./Common.js"
+## Common (namespace export)
 
-Shared GNU ustar tar details.
+Re-exports all named exports from the "./Common.js" module as `Common`.
 
 **Signature**
 
@@ -33,11 +33,13 @@ Shared GNU ustar tar details.
 export * as Common from "./Common.js"
 ```
 
-Added in v1.0.0
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/index.ts#L6)
 
-## From "./Tar.js"
+Since v1.0.0
 
-GNU ustar tar implementation.
+## Tar (namespace export)
+
+Re-exports all named exports from the "./Tar.js" module as `Tar`.
 
 **Signature**
 
@@ -45,11 +47,13 @@ GNU ustar tar implementation.
 export * as Tar from "./Tar.js"
 ```
 
-Added in v1.0.0
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/index.ts#L13)
 
-## From "./Untar.js"
+Since v1.0.0
 
-GNU ustar untar implementation.
+## Untar (namespace export)
+
+Re-exports all named exports from the "./Untar.js" module as `Untar`.
 
 **Signature**
 
@@ -57,4 +61,6 @@ GNU ustar untar implementation.
 export * as Untar from "./Untar.js"
 ```
 
-Added in v1.0.0
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/index.ts#L20)
+
+Since v1.0.0

@@ -4,15 +4,15 @@ nav_order: 4
 parent: Modules
 ---
 
-## Untar overview
+## Untar.ts overview
 
 GNU ustar untar implementation.
 
-Added in v1.0.0
+Since v1.0.0
 
 ---
 
-<h2 class="text-delta">Table of contents</h2>
+## Exports Grouped by Category
 
 - [Untar](#untar)
   - [Untar](#untar-1)
@@ -31,7 +31,7 @@ streams.
 **Signature**
 
 ```ts
-export declare const Untar: <E1, R1>(
+declare const Untar: <E1, R1>(
   stream: Stream.Stream<Uint8Array, E1, R1>
 ) => Effect.Effect<
   HashMap.HashMap<
@@ -43,7 +43,9 @@ export declare const Untar: <E1, R1>(
 >
 ```
 
-Added in v1.0.0
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L152)
+
+Since v1.0.0
 
 ## aggregateBlocksByHeadersSink
 
@@ -55,16 +57,18 @@ flag.
 **Signature**
 
 ```ts
-export declare const aggregateBlocksByHeadersSink: Sink.Sink<
+declare const aggregateBlocksByHeadersSink: Sink.Sink<
   FolderState,
-  Uint8Array,
-  Uint8Array,
+  Uint8Array<ArrayBufferLike>,
+  Uint8Array<ArrayBufferLike>,
   ParseResult.ParseError,
   never
 >
 ```
 
-Added in v1.0.0
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L56)
+
+Since v1.0.0
 
 ## collectorSink
 
@@ -78,7 +82,7 @@ impossible eo encounter), then we will just take the second entry.
 **Signature**
 
 ```ts
-export declare const collectorSink: Sink.Sink<
+declare const collectorSink: Sink.Sink<
   HashMap.HashMap<
     {
       readonly fileSize: number
@@ -95,7 +99,7 @@ export declare const collectorSink: Sink.Sink<
       readonly deviceMajorNumber: Option<string>
       readonly deviceMinorNumber: Option<string>
     },
-    Stream.Stream<Uint8Array, never, never>
+    Stream.Stream<Uint8Array<ArrayBufferLike>, never, never>
   >,
   FolderState,
   never,
@@ -104,4 +108,6 @@ export declare const collectorSink: Sink.Sink<
 >
 ```
 
-Added in v1.0.0
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L128)
+
+Since v1.0.0

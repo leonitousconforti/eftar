@@ -1,7 +1,7 @@
 {
     "$schema": "./node_modules/@effect/docgen/schema.json",
     "exclude": ["src/internal/**/*.ts"],
-    "projectHomepage": "https://github.com/leonitousconforti/eftar",
+    "srcLink": "https://github.com/leonitousconforti/eftar/tree/main/src/",
     "examplesCompilerOptions": {
         "noEmit": true,
         "strict": true,
