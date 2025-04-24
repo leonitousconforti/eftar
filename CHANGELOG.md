@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.56
+
+### Patch Changes
+
+- 1e22b31: bump effect deps
+
 ## 0.0.55
 
 ### Patch Changes
