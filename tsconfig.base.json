@@ -34,11 +34,6 @@
         "incremental": true,
         "declaration": true,
         "declarationMap": true,
-        "baseUrl": ".",
-        "paths": {
-            "eftar": ["./src/index.js"],
-            "eftar/*": ["./src/*.js"]
-        },
         "types": ["node"],
         "plugins": [
             {
