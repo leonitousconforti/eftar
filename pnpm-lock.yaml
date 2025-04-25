@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   '@effect/build-utils':
-    hash: ltp7epy5unpmtuy2xzdoy6iynq
+    hash: suhirx7sdd4dgvpfmcfuyzpkaa
     path: patches/@effect__build-utils.patch
 
 importers:
@@ -30,7 +30,7 @@ importers:
         version: 2.29.2
       '@effect/build-utils':
         specifier: 0.8.3
-        version: 0.8.3(patch_hash=ltp7epy5unpmtuy2xzdoy6iynq)
+        version: 0.8.3(patch_hash=suhirx7sdd4dgvpfmcfuyzpkaa)
       '@effect/cluster':
         specifier: 0.30.2
         version: 0.30.2(@effect/platform@0.80.14(effect@3.14.14))(@effect/rpc@0.56.2(@effect/platform@0.80.14(effect@3.14.14))(effect@3.14.14))(@effect/sql@0.33.14(@effect/experimental@0.44.14(@effect/platform@0.80.14(effect@3.14.14))(effect@3.14.14))(@effect/platform@0.80.14(effect@3.14.14))(effect@3.14.14))(effect@3.14.14)
@@ -3570,7 +3570,7 @@ snapshots:
       gonzales-pe: 4.3.0
       node-source-walk: 7.0.1
 
-  '@effect/build-utils@0.8.3(patch_hash=ltp7epy5unpmtuy2xzdoy6iynq)':
+  '@effect/build-utils@0.8.3(patch_hash=suhirx7sdd4dgvpfmcfuyzpkaa)':
     dependencies:
       micromatch: 4.0.8
       pkg-entry-points: 1.1.1
