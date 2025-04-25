@@ -65,7 +65,7 @@
         "@effect/sql": "0.33.14",
         "@effect/vitest": "0.20.14",
         "@eslint/js": "9.25.1",
-        "@types/node": "22.15.0",
+        "@types/node": "22.15.1",
         "@typescript-eslint/parser": "8.31.0",
         "@vitest/coverage-v8": "3.1.2",
         "babel-plugin-annotate-pure-calls": "0.5.0",
