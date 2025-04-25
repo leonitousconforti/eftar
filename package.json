@@ -63,7 +63,7 @@
         "@effect/platform-node": "0.77.2",
         "@effect/rpc": "0.56.2",
         "@effect/sql": "0.33.14",
-        "@effect/vitest": "0.20.14",
+        "@effect/vitest": "0.20.15",
         "@eslint/js": "9.25.1",
         "@types/node": "22.15.2",
         "@typescript-eslint/parser": "8.31.0",
