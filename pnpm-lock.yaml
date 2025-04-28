@@ -127,6 +127,9 @@ importers:
       typescript-eslint:
         specifier: 8.31.0
         version: 8.31.0(eslint@9.25.1)(typescript@5.8.3)
+      unrs-resolver:
+        specifier: 1.7.2
+        version: 1.7.2
       vite:
         specifier: 6.3.3
         version: 6.3.3(@types/node@22.15.3)(tsx@4.19.3)(yaml@2.7.1)
