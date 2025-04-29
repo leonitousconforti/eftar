@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.58
+
+### Patch Changes
+
+- 09070c0: Update @effect/cluster @effect/cluster @effect/experimental @effect/experimental @effect/platform @effect/platform @effect/platform-node @effect/rpc @effect/rpc @effect/sql @effect/sql @effect/vitest effect effect
+
 ## 0.0.57
 
 ### Patch Changes
