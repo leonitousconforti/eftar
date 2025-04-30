@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.59
+
+### Patch Changes
+
+- 9bafffc: Update @effect/cluster @effect/cluster @effect/experimental @effect/experimental @effect/platform @effect/platform @effect/platform-node @effect/rpc @effect/rpc @effect/sql @effect/sql effect effect
+
 ## 0.0.58
 
 ### Patch Changes
