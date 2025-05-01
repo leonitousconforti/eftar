@@ -38,7 +38,7 @@ export const padStream = <E1, R1>(stream: Stream.Stream<Uint8Array, E1, R1>): St
         stream,
         Stream.mapConcat(Function.identity),
         Stream.grouped(TarCommon.BLOCK_SIZE),
-        Stream.map((chunk) => Uint8Array.from(chunk)),
+        Stream.mapChunks((chunks) => Chunk.map(chunks, (chunk) => Uint8Array.from(chunk))),
         Stream.map(padUint8Array)
     );
 
@@ -53,12 +53,12 @@ const convertSingleEntry = <E1, R1>(
     tarEntryData: Stream.Stream<Uint8Array, ParseResult.ParseError | E1, R1>,
 ] =>
     Tuple.mapBoth(entry, {
-        onFirst: (tarHeader) => Stream.fromEffect(tarHeader.pack()),
-        onSecond: (tarHeader) =>
+        onFirst: (tarHeaderEntry) => Stream.fromEffect(tarHeaderEntry.pack()),
+        onSecond: (fileContents) =>
             Function.pipe(
-                Match.value(tarHeader),
+                Match.value(fileContents),
                 Match.when(Predicate.isUint8Array, (arr) => Stream.make(arr)),
-                Match.when(Predicate.isString, (str) => Stream.make(TarCommon.textEncoder.encode(str))),
+                Match.when(Predicate.isString, (str) => Stream.make(str).pipe(Stream.encodeText)),
                 Match.orElse(Function.identity<Stream.Stream<Uint8Array, E1, R1>>),
                 padStream
             ),
