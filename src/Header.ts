@@ -1,5 +1,5 @@
 /**
- * Shared GNU ustar tar details.
+ * Shared GNU ustar tar header details.
  *
  * @since 1.0.0
  */
@@ -26,7 +26,8 @@ export const BLOCK_SIZE = 512;
 export const emptyBlock = new Uint8Array(BLOCK_SIZE).fill(0);
 
 /** @internal */
-export const isEmptyBlock = (block: Uint8Array) => block.length === BLOCK_SIZE && block.every((byte) => byte === 0);
+export const isEmptyBlock = (block: Uint8Array): boolean =>
+    block.length === BLOCK_SIZE && block.every((byte) => byte === 0);
 
 /** @internal */
 export const textDecoder = new TextDecoder("utf-8");
@@ -190,6 +191,7 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
         Schema.withConstructorDefault(() => Option.none())
     ),
 
+    // These fields are not present in the non-full header variant.
     checksum: HeaderVariants.FieldOnly("full")(Schema.NumberFromString),
     padding: HeaderVariants.FieldOnly("full")(Schema.Literal("\0".repeat(12))),
     ustar: HeaderVariants.FieldOnly("full")(Schema.Literal("ustar\x20\x20\x00" as string, "ustar\x0000" as string)),

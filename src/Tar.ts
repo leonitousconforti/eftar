@@ -21,7 +21,7 @@ import * as Predicate from "effect/Predicate";
 import * as Schedule from "effect/Schedule";
 import * as Stream from "effect/Stream";
 import * as Tuple from "effect/Tuple";
-import * as TarCommon from "./Common.js";
+import * as TarCommon from "./Header.js";
 
 /** @internal */
 const padUint8Array = (arr: Uint8Array): Uint8Array => {

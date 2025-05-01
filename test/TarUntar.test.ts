@@ -48,9 +48,9 @@ it.live("should tar and untar a tarball", () =>
                 ])
             );
 
-        const entries1 = yield* Untar.Untar(makeTarball1());
-        const entries2 = yield* Untar.Untar(makeTarball2());
-        const entries3 = yield* Untar.Untar(makeTarball3());
+        const entries1 = yield* Untar.untar(makeTarball1());
+        const entries2 = yield* Untar.untar(makeTarball2());
+        const entries3 = yield* Untar.untar(makeTarball3());
 
         const headerMatcher = expect.objectContaining({
             type: 0,

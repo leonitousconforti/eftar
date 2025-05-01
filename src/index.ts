@@ -1,9 +1,9 @@
 /**
- * Shared GNU ustar tar details.
+ * Shared GNU ustar tar header details.
  *
  * @since 1.0.0
  */
-export * as Common from "./Common.js"
+export * as Header from "./Header.js"
 
 /**
  * GNU ustar tar implementation.

@@ -15,37 +15,40 @@ Since v1.0.0
 ## Exports Grouped by Category
 
 - [Untar](#untar)
-  - [Untar](#untar-1)
+  - [MissingEntries (class)](#missingentries-class)
+    - [missingEntries (property)](#missingentries-property)
   - [aggregateBlocksByHeadersSink](#aggregateblocksbyheaderssink)
   - [collectorSink](#collectorsink)
+  - [extractEntries](#extractentries)
+  - [untar](#untar-1)
 
 ---
 
 # Untar
 
-## Untar
+## MissingEntries (class)
 
-Takes a Tar stream and unpacks it into a map of Tar headers and their data
-streams.
+Error thrown when some expected entries are missing from the tarball.
 
 **Signature**
 
 ```ts
-declare const Untar: <E1, R1>(
-  stream: Stream.Stream<Uint8Array, E1, R1>
-) => Effect.Effect<
-  HashMap.HashMap<
-    Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>,
-    Stream.Stream<Uint8Array, never, never>
-  >,
-  E1 | ParseResult.ParseError,
-  Exclude<R1, Scope.Scope>
->
+declare class MissingEntries
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L152)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L188)
 
 Since v1.0.0
+
+### missingEntries (property)
+
+**Signature**
+
+```ts
+readonly missingEntries: HashSet.HashSet<string>
+```
+
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L193)
 
 ## aggregateBlocksByHeadersSink
 
@@ -57,16 +60,12 @@ flag.
 **Signature**
 
 ```ts
-declare const aggregateBlocksByHeadersSink: Sink.Sink<
-  FolderState,
-  Uint8Array<ArrayBufferLike>,
-  Uint8Array<ArrayBufferLike>,
-  ParseResult.ParseError,
-  never
->
+declare const aggregateBlocksByHeadersSink: (
+  filter: (header: Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>) => boolean
+) => Sink.Sink<FolderState, Uint8Array, Uint8Array, ParseResult.ParseError, never>
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L56)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L61)
 
 Since v1.0.0
 
@@ -108,6 +107,56 @@ declare const collectorSink: Sink.Sink<
 >
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L128)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L134)
+
+Since v1.0.0
+
+## extractEntries
+
+Takes a Tar stream and unpacks only specific entries into a map of Tar
+headers and their data streams.
+
+**Signature**
+
+```ts
+declare const extractEntries: <E1, R1>(
+  stream: Stream.Stream<Uint8Array, E1, R1>,
+  entries: HashSet.HashSet<string>
+) => Effect.Effect<
+  HashMap.HashMap<
+    Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>,
+    Stream.Stream<Uint8Array, never, never>
+  >,
+  E1 | ParseResult.ParseError | MissingEntries,
+  Exclude<R1, Scope.Scope>
+>
+```
+
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L206)
+
+Since v1.0.0
+
+## untar
+
+Takes a Tar stream and unpacks it into a map of Tar headers and their data
+streams.
+
+**Signature**
+
+```ts
+declare const untar: <E1, R1>(
+  stream: Stream.Stream<Uint8Array, E1, R1>,
+  filter?: ((header: Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>) => boolean) | undefined
+) => Effect.Effect<
+  HashMap.HashMap<
+    Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>,
+    Stream.Stream<Uint8Array, never, never>
+  >,
+  E1 | ParseResult.ParseError,
+  Exclude<R1, Scope.Scope>
+>
+```
+
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L158)
 
 Since v1.0.0

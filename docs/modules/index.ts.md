@@ -6,7 +6,7 @@ parent: Modules
 
 ## index.ts overview
 
-Shared GNU ustar tar details.
+Shared GNU ustar tar header details.
 
 Since v1.0.0
 
@@ -15,7 +15,7 @@ Since v1.0.0
 ## Exports Grouped by Category
 
 - [utils](#utils)
-  - [Common (namespace export)](#common-namespace-export)
+  - [Header (namespace export)](#header-namespace-export)
   - [Tar (namespace export)](#tar-namespace-export)
   - [Untar (namespace export)](#untar-namespace-export)
 
@@ -23,14 +23,14 @@ Since v1.0.0
 
 # utils
 
-## Common (namespace export)
+## Header (namespace export)
 
-Re-exports all named exports from the "./Common.js" module as `Common`.
+Re-exports all named exports from the "./Header.js" module as `Header`.
 
 **Signature**
 
 ```ts
-export * as Common from "./Common.js"
+export * as Header from "./Header.js"
 ```
 
 [Source](https://github.com/leonitousconforti/eftar/tree/main/src/index.ts#L6)
