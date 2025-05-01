@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.61
+
+### Patch Changes
+
+- 2aa433b: add extractEntries
+
 ## 0.0.60
 
 ### Patch Changes
