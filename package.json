@@ -53,7 +53,7 @@
         "@babel/core": "7.27.1",
         "@babel/plugin-transform-export-namespace-from": "7.27.1",
         "@babel/plugin-transform-modules-commonjs": "7.27.1",
-        "@changesets/cli": "2.29.2",
+        "@changesets/cli": "2.29.3",
         "@effect/build-utils": "0.8.3",
         "@effect/cluster": "0.30.6",
         "@effect/docgen": "https://pkg.pr.new/Effect-TS/docgen/@effect/docgen@57ff897",
