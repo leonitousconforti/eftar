@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.64
+
+### Patch Changes
+
+- 0a4faf4: Update @effect/cluster @effect/cluster @effect/experimental @effect/experimental @effect/platform @effect/platform @effect/platform-node @effect/rpc @effect/rpc @effect/sql @effect/sql @effect/vitest effect effect
+
 ## 0.0.63
 
 ### Patch Changes
