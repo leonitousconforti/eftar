@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.65
+
+### Patch Changes
+
+- ccf95c6: Update @effect/cluster @effect/cluster @effect/experimental @effect/experimental @effect/platform @effect/platform @effect/platform-node @effect/rpc @effect/rpc @effect/sql @effect/sql
+
 ## 0.0.64
 
 ### Patch Changes
