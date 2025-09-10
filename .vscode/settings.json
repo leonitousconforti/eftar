@@ -108,6 +108,7 @@
         "utun",
         "wintun",
         "wslconfig",
+        "xattrs",
         "Xplatform"
     ]
 }
