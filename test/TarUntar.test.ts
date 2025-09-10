@@ -1,11 +1,37 @@
 import * as os from "node:os";
 
-import { FileSystem, Path } from "@effect/platform";
-import { NodeContext } from "@effect/platform-node";
-import { expect, it } from "@effect/vitest";
-import { Chunk, Effect, HashMap, Option, Sink, Stream, Tuple } from "effect";
+import { Command, CommandExecutor, FileSystem, Path } from "@effect/platform";
+import { NodeCommandExecutor, NodeContext } from "@effect/platform-node";
+import { beforeAll, expect, it } from "@effect/vitest";
+import { Chunk, Effect, HashMap, Layer, Option, Sink, Stream, Tuple } from "effect";
 
 import { Tar, Untar } from "eftar";
+
+beforeAll(() =>
+    Effect.gen(function* () {
+        const path = yield* Path.Path;
+        const executor = yield* CommandExecutor.CommandExecutor;
+
+        const fixtures = yield* path.fromFileUrl(new URL("fixtures", import.meta.url));
+        const command = Command.workingDirectory(fixtures)(
+            Command.make(
+                "tar",
+                "--create",
+                "--no-xattrs",
+                "--no-selinux",
+                "--owner=user_that_does_not_exist",
+                "--group=group_that_does_not_exist",
+                "--file=BeeMovieScript.tar",
+                "./content.txt"
+            )
+        );
+
+        const exitCode = yield* executor.exitCode(command);
+        if (exitCode !== 0) return yield* Effect.dieMessage(`Command failed with exit code ${exitCode}`);
+    })
+        .pipe(Effect.provide(Layer.provideMerge(NodeCommandExecutor.layer, NodeContext.layer)))
+        .pipe(Effect.runPromise)
+);
 
 it.live("should tar and untar a tarball", () =>
     Effect.gen(function* () {
@@ -23,8 +49,8 @@ it.live("should tar and untar a tarball", () =>
 
         const uid = os.userInfo().uid;
         const gid = os.userInfo().gid;
-        const user = os.userInfo().username;
-        const group = os.userInfo().username;
+        const user = "user_that_does_not_exist";
+        const group = "group_that_does_not_exist";
 
         // Make three different tarballs
         // 1. From filesystem

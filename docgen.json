@@ -9,11 +9,7 @@
         "moduleResolution": "Bundler",
         "module": "ES2022",
         "target": "ES2022",
-        "lib": ["ES2022"],
-        "baseUrl": "../../",
-        "paths": {
-            "eftar": ["./src/index.js"],
-            "eftar/*": ["./src/*.js"]
-        }
+        "rewriteRelativeImportExtensions": true,
+        "allowImportingTsExtensions": true
     }
 }

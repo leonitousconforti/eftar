@@ -1,0 +1,15 @@
+{
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "visualstudioexptteam.vscodeintellicode",
+        "esbenp.prettier-vscode",
+        "editorconfig.editorconfig",
+        "streetsidesoftware.code-spell-checker",
+        "eamodio.gitlens",
+        "mutantdino.resourcemonitor",
+        "GitHub.vscode-github-actions",
+        "yoavbls.pretty-ts-errors",
+        "redhat.vscode-yaml",
+        "vitest.explorer"
+    ]
+}

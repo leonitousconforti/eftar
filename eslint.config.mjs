@@ -7,7 +7,9 @@ import sortDestructureKeys from "eslint-plugin-sort-destructure-keys";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-    { ignores: ["**/dist", "**/build", "**/docs", "**/*.md"] },
+    {
+        ignores: ["**/dist", "**/docs", "**/.tsbuildinfo", "**/*.md"],
+    },
     eslint.configs.recommended,
     tseslint.configs.strict,
     importPlugin.flatConfigs.recommended,
@@ -72,6 +74,7 @@ export default tseslint.config(
                     readonly: "generic",
                 },
             ],
+            "@typescript-eslint/no-dynamic-delete": "off",
             "@typescript-eslint/ban-ts-comment": "off",
             "@typescript-eslint/ban-types": "off",
             "@typescript-eslint/camelcase": "off",

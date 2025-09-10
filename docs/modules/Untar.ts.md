@@ -94,7 +94,7 @@ declare const collectorSink: Sink.Sink<
       readonly gid: Option<number>
       readonly owner: Option<string>
       readonly group: Option<string>
-      readonly type: TarCommon.FileTypes
+      readonly type: 0 | 2 | 1 | 3 | 4 | 5 | 6 | 7
       readonly deviceMajorNumber: Option<string>
       readonly deviceMinorNumber: Option<string>
     },

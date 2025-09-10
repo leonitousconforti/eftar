@@ -39,16 +39,16 @@ export const textEncoder = new TextEncoder();
  * @since 1.0.0
  * @category Schemas
  */
-export enum FileTypes {
-    "file" = 0,
-    "link" = 1,
-    "symlink" = 2,
-    "character-device" = 3,
-    "block-device" = 4,
-    "directory" = 5,
-    "fifo" = 6,
-    "contiguous-file" = 7,
-}
+export const FileTypes = {
+    file: 0,
+    link: 1,
+    symlink: 2,
+    "character-device": 3,
+    "block-device": 4,
+    directory: 5,
+    fifo: 6,
+    "contiguous-file": 7,
+} as const;
 
 /** @internal */
 export class Octal extends Schema.transform(Schema.Int, Schema.Int, {
@@ -164,13 +164,7 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
 
     /** The type of file archived. */
     type: Function.pipe(
-        Schema.Int,
-        maxDigits(1),
-        Schema.transform(Schema.Enums(FileTypes), {
-            strict: true,
-            encode: Function.identity,
-            decode: Function.identity,
-        }),
+        Schema.Enums(FileTypes),
         Schema.propertySignature,
         Schema.withConstructorDefault(() => FileTypes.file)
     ),
