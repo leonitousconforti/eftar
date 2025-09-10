@@ -24,5 +24,5 @@ jobs:
       - run: pnpm lint
       - run: pnpm circular
       - run: pnpm build
-      - run: tar --versions
+      - run: tar --version
       - run: pnpm coverage --run
