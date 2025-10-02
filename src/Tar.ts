@@ -67,6 +67,63 @@ const convertSingleEntry = <E1, R1>(
 /**
  * @since 1.0.0
  * @category Tar
+ * @example
+ *     ```ts
+ *
+ *     import * as assert from "node:assert"
+ *
+ *     import * as HashMap from "effect/HashMap";
+ *     import * as Stream from "effect/Stream";
+ *     import * as Effect from "effect/Effect";
+ *
+ *     import * as TarCommon from "eftar/Header";
+ *     import * as Tar from "eftar/Tar";
+ *     import * as Untar from "eftar/Untar";
+ *
+ *     const entries = HashMap.make(
+ *         [
+ *             TarCommon.TarHeader.make({
+ *                 filename: "file1.txt",
+ *                 fileSize: 8,
+ *             }),
+ *             "Hi, mom!",
+ *         ],
+ *         [
+ *             TarCommon.TarHeader.make({
+ *                 filename: "file2.txt",
+ *                 fileSize: 22,
+ *             }),
+ *             "Hello from the Tarball",
+ *         ],
+ *         [
+ *             TarCommon.TarHeader.make({
+ *                 filename: "file3.bin",
+ *                 fileSize: 4,
+ *             }),
+ *             new Uint8Array([0, 1, 2, 3]),
+ *         ]
+ *     );
+ *
+ *     const tarStream = Tar.tarball(entries);
+ *     const files = await Untar.untar(tarStream).pipe(Effect.runPromise);
+ *
+ *     assert.equal(HashMap.size(entries), 3)
+ *     const [first, second, third] = HashMap.toEntries(files);
+ *
+ *     assert.deepStrictEqual(
+ *         first[0],
+ *         new TextEncoder().encode("Hi, mom!")
+ *     );
+ *     assert.deepStrictEqual(
+ *         second[0],
+ *         new TextEncoder().encode("Hello from the Tarball")
+ *     );
+ *     assert.deepStrictEqual(
+ *         third[0],
+ *         new Uint8Array([0, 1, 2, 3])
+ *     );
+ *
+ *     ```;
  */
 export const tarball = <E1 = never, R1 = never>(
     entries: HashMap.HashMap<TarCommon.TarHeader, string | Uint8Array | Stream.Stream<Uint8Array, E1, R1>>
