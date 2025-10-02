@@ -19,7 +19,7 @@ import * as Predicate from "effect/Predicate";
 import * as Schedule from "effect/Schedule";
 import * as Sink from "effect/Sink";
 import * as Stream from "effect/Stream";
-import * as TarCommon from "./Header.js";
+import * as TarCommon from "./Header.ts";
 
 /**
  * Data structure to keep track of the state while reading a tar stream.
