@@ -6,8 +6,6 @@ parent: Modules
 
 ## index.ts overview
 
-Shared GNU ustar tar header details.
-
 Since v1.0.0
 
 ---
@@ -25,42 +23,42 @@ Since v1.0.0
 
 ## Header (namespace export)
 
-Re-exports all named exports from the "./Header.js" module as `Header`.
+Re-exports all named exports from the "./Header.ts" module as `Header`.
 
 **Signature**
 
 ```ts
-export * as Header from "./Header.js"
+export * as Header from "./Header.ts"
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/index.ts#L6)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/index.ts#L10)
 
 Since v1.0.0
 
 ## Tar (namespace export)
 
-Re-exports all named exports from the "./Tar.js" module as `Tar`.
+Re-exports all named exports from the "./Tar.ts" module as `Tar`.
 
 **Signature**
 
 ```ts
-export * as Tar from "./Tar.js"
+export * as Tar from "./Tar.ts"
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/index.ts#L13)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/index.ts#L17)
 
 Since v1.0.0
 
 ## Untar (namespace export)
 
-Re-exports all named exports from the "./Untar.js" module as `Untar`.
+Re-exports all named exports from the "./Untar.ts" module as `Untar`.
 
 **Signature**
 
 ```ts
-export * as Untar from "./Untar.js"
+export * as Untar from "./Untar.ts"
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/index.ts#L20)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/index.ts#L24)
 
 Since v1.0.0

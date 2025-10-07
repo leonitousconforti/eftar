@@ -1,6 +1,6 @@
 {
     "name": "eftar",
-    "version": "0.0.68",
+    "version": "0.0.69",
     "description": "GNU ustar tar implementation written using effect-ts",
     "keywords": [
         "tar",
@@ -54,7 +54,7 @@
         "@effect/cluster": "0.50.4",
         "@effect/docgen": "https://pkg.pr.new/Effect-TS/docgen/@effect/docgen@49e99a2",
         "@effect/experimental": "0.56.0",
-        "@effect/language-service": "0.43.1",
+        "@effect/language-service": "0.43.2",
         "@effect/platform": "0.92.1",
         "@effect/platform-node": "0.98.3",
         "@effect/rpc": "0.71.0",

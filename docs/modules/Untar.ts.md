@@ -36,7 +36,7 @@ Error thrown when some expected entries are missing from the tarball.
 declare class MissingEntries
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L188)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L184)
 
 Since v1.0.0
 
@@ -48,7 +48,7 @@ Since v1.0.0
 readonly missingEntries: HashSet.HashSet<string>
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L193)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L189)
 
 ## aggregateBlocksByHeadersSink
 
@@ -60,12 +60,16 @@ flag.
 **Signature**
 
 ```ts
-declare const aggregateBlocksByHeadersSink: (
-  filter: (header: Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>) => boolean
-) => Sink.Sink<FolderState, Uint8Array, Uint8Array, ParseResult.ParseError, never>
+declare const aggregateBlocksByHeadersSink: Sink.Sink<
+  FolderState,
+  Uint8Array<ArrayBufferLike>,
+  Uint8Array<ArrayBufferLike>,
+  ParseResult.ParseError,
+  never
+>
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L61)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L58)
 
 Since v1.0.0
 
@@ -107,7 +111,7 @@ declare const collectorSink: Sink.Sink<
 >
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L134)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L130)
 
 Since v1.0.0
 
@@ -132,7 +136,7 @@ declare const extractEntries: <E1, R1>(
 >
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L206)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L202)
 
 Since v1.0.0
 
@@ -157,6 +161,6 @@ declare const untar: <E1, R1>(
 >
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L158)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L154)
 
 Since v1.0.0

@@ -30,9 +30,6 @@ export type FolderState = {
     /** The number of bytes read so far. */
     readonly bytesRead: number;
 
-    /** Whether the current header block was filtered out. */
-    readonly filtered: boolean;
-
     /**
      * If the end of the tar stream (denoted with an empty block) has been
      * encountered before reading a header block, then we are done reading the
@@ -58,67 +55,66 @@ export type FolderState = {
  * @since 1.0.0
  * @category Untar
  */
-export const aggregateBlocksByHeadersSink: (
-    filter: (header: Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>) => boolean
-) => Sink.Sink<FolderState, Uint8Array, Uint8Array, ParseResult.ParseError, never> = (filter) =>
-    Sink.foldWeightedEffect({
-        maxCost: Number(false),
-        initial: {
-            bytesRead: 0,
-            filtered: false as boolean,
-            chunks: Chunk.empty<Uint8Array>(),
-            endOfArchiveFlag: false as boolean,
-            headerBlock: undefined as Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]> | undefined,
-        },
-        cost: (state, _input) => {
-            const case1 = state.filtered;
-            const case2 = state.endOfArchiveFlag;
-            const case3 = state.bytesRead >= (state.headerBlock?.fileSize ?? TarCommon.BLOCK_SIZE);
-            return Effect.succeed(Number(case1) + Number(case2) + Number(case3));
-        },
-        body: (state, input) =>
-            Effect.gen(function* () {
-                /**
-                 * If the header has not been parsed yet and we come across an
-                 * empty block, then this must be the end of the archive
-                 */
-                if (Predicate.isUndefined(state.headerBlock) && TarCommon.isEmptyBlock(input)) {
-                    return { ...state, endOfArchiveFlag: true };
-                }
+export const aggregateBlocksByHeadersSink: Sink.Sink<
+    FolderState,
+    Uint8Array,
+    Uint8Array,
+    ParseResult.ParseError,
+    never
+> = Sink.foldWeightedEffect({
+    maxCost: Number(false),
+    initial: {
+        bytesRead: 0,
+        chunks: Chunk.empty<Uint8Array>(),
+        endOfArchiveFlag: false as boolean,
+        headerBlock: undefined as Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]> | undefined,
+    },
+    cost: (state, _input) => {
+        const case2 = state.endOfArchiveFlag;
+        const case3 = state.bytesRead >= (state.headerBlock?.fileSize ?? TarCommon.BLOCK_SIZE);
+        return Effect.succeed(Number(case2) + Number(case3));
+    },
+    body: (state, input) =>
+        Effect.gen(function* () {
+            /**
+             * If the header has not been parsed yet and we come across an empty
+             * block, then this must be the end of the archive
+             */
+            if (Predicate.isUndefined(state.headerBlock) && TarCommon.isEmptyBlock(input)) {
+                return { ...state, endOfArchiveFlag: true };
+            }
 
-                /**
-                 * If the header has not been parsed yet and we did not come
-                 * across an empty block, then we must parse the header and set
-                 * how many data blocks we are expecting
-                 */
-                if (Predicate.isUndefined(state.headerBlock)) {
-                    const headerBlock = yield* TarCommon.TarHeader.unpack(input);
-                    if (!filter(headerBlock)) return { ...state, filtered: true };
-                    else return { ...state, headerBlock };
-                }
+            /**
+             * If the header has not been parsed yet and we did not come across
+             * an empty block, then we must parse the header and set how many
+             * data blocks we are expecting
+             */
+            if (Predicate.isUndefined(state.headerBlock)) {
+                const headerBlock = yield* TarCommon.TarHeader.unpack(input);
+                return { ...state, headerBlock };
+            }
 
-                /**
-                 * If we will read more than the content length, which can
-                 * happen because the blocks must be padded to 512 bytes, then
-                 * we should slice the data from this block to remove the
-                 * padding.
-                 */
-                const trimmedInput =
-                    state.bytesRead + input.length > state.headerBlock.fileSize
-                        ? input.slice(0, state.headerBlock.fileSize - state.bytesRead)
-                        : input;
+            /**
+             * If we will read more than the content length, which can happen
+             * because the blocks must be padded to 512 bytes, then we should
+             * slice the data from this block to remove the padding.
+             */
+            const trimmedInput =
+                state.bytesRead + input.length > state.headerBlock.fileSize
+                    ? input.slice(0, state.headerBlock.fileSize - state.bytesRead)
+                    : input;
 
-                /**
-                 * If we have already parsed the header, then keep appending
-                 * data blocks
-                 */
-                return {
-                    ...state,
-                    bytesRead: state.bytesRead + input.length,
-                    chunks: Chunk.append(state.chunks, trimmedInput),
-                };
-            }),
-    });
+            /**
+             * If we have already parsed the header, then keep appending data
+             * blocks
+             */
+            return {
+                ...state,
+                bytesRead: state.bytesRead + input.length,
+                chunks: Chunk.append(state.chunks, trimmedInput),
+            };
+        }),
+});
 
 /**
  * When the stream is done, we will have a bunch of FolderState objects which
@@ -173,9 +169,9 @@ export const untar = <E1, R1>(
         Stream.mapConcat(Function.identity),
         Stream.grouped(TarCommon.BLOCK_SIZE),
         Stream.mapChunks((chunks) => Chunk.map(chunks, (chunk) => Uint8Array.from(chunk))),
-        Stream.aggregateWithin(aggregateBlocksByHeadersSink(filter), Schedule.fixed(Duration.infinity)),
+        Stream.aggregateWithin(aggregateBlocksByHeadersSink, Schedule.fixed(Duration.infinity)),
         Stream.takeWhile(({ endOfArchiveFlag }) => endOfArchiveFlag === false),
-        Stream.filter(({ filtered }) => !filtered),
+        Stream.filter((x) => filter(x.headerBlock!)),
         Stream.run(collectorSink)
     );
 
