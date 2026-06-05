@@ -1,7 +1,8 @@
 {
     "$schema": "./node_modules/@effect/docgen/schema.json",
-    "exclude": ["src/internal/**/*.ts"],
     "srcLink": "https://github.com/leonitousconforti/eftar/tree/main/src/",
+    "exclude": ["src/internal/**/*.ts"],
+    "runExamples": true,
     "examplesCompilerOptions": {
         "noEmit": true,
         "strict": true,
@@ -11,9 +12,10 @@
         "target": "ES2022",
         "rewriteRelativeImportExtensions": true,
         "allowImportingTsExtensions": true,
+        "types": ["node"],
         "paths": {
-            "eftar": ["../../src/index.ts"],
-            "eftar/*": ["../../src/*.ts"]
+            "@leonitousconforti/eftar": ["../../src/index.ts"],
+            "@leonitousconforti/eftar/*": ["../../src/*.ts"]
         }
     }
 }

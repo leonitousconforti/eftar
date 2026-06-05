@@ -4,14 +4,13 @@
  * @since 1.0.0
  */
 
-import type * as ParseResult from "effect/ParseResult";
-
-import * as VariantSchema from "@effect/experimental/VariantSchema";
 import * as Effect from "effect/Effect";
 import * as Function from "effect/Function";
 import * as Number from "effect/Number";
 import * as Option from "effect/Option";
 import * as Schema from "effect/Schema";
+import * as SchemaGetter from "effect/SchemaGetter";
+import * as VariantSchema from "effect/unstable/schema/VariantSchema";
 
 /** @internal */
 export const HeaderVariants = VariantSchema.make({
@@ -51,44 +50,41 @@ export const FileTypes = {
 } as const;
 
 /** @internal */
-export class Octal extends Schema.transform(Schema.Int, Schema.Int, {
-    strict: true,
-    decode: (n) => parseInt(n.toString(), 8),
-    encode: (n) => parseInt(n.toString(8)),
-}) {}
+export const Octal = Schema.Int.pipe(
+    Schema.decode({
+        decode: SchemaGetter.transform((n) => parseInt(n.toString(), 8)),
+        encode: SchemaGetter.transform((n) => parseInt(n.toString(8))),
+    })
+);
 
 /** @internal */
-export const maxDigits =
-    <A extends number>(maxDigits: number, annotations?: Schema.Annotations.Filter<A>) =>
-    <I, R>(self: Schema.Schema<A, I, R>): Schema.filter<Schema.Schema<A, I, R>> =>
-        self.pipe(
-            Schema.filter((a) => a.toString(10).length <= maxDigits, {
-                schemaId: Schema.MaxLengthSchemaId,
-                title: `maxDigits(${maxDigits})`,
-                description: `a number at most ${maxDigits} digits(s) long`,
-                ...annotations,
-            })
-        );
+export const isMaxDigits = (maxDigits: number, annotations?: Schema.Annotations.Filter) =>
+    Schema.makeFilter((n: number) => n.toString(10).length <= maxDigits, {
+        description: `a number at most ${maxDigits} digits(s) long`,
+        title: `maxDigits(${maxDigits})`,
+        schemaId: "MaxDigits",
+        ...annotations,
+    });
 
 /**
  * @since 1.0.0
  * @category Schemas
  */
 export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
-    fileSize: Octal.pipe(maxDigits(12)),
-    filename: Schema.String.pipe(Schema.maxLength(100)),
+    fileSize: Octal.check(isMaxDigits(12)),
+    filename: Schema.String.check(Schema.isMaxLength(100)),
 
     linkName: Function.pipe(
         Schema.String,
-        Schema.maxLength(100),
-        Schema.optionalWith({ as: "Option" }),
-        Schema.withConstructorDefault(() => Option.none())
+        Schema.check(Schema.isMaxLength(100)),
+        Schema.OptionFromOptionalNullOr,
+        Schema.withConstructorDefault(Effect.succeed(Option.none()))
     ),
     filenamePrefix: Function.pipe(
         Schema.String,
-        Schema.maxLength(131),
-        Schema.optionalWith({ as: "Option" }),
-        Schema.withConstructorDefault(() => Option.none())
+        Schema.check(Schema.isMaxLength(100)),
+        Schema.OptionFromOptionalNullOr,
+        Schema.withConstructorDefault(Effect.succeed(Option.none()))
     ),
 
     /**
@@ -97,9 +93,8 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
      */
     fileMode: Function.pipe(
         Schema.Int,
-        maxDigits(8),
-        Schema.propertySignature,
-        Schema.withConstructorDefault(() => 644)
+        Schema.check(isMaxDigits(8)),
+        Schema.withConstructorDefault(Effect.succeed(644))
     ),
 
     /**
@@ -109,21 +104,21 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
      */
     mtime: Function.pipe(
         Schema.String,
-        Schema.maxLength(12),
-        Schema.compose(Schema.NumberFromString),
-        Schema.transform(Schema.Number, {
-            strict: true,
-            decode: (n) => parseInt(n.toString(), 8),
-            encode: (n) => parseInt(n.toString(8)),
+        Schema.check(Schema.isMaxLength(12)),
+        Schema.decodeTo(Schema.NumberFromString),
+        Schema.decode({
+            decode: SchemaGetter.transform((n) => parseInt(n.toString(), 8)),
+            encode: SchemaGetter.transform((n) => parseInt(n.toString(8))),
         }),
-        Schema.transform(Schema.Number, {
-            strict: true,
-            decode: Number.multiply(1000),
-            encode: Number.unsafeDivide(1000),
+        Schema.decode({
+            decode: SchemaGetter.transform(Number.multiply(1000)),
+            encode: SchemaGetter.transform(Number.divideUnsafe(1000)),
         }),
-        Schema.compose(Schema.DateFromNumber),
-        Schema.propertySignature,
-        Schema.withConstructorDefault(() => new Date())
+        Schema.decodeTo(Schema.Date, {
+            decode: SchemaGetter.transform((n) => new Date(n)),
+            encode: SchemaGetter.transform((date) => date.getTime()),
+        }),
+        Schema.withConstructorDefault(Effect.succeed(new Date()))
     ),
 
     /**
@@ -132,8 +127,8 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
      */
     uid: Function.pipe(
         Octal,
-        Schema.optionalWith({ as: "Option" }),
-        Schema.withConstructorDefault(() => Option.none())
+        Schema.OptionFromOptionalNullOr,
+        Schema.withConstructorDefault(Effect.succeed(Option.none()))
     ),
 
     /**
@@ -142,58 +137,54 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
      */
     gid: Function.pipe(
         Octal,
-        Schema.optionalWith({ as: "Option" }),
-        Schema.withConstructorDefault(() => Option.none())
+        Schema.OptionFromOptionalNullOr,
+        Schema.withConstructorDefault(Effect.succeed(Option.none()))
     ),
 
     /** The name of the file owner, can be at most 32 bytes long. */
     owner: Function.pipe(
         Schema.String,
-        Schema.maxLength(32),
-        Schema.optionalWith({ as: "Option" }),
-        Schema.withConstructorDefault(() => Option.none())
+        Schema.check(Schema.isMaxLength(32)),
+        Schema.OptionFromOptionalNullOr,
+        Schema.withConstructorDefault(Effect.succeed(Option.none()))
     ),
 
     /** The group that the file owner belongs to, can be at most 32 bytes long. */
     group: Function.pipe(
         Schema.String,
-        Schema.maxLength(32),
-        Schema.optionalWith({ as: "Option" }),
-        Schema.withConstructorDefault(() => Option.none())
+        Schema.check(Schema.isMaxLength(32)),
+        Schema.OptionFromOptionalNullOr,
+        Schema.withConstructorDefault(Effect.succeed(Option.none()))
     ),
 
     /** The type of file archived. */
-    type: Function.pipe(
-        Schema.Enums(FileTypes),
-        Schema.propertySignature,
-        Schema.withConstructorDefault(() => FileTypes.file)
-    ),
+    type: Function.pipe(Schema.Enum(FileTypes), Schema.withConstructorDefault(Effect.succeed(FileTypes.file))),
 
     /** Device major number. */
     deviceMajorNumber: Function.pipe(
         Schema.String,
-        Schema.maxLength(8),
-        Schema.optionalWith({ as: "Option" }),
-        Schema.withConstructorDefault(() => Option.none())
+        Schema.check(Schema.isMaxLength(8)),
+        Schema.OptionFromOptionalNullOr,
+        Schema.withConstructorDefault(Effect.succeed(Option.none()))
     ),
 
     /** Device minor number. */
     deviceMinorNumber: Function.pipe(
         Schema.String,
-        Schema.maxLength(8),
-        Schema.optionalWith({ as: "Option" }),
-        Schema.withConstructorDefault(() => Option.none())
+        Schema.check(Schema.isMaxLength(8)),
+        Schema.OptionFromOptionalNullOr,
+        Schema.withConstructorDefault(Effect.succeed(Option.none()))
     ),
 
     // These fields are not present in the non-full header variant.
-    checksum: HeaderVariants.FieldOnly("full")(Schema.NumberFromString),
-    padding: HeaderVariants.FieldOnly("full")(Schema.Literal("\0".repeat(12))),
-    ustar: HeaderVariants.FieldOnly("full")(Schema.Literal("ustar\x20\x20\x00" as string, "ustar\x0000" as string)),
+    checksum: HeaderVariants.FieldOnly(["full"])(Schema.NumberFromString),
+    padding: HeaderVariants.FieldOnly(["full"])(Schema.Literal("\0".repeat(12))),
+    ustar: HeaderVariants.FieldOnly(["full"])(Schema.Literals(["ustar\x20\x20\x00", "ustar\x0000"])),
 }) {
     /** @since 1.0.0 */
     public static unpack = (
         view: Uint8Array
-    ): Effect.Effect<Schema.Schema.Type<(typeof TarHeader)["non-full"]>, ParseResult.ParseError, never> => {
+    ): Effect.Effect<Schema.Schema.Type<(typeof TarHeader)["non-full"]>, Schema.SchemaError, never> => {
         const readString = (
             start: number,
             end: number,
@@ -201,8 +192,8 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
         ): string | undefined => {
             let i: number = start;
             let j: number = end;
-            while (options?.skipLeadingNulls === true && i < end && view[i] === 0) i++;
-            while (options?.skipTrailingNulls === true && j > i && view[j - 1] === 0) j--;
+            if (options?.skipLeadingNulls) while (i < end && view[i] === 0) i++;
+            if (options?.skipTrailingNulls) while (j > i && view[j - 1] === 0) j--;
             if (i !== j) return textDecoder.decode(view.subarray(i, j));
             else return undefined;
         };
@@ -214,7 +205,7 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
             else return parseInt(str, 10);
         };
 
-        const fullHeader = Schema.decodeUnknown(TarHeader["full"])({
+        const fullHeader = Schema.decodeUnknownEffect(TarHeader["full"])({
             filename: readString(0, 100, { skipTrailingNulls: true }),
             fileMode: readInteger(100, 108),
             uid: readInteger(108, 116),
@@ -237,13 +228,13 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
     };
 
     /** @since 1.0.0 */
-    public pack = (): Effect.Effect<Uint8Array, ParseResult.ParseError, never> =>
-        Effect.gen(this, function* () {
+    public pack = (): Effect.Effect<Uint8Array, Schema.SchemaError, never> =>
+        Effect.gen({ self: this }, function* () {
             const uint8Array = new Uint8Array(BLOCK_SIZE);
-            const self = yield* Schema.encode(TarHeader)(this);
+            const self = yield* Schema.encodeEffect(TarHeader)(this);
 
-            const write = (value: string | number | undefined, start: number, end: number) => {
-                if (value === undefined) return;
+            const write = (value: string | number | undefined | null, start: number, end: number) => {
+                if (value === undefined || value === null) return;
                 const str = typeof value === "string" ? value : value.toString().padStart(end - start - 1, "0");
                 const bytes = textEncoder.encode(str);
                 uint8Array.set(bytes, start);

@@ -4,23 +4,22 @@
  * @since 1.0.0
  */
 
-import type * as PlatformError from "@effect/platform/Error";
-import type * as ParseResult from "effect/ParseResult";
+import type * as PlatformError from "effect/PlatformError";
 import type * as Schema from "effect/Schema";
 
-import * as FileSystem from "@effect/platform/FileSystem";
-import * as Path from "@effect/platform/Path";
 import * as Array from "effect/Array";
-import * as Chunk from "effect/Chunk";
 import * as Effect from "effect/Effect";
+import * as FileSystem from "effect/FileSystem";
 import * as Function from "effect/Function";
 import * as HashMap from "effect/HashMap";
 import * as Match from "effect/Match";
 import * as Option from "effect/Option";
+import * as Path from "effect/Path";
 import * as Predicate from "effect/Predicate";
 import * as Schedule from "effect/Schedule";
 import * as Stream from "effect/Stream";
 import * as Tuple from "effect/Tuple";
+
 import * as TarCommon from "./Header.ts";
 
 /** @internal */
@@ -36,9 +35,9 @@ const padUint8Array = (arr: Uint8Array): Uint8Array => {
 export const padStream = <E1, R1>(stream: Stream.Stream<Uint8Array, E1, R1>): Stream.Stream<Uint8Array, E1, R1> =>
     Function.pipe(
         stream,
-        Stream.mapConcat(Function.identity),
+        Stream.flatMap(Stream.fromIterable),
         Stream.grouped(TarCommon.BLOCK_SIZE),
-        Stream.mapChunks((chunks) => Chunk.map(chunks, (chunk) => Uint8Array.from(chunk))),
+        Stream.map((chunk) => Uint8Array.from(chunk)),
         Stream.map(padUint8Array)
     );
 
@@ -49,20 +48,19 @@ const convertSingleEntry = <E1, R1>(
         fileContents: string | Uint8Array | Stream.Stream<Uint8Array, E1, R1>,
     ]
 ): readonly [
-    tarEntryHeader: Stream.Stream<Uint8Array, ParseResult.ParseError, never>,
-    tarEntryData: Stream.Stream<Uint8Array, ParseResult.ParseError | E1, R1>,
+    tarEntryHeader: Stream.Stream<Uint8Array, Schema.SchemaError, never>,
+    tarEntryData: Stream.Stream<Uint8Array, Schema.SchemaError | E1, R1>,
 ] =>
-    Tuple.mapBoth(entry, {
-        onFirst: (tarHeaderEntry) => Stream.fromEffect(tarHeaderEntry.pack()),
-        onSecond: (fileContents) =>
-            Function.pipe(
-                Match.value(fileContents),
-                Match.when(Predicate.isUint8Array, (arr) => Stream.make(arr)),
-                Match.when(Predicate.isString, (str) => Stream.make(str).pipe(Stream.encodeText)),
-                Match.orElse(Function.identity<Stream.Stream<Uint8Array, E1, R1>>),
-                padStream
-            ),
-    });
+    Tuple.make(
+        Stream.fromEffect(entry[0].pack()),
+        Function.pipe(
+            Match.value(entry[1]),
+            Match.when(Predicate.isUint8Array, (arr) => Stream.make(arr)),
+            Match.when(Predicate.isString, (str) => Stream.make(str).pipe(Stream.encodeText)),
+            Match.orElse(Function.identity<Stream.Stream<Uint8Array, E1, R1>>),
+            padStream
+        )
+    );
 
 /**
  * @since 1.0.0
@@ -127,13 +125,14 @@ const convertSingleEntry = <E1, R1>(
  */
 export const tarball = <E1 = never, R1 = never>(
     entries: HashMap.HashMap<TarCommon.TarHeader, string | Uint8Array | Stream.Stream<Uint8Array, E1, R1>>
-): Stream.Stream<Uint8Array, ParseResult.ParseError | E1, R1> =>
+): Stream.Stream<Uint8Array, Schema.SchemaError | E1, R1> =>
     Function.pipe(
         entries,
         HashMap.toEntries,
-        Array.flatMap(convertSingleEntry),
-        Chunk.fromIterable,
-        Stream.concatAll,
+        Array.reduce(Stream.empty as Stream.Stream<Uint8Array, Schema.SchemaError | E1, R1>, (acc, entry) => {
+            const [headerStream, dataStream] = convertSingleEntry(entry);
+            return acc.pipe(Stream.concat(headerStream), Stream.concat(dataStream));
+        }),
         Stream.concat(Stream.repeat(Stream.succeed(TarCommon.emptyBlock), Schedule.recurs(20)))
     );
 
@@ -143,10 +142,10 @@ export const tarball = <E1 = never, R1 = never>(
  */
 export const tarballFromMemory = <E1 = never, R1 = never>(
     entries: HashMap.HashMap<
-        string | Omit<Schema.Struct.Constructor<(typeof TarCommon.TarHeader)["non-full"]["fields"]>, "fileSize">,
+        string | Omit<Schema.Struct.MakeIn<(typeof TarCommon.TarHeader)["non-full"]["fields"]>, "fileSize">,
         string | Uint8Array | readonly [contentSize: number, stream: Stream.Stream<Uint8Array, E1, R1>]
     >
-): Stream.Stream<Uint8Array, ParseResult.ParseError | E1, R1> =>
+): Stream.Stream<Uint8Array, Schema.SchemaError | E1, R1> =>
     Function.pipe(
         entries,
         HashMap.toEntries,
@@ -214,11 +213,11 @@ const tarEntryFromFilesystem = (
 export const tarballFromFilesystem = (
     base: string,
     entries: Array<string>
-): Stream.Stream<Uint8Array, PlatformError.PlatformError | ParseResult.ParseError, Path.Path | FileSystem.FileSystem> =>
+): Stream.Stream<Uint8Array, PlatformError.PlatformError | Schema.SchemaError, Path.Path | FileSystem.FileSystem> =>
     Function.pipe(
         entries,
         Array.map((file) => tarEntryFromFilesystem(file, base)),
-        Effect.allWith({ concurrency: "unbounded" }),
+        (files) => Effect.all(files, { concurrency: "unbounded" }),
         Effect.map(HashMap.fromIterable),
         Effect.map(tarball),
         Stream.unwrap

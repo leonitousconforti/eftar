@@ -4,10 +4,9 @@
  * @since 1.0.0
  */
 
-import type * as ParseResult from "effect/ParseResult";
 import type * as Schema from "effect/Schema";
-import type * as Scope from "effect/Scope";
 
+import * as Array from "effect/Array";
 import * as Chunk from "effect/Chunk";
 import * as Data from "effect/Data";
 import * as Duration from "effect/Duration";
@@ -19,6 +18,8 @@ import * as Predicate from "effect/Predicate";
 import * as Schedule from "effect/Schedule";
 import * as Sink from "effect/Sink";
 import * as Stream from "effect/Stream";
+import * as Tuple from "effect/Tuple";
+
 import * as TarCommon from "./Header.ts";
 
 /**
@@ -55,66 +56,56 @@ export type FolderState = {
  * @since 1.0.0
  * @category Untar
  */
-export const aggregateBlocksByHeadersSink: Sink.Sink<
-    FolderState,
-    Uint8Array,
-    Uint8Array,
-    ParseResult.ParseError,
-    never
-> = Sink.foldWeightedEffect({
-    maxCost: Number(false),
-    initial: {
-        bytesRead: 0,
-        chunks: Chunk.empty<Uint8Array>(),
-        endOfArchiveFlag: false as boolean,
-        headerBlock: undefined as Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]> | undefined,
-    },
-    cost: (state, _input) => {
-        const case2 = state.endOfArchiveFlag;
-        const case3 = state.bytesRead >= (state.headerBlock?.fileSize ?? TarCommon.BLOCK_SIZE);
-        return Effect.succeed(Number(case2) + Number(case3));
-    },
-    body: (state, input) =>
-        Effect.gen(function* () {
-            /**
-             * If the header has not been parsed yet and we come across an empty
-             * block, then this must be the end of the archive
-             */
-            if (Predicate.isUndefined(state.headerBlock) && TarCommon.isEmptyBlock(input)) {
-                return { ...state, endOfArchiveFlag: true };
-            }
-
-            /**
-             * If the header has not been parsed yet and we did not come across
-             * an empty block, then we must parse the header and set how many
-             * data blocks we are expecting
-             */
-            if (Predicate.isUndefined(state.headerBlock)) {
-                const headerBlock = yield* TarCommon.TarHeader.unpack(input);
-                return { ...state, headerBlock };
-            }
-
-            /**
-             * If we will read more than the content length, which can happen
-             * because the blocks must be padded to 512 bytes, then we should
-             * slice the data from this block to remove the padding.
-             */
-            const trimmedInput =
-                state.bytesRead + input.length > state.headerBlock.fileSize
-                    ? input.slice(0, state.headerBlock.fileSize - state.bytesRead)
-                    : input;
-
-            /**
-             * If we have already parsed the header, then keep appending data
-             * blocks
-             */
-            return {
-                ...state,
-                bytesRead: state.bytesRead + input.length,
-                chunks: Chunk.append(state.chunks, trimmedInput),
-            };
+export const aggregateBlocksByHeadersSink: Sink.Sink<FolderState, Uint8Array, Uint8Array, Schema.SchemaError, never> =
+    Sink.fold(
+        () => ({
+            bytesRead: 0,
+            chunks: Chunk.empty<Uint8Array>(),
+            endOfArchiveFlag: false as boolean,
+            headerBlock: undefined as Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]> | undefined,
         }),
-});
+        (state) => !state.endOfArchiveFlag && state.bytesRead < (state.headerBlock?.fileSize ?? TarCommon.BLOCK_SIZE),
+        (state, input) =>
+            Effect.gen(function* () {
+                /**
+                 * If the header has not been parsed yet and we come across an empty
+                 * block, then this must be the end of the archive
+                 */
+                if (Predicate.isUndefined(state.headerBlock) && TarCommon.isEmptyBlock(input)) {
+                    return { ...state, endOfArchiveFlag: true };
+                }
+
+                /**
+                 * If the header has not been parsed yet and we did not come across
+                 * an empty block, then we must parse the header and set how many
+                 * data blocks we are expecting
+                 */
+                if (Predicate.isUndefined(state.headerBlock)) {
+                    const headerBlock = yield* TarCommon.TarHeader.unpack(input);
+                    return { ...state, headerBlock };
+                }
+
+                /**
+                 * If we will read more than the content length, which can happen
+                 * because the blocks must be padded to 512 bytes, then we should
+                 * slice the data from this block to remove the padding.
+                 */
+                const trimmedInput =
+                    state.bytesRead + input.length > state.headerBlock.fileSize
+                        ? input.slice(0, state.headerBlock.fileSize - state.bytesRead)
+                        : input;
+
+                /**
+                 * If we have already parsed the header, then keep appending data
+                 * blocks
+                 */
+                return {
+                    ...state,
+                    bytesRead: state.bytesRead + input.length,
+                    chunks: Chunk.append(state.chunks, trimmedInput),
+                };
+            })
+    );
 
 /**
  * When the stream is done, we will have a bunch of FolderState objects which
@@ -136,12 +127,9 @@ export const collectorSink: Sink.Sink<
     never,
     never,
     never
-> = Sink.map(
-    Sink.collectAllToMap<FolderState, Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>>(
-        (input) => input.headerBlock!,
-        (_a, b) => b
-    ),
-    HashMap.map(({ chunks }) => Stream.fromChunk(chunks))
+> = Sink.collect<FolderState>().pipe(
+    Sink.map(Array.map((state) => Tuple.make(state.headerBlock!, Stream.fromIterable(state.chunks)))),
+    Sink.map(HashMap.fromIterable)
 );
 
 /**
@@ -161,14 +149,14 @@ export const untar = <E1, R1>(
         Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>,
         Stream.Stream<Uint8Array, never, never>
     >,
-    E1 | ParseResult.ParseError,
-    Exclude<R1, Scope.Scope>
+    E1 | Schema.SchemaError,
+    R1
 > =>
     Function.pipe(
         stream,
-        Stream.mapConcat(Function.identity),
+        Stream.flatMap(Stream.fromIterable),
         Stream.grouped(TarCommon.BLOCK_SIZE),
-        Stream.mapChunks((chunks) => Chunk.map(chunks, (chunk) => Uint8Array.from(chunk))),
+        Stream.map((chunk) => Uint8Array.from(chunk)),
         Stream.aggregateWithin(aggregateBlocksByHeadersSink, Schedule.fixed(Duration.infinity)),
         Stream.takeWhile(({ endOfArchiveFlag }) => endOfArchiveFlag === false),
         Stream.filter((x) => filter(x.headerBlock!)),
@@ -207,13 +195,13 @@ export const extractEntries = <E1, R1>(
         Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>,
         Stream.Stream<Uint8Array, never, never>
     >,
-    E1 | ParseResult.ParseError | MissingEntries,
-    Exclude<R1, Scope.Scope>
+    E1 | Schema.SchemaError | MissingEntries,
+    R1
 > =>
     Effect.tap(
         untar(stream, ({ filename }) => HashSet.has(entries, filename)),
         (result) => {
-            const headers = HashMap.keySet(result);
+            const headers = result.pipe(HashMap.keys, HashSet.fromIterable);
             const keySet = HashSet.map(headers, (header) => header.filename);
 
             if (HashSet.isSubset(entries, keySet)) {

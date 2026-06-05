@@ -1,36 +1,36 @@
+import { Effect, HashMap, Option, Stream, Tuple, FileSystem, Path } from "effect";
+import { ChildProcess } from "effect/unstable/process";
+
 import * as os from "node:os";
 
-import { Command, CommandExecutor, FileSystem, Path } from "@effect/platform";
-import { NodeCommandExecutor, NodeContext } from "@effect/platform-node";
+import { NodeServices } from "@effect/platform-node";
 import { beforeAll, expect, it } from "@effect/vitest";
-import { Chunk, Effect, HashMap, Layer, Option, Sink, Stream, Tuple } from "effect";
-
 import { Tar, Untar } from "eftar";
 
 beforeAll(() =>
     Effect.gen(function* () {
         const path = yield* Path.Path;
-        const executor = yield* CommandExecutor.CommandExecutor;
 
         const fixtures = yield* path.fromFileUrl(new URL("fixtures", import.meta.url));
-        const command = Command.workingDirectory(fixtures)(
-            Command.make(
-                "tar",
+        const command = yield* ChildProcess.make(
+            "tar",
+            [
                 "--create",
                 "--no-xattrs",
                 "--no-selinux",
                 "--owner=user_that_does_not_exist",
                 "--group=group_that_does_not_exist",
                 "--file=BeeMovieScript.tar",
-                "./content.txt"
-            )
+                "./content.txt",
+            ],
+            {
+                cwd: fixtures,
+            }
         );
 
-        const exitCode = yield* executor.exitCode(command);
-        if (exitCode !== 0) return yield* Effect.dieMessage(`Command failed with exit code ${exitCode}`);
-    })
-        .pipe(Effect.provide(Layer.provideMerge(NodeCommandExecutor.layer, NodeContext.layer)))
-        .pipe(Effect.runPromise)
+        const exitCode = yield* command.exitCode;
+        if (exitCode !== 0) return yield* Effect.die(`Command failed with exit code ${exitCode}`);
+    }).pipe(Effect.provide(NodeServices.layer), Effect.scoped, Effect.runPromise)
 );
 
 it.live("should tar and untar a tarball", () =>
@@ -99,25 +99,22 @@ it.live("should tar and untar a tarball", () =>
         expect(HashMap.size(entries3)).toBe(1);
 
         // Smoke test for entry header
-        const [header1, content1] = yield* HashMap.findFirst(
-            entries1,
-            (_, { filename }) => filename === "./content.txt"
+        const [header1, content1] = Option.getOrThrow(
+            HashMap.findFirst(entries1, (_, { filename }) => filename === "./content.txt")
         );
-        const [header2, content2] = yield* HashMap.findFirst(
-            entries2,
-            (_, { filename }) => filename === "./content.txt"
+        const [header2, content2] = Option.getOrThrow(
+            HashMap.findFirst(entries2, (_, { filename }) => filename === "./content.txt")
         );
-        const [header3, content3] = yield* HashMap.findFirst(
-            entries3,
-            (_, { filename }) => filename === "./content.txt"
+        const [header3, content3] = Option.getOrThrow(
+            HashMap.findFirst(entries3, (_, { filename }) => filename === "./content.txt")
         );
         expect(header2).toStrictEqual(headerMatcher);
         expect({ ...header1, owner: Option.some(user), group: Option.some(group) }).toStrictEqual(header3);
 
         // Smoke test for entry content
-        const string1 = yield* content1.pipe(Stream.decodeText()).pipe(Stream.run(Sink.mkString));
-        const string2 = yield* content2.pipe(Stream.decodeText()).pipe(Stream.run(Sink.mkString));
-        const string3 = yield* content3.pipe(Stream.decodeText()).pipe(Stream.run(Sink.mkString));
+        const string1 = yield* content1.pipe(Stream.decodeText(), Stream.mkString);
+        const string2 = yield* content2.pipe(Stream.decodeText(), Stream.mkString);
+        const string3 = yield* content3.pipe(Stream.decodeText(), Stream.mkString);
         expect(string1).toHaveLength(contentSize);
         expect(string2).toHaveLength(contentSize);
         expect(string3).toHaveLength(contentSize);
@@ -131,14 +128,8 @@ it.live("should tar and untar a tarball", () =>
         const gnuTarball = path.join(base, "BeeMovieScript.tar");
         const gnuTarballData = yield* fileSystem.readFile(gnuTarball);
 
-        // Helper to concat chunks of a tarball into a single buffer
-        const concatChunks: (self: Chunk.Chunk<Uint8Array>) => Buffer = Chunk.reduce<Buffer, Uint8Array>(
-            Buffer.alloc(0),
-            (accumulator, current) => Buffer.concat([accumulator, current])
-        );
-
         // Compare tarballs
-        const buffer3 = yield* makeTarball3().pipe(Stream.run(Sink.collectAll())).pipe(Effect.map(concatChunks));
+        const buffer3 = yield* makeTarball3().pipe(Stream.mkUint8Array);
         expect(Buffer.compare(gnuTarballData, buffer3)).toBe(0);
-    }).pipe(Effect.provide(NodeContext.layer))
+    }).pipe(Effect.provide(NodeServices.layer))
 );

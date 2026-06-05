@@ -12,12 +12,14 @@
     devShells = forAllSystems (pkgs: {
       default = pkgs.mkShell {
         packages = with pkgs; [
-          bun
-          deno
-          corepack
-          nodejs_24
-          python3
-          gnutar
+            nixd
+            nixfmt
+            bun
+            deno
+            corepack
+            nodejs-slim_26
+            python3
+            gnutar
         ];
       };
     });
