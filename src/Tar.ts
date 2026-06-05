@@ -73,6 +73,8 @@ const convertSingleEntry = <E1, R1>(
  *     import * as HashMap from "effect/HashMap";
  *     import * as Stream from "effect/Stream";
  *     import * as Effect from "effect/Effect";
+ *     import * as Option from "effect/Option";
+ *     import * as Tuple from "effect/Tuple";
  *
  *     import * as TarCommon from "eftar/Header";
  *     import * as Tar from "eftar/Tar";
@@ -106,18 +108,20 @@ const convertSingleEntry = <E1, R1>(
  *     const files = await Untar.untar(tarStream).pipe(Effect.runPromise);
  *
  *     assert.equal(HashMap.size(entries), 3)
- *     const [first, second, third] = HashMap.toEntries(files);
+ *     const first = HashMap.findFirst(files, (_, header) => header.filename === "file1.txt");
+ *     const second = HashMap.findFirst(files, (_, header) => header.filename === "file2.txt");
+ *     const third = HashMap.findFirst(files, (_, header) => header.filename === "file3.bin");
  *
  *     assert.deepStrictEqual(
- *         first[0],
+ *         first.pipe(Option.getOrThrow, Tuple.get(1),  Stream.mkUint8Array, Effect.runSync),
  *         new TextEncoder().encode("Hi, mom!")
  *     );
  *     assert.deepStrictEqual(
- *         second[0],
+ *         second.pipe(Option.getOrThrow, Tuple.get(1), Stream.mkUint8Array, Effect.runSync),
  *         new TextEncoder().encode("Hello from the Tarball")
  *     );
  *     assert.deepStrictEqual(
- *         third[0],
+ *         third.pipe(Option.getOrThrow, Tuple.get(1), Stream.mkUint8Array, Effect.runSync),
  *         new Uint8Array([0, 1, 2, 3])
  *     );
  *

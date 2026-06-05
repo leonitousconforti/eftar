@@ -36,7 +36,7 @@ Error thrown when some expected entries are missing from the tarball.
 declare class MissingEntries
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L184)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L172)
 
 Since v1.0.0
 
@@ -48,7 +48,7 @@ Since v1.0.0
 readonly missingEntries: HashSet.HashSet<string>
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L189)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L177)
 
 ## aggregateBlocksByHeadersSink
 
@@ -64,12 +64,12 @@ declare const aggregateBlocksByHeadersSink: Sink.Sink<
   FolderState,
   Uint8Array<ArrayBufferLike>,
   Uint8Array<ArrayBufferLike>,
-  ParseResult.ParseError,
+  Schema.SchemaError,
   never
 >
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L58)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L59)
 
 Since v1.0.0
 
@@ -111,7 +111,7 @@ declare const collectorSink: Sink.Sink<
 >
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L130)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L121)
 
 Since v1.0.0
 
@@ -131,12 +131,12 @@ declare const extractEntries: <E1, R1>(
     Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>,
     Stream.Stream<Uint8Array, never, never>
   >,
-  E1 | ParseResult.ParseError | MissingEntries,
-  Exclude<R1, Scope.Scope>
+  E1 | Schema.SchemaError | MissingEntries,
+  R1
 >
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L202)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L190)
 
 Since v1.0.0
 
@@ -156,11 +156,11 @@ declare const untar: <E1, R1>(
     Schema.Schema.Type<(typeof TarCommon.TarHeader)["non-full"]>,
     Stream.Stream<Uint8Array, never, never>
   >,
-  E1 | ParseResult.ParseError,
-  Exclude<R1, Scope.Scope>
+  E1 | Schema.SchemaError,
+  R1
 >
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L154)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L142)
 
 Since v1.0.0

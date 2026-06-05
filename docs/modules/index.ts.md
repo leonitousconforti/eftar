@@ -6,6 +6,8 @@ parent: Modules
 
 ## index.ts overview
 
+Shared GNU ustar tar header details.
+
 Since v1.0.0
 
 ---

@@ -40,7 +40,7 @@ declare const FileTypes: {
 }
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Header.ts#L42)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Header.ts#L41)
 
 Since v1.0.0
 
@@ -52,7 +52,7 @@ Since v1.0.0
 declare class TarHeader
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Header.ts#L77)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Header.ts#L73)
 
 Since v1.0.0
 
@@ -61,9 +61,9 @@ Since v1.0.0
 **Signature**
 
 ```ts
-pack: () => Effect.Effect<Uint8Array, ParseResult.ParseError, never>
+pack: () => Effect.Effect<Uint8Array, Schema.SchemaError, never>
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Header.ts#L240)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Header.ts#L231)
 
 Since v1.0.0

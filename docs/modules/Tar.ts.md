@@ -34,6 +34,8 @@ Since v1.0.0
     import * as HashMap from "effect/HashMap";
     import * as Stream from "effect/Stream";
     import * as Effect from "effect/Effect";
+    import * as Option from "effect/Option";
+    import * as Tuple from "effect/Tuple";
 
     import * as TarCommon from "eftar/Header";
     import * as Tar from "eftar/Tar";
@@ -67,18 +69,20 @@ Since v1.0.0
     const files = await Untar.untar(tarStream).pipe(Effect.runPromise);
 
     assert.equal(HashMap.size(entries), 3)
-    const [first, second, third] = HashMap.toEntries(files);
+    const first = HashMap.findFirst(files, (_, header) => header.filename === "file1.txt");
+    const second = HashMap.findFirst(files, (_, header) => header.filename === "file2.txt");
+    const third = HashMap.findFirst(files, (_, header) => header.filename === "file3.bin");
 
     assert.deepStrictEqual(
-        first[0],
+        first.pipe(Option.getOrThrow, Tuple.get(1),  Stream.mkUint8Array, Effect.runSync),
         new TextEncoder().encode("Hi, mom!")
     );
     assert.deepStrictEqual(
-        second[0],
+        second.pipe(Option.getOrThrow, Tuple.get(1), Stream.mkUint8Array, Effect.runSync),
         new TextEncoder().encode("Hello from the Tarball")
     );
     assert.deepStrictEqual(
-        third[0],
+        third.pipe(Option.getOrThrow, Tuple.get(1), Stream.mkUint8Array, Effect.runSync),
         new Uint8Array([0, 1, 2, 3])
     );
 
@@ -87,10 +91,10 @@ Since v1.0.0
 **Signature**
 
 ```ts
-declare const tarball: <E1 = never, R1 = never>(entries: HashMap.HashMap<TarCommon.TarHeader, string | Uint8Array | Stream.Stream<Uint8Array, E1, R1>>) => Stream.Stream<Uint8Array, ParseResult.ParseError | E1, R1>
+declare const tarball: <E1 = never, R1 = never>(entries: HashMap.HashMap<TarCommon.TarHeader, string | Uint8Array | Stream.Stream<Uint8Array, E1, R1>>) => Stream.Stream<Uint8Array, Schema.SchemaError | E1, R1>
 ````
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Tar.ts#L128)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Tar.ts#L130)
 
 Since v1.0.0
 
@@ -102,10 +106,10 @@ Since v1.0.0
 declare const tarballFromFilesystem: (
   base: string,
   entries: Array<string>
-) => Stream.Stream<Uint8Array, PlatformError.PlatformError | ParseResult.ParseError, Path.Path | FileSystem.FileSystem>
+) => Stream.Stream<Uint8Array, PlatformError.PlatformError | Schema.SchemaError, Path.Path | FileSystem.FileSystem>
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Tar.ts#L214)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Tar.ts#L217)
 
 Since v1.0.0
 
@@ -116,12 +120,12 @@ Since v1.0.0
 ```ts
 declare const tarballFromMemory: <E1 = never, R1 = never>(
   entries: HashMap.HashMap<
-    string | Omit<Schema.Struct.Constructor<(typeof TarCommon.TarHeader)["non-full"]["fields"]>, "fileSize">,
+    string | Omit<Schema.Struct.MakeIn<(typeof TarCommon.TarHeader)["non-full"]["fields"]>, "fileSize">,
     string | Uint8Array | readonly [contentSize: number, stream: Stream.Stream<Uint8Array, E1, R1>]
   >
-) => Stream.Stream<Uint8Array, ParseResult.ParseError | E1, R1>
+) => Stream.Stream<Uint8Array, Schema.SchemaError | E1, R1>
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Tar.ts#L144)
+[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Tar.ts#L147)
 
 Since v1.0.0
