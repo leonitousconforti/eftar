@@ -8,8 +8,8 @@ I needed a tar implementation that could be used in the browser (for the-moby-ef
 
 ## Goals :white_check_mark:
 
-- [x]   - tar
-- [x]   - untar
+- [x] - tar
+- [x] - untar
 
 ## WIP/Todo :construction:
 
