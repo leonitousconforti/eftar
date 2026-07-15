@@ -7,7 +7,7 @@
         "**/.tsbuildinfo",
         ".agents/**/*",
         "**/index.ts",
-        "**/CHANGELOG.md",
+        "**/CHANGELOG.md"
     ],
     "sortPackageJson": true,
     "trailingComma": "es5",

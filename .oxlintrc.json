@@ -1,12 +1,6 @@
 {
     "$schema": "./node_modules/oxlint/configuration_schema.json",
-    "ignorePatterns": [
-        "**/dist",
-        "**/build",
-        "**/docs",
-        "**/.tsbuildinfo",
-        ".agents/**/*",
-    ],
+    "ignorePatterns": ["**/dist", "**/build", "**/docs", "**/.tsbuildinfo", ".agents/**/*"],
     "plugins": ["typescript", "import", "oxc", "eslint", "unicorn", "node"],
     "categories": {
         "correctness": "error",
