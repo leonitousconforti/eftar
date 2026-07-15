@@ -70,11 +70,11 @@
         "@effect/build-utils": "0.8.9",
         "@effect/docgen": "https://pkg.pr.new/Effect-TS/docgen/@effect/docgen@e57e5f5",
         "@effect/language-service": "0.86.2",
-        "@effect/platform-node": "4.0.0-beta.69",
-        "@effect/vitest": "4.0.0-beta.69",
+        "@effect/platform-node": "4.0.0-beta.98",
+        "@effect/vitest": "4.0.0-beta.98",
         "@types/node": "25.9.5",
         "babel-plugin-annotate-pure-calls": "0.5.0",
-        "effect": "4.0.0-beta.69",
+        "effect": "4.0.0-beta.98",
         "ioredis": "5.11.1",
         "madge": "8.0.0",
         "oxfmt": "0.53.0",
@@ -85,7 +85,7 @@
         "vitest": "4.1.10"
     },
     "peerDependencies": {
-        "effect": "4.0.0-beta.69"
+        "effect": "4.0.0-beta.98"
     },
     "engines": {
         "node": ">=18.0.0"
