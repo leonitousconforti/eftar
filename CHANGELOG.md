@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.78
+
+### Patch Changes
+
+- f030b4a: fix tsbuildinfo file location
+
 ## 0.0.77
 
 ### Patch Changes
