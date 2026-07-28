@@ -94,7 +94,7 @@ Since v1.0.0
 declare const tarball: <E1 = never, R1 = never>(entries: HashMap.HashMap<TarCommon.TarHeader, string | Uint8Array | Stream.Stream<Uint8Array, E1, R1>>) => Stream.Stream<Uint8Array, Schema.SchemaError | E1, R1>
 ````
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Tar.ts#L130)
+[Source](https://github.com/leonitousconforti/eftar/blob/main/src/Tar.ts#L130)
 
 Since v1.0.0
 
@@ -109,7 +109,7 @@ declare const tarballFromFilesystem: (
 ) => Stream.Stream<Uint8Array, PlatformError.PlatformError | Schema.SchemaError, Path.Path | FileSystem.FileSystem>
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Tar.ts#L217)
+[Source](https://github.com/leonitousconforti/eftar/blob/main/src/Tar.ts#L217)
 
 Since v1.0.0
 
@@ -126,6 +126,6 @@ declare const tarballFromMemory: <E1 = never, R1 = never>(
 ) => Stream.Stream<Uint8Array, Schema.SchemaError | E1, R1>
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Tar.ts#L147)
+[Source](https://github.com/leonitousconforti/eftar/blob/main/src/Tar.ts#L147)
 
 Since v1.0.0

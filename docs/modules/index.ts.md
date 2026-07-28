@@ -33,7 +33,7 @@ Re-exports all named exports from the "./Header.ts" module as `Header`.
 export * as Header from "./Header.ts"
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/index.ts#L10)
+[Source](https://github.com/leonitousconforti/eftar/blob/main/src/index.ts#L10)
 
 Since v1.0.0
 
@@ -47,7 +47,7 @@ Re-exports all named exports from the "./Tar.ts" module as `Tar`.
 export * as Tar from "./Tar.ts"
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/index.ts#L17)
+[Source](https://github.com/leonitousconforti/eftar/blob/main/src/index.ts#L17)
 
 Since v1.0.0
 
@@ -61,6 +61,6 @@ Re-exports all named exports from the "./Untar.ts" module as `Untar`.
 export * as Untar from "./Untar.ts"
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/index.ts#L24)
+[Source](https://github.com/leonitousconforti/eftar/blob/main/src/index.ts#L24)
 
 Since v1.0.0

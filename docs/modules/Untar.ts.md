@@ -36,7 +36,7 @@ Error thrown when some expected entries are missing from the tarball.
 declare class MissingEntries
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L172)
+[Source](https://github.com/leonitousconforti/eftar/blob/main/src/Untar.ts#L172)
 
 Since v1.0.0
 
@@ -48,7 +48,7 @@ Since v1.0.0
 readonly missingEntries: HashSet.HashSet<string>
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L177)
+[Source](https://github.com/leonitousconforti/eftar/blob/main/src/Untar.ts#L177)
 
 ## aggregateBlocksByHeadersSink
 
@@ -69,7 +69,7 @@ declare const aggregateBlocksByHeadersSink: Sink.Sink<
 >
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L59)
+[Source](https://github.com/leonitousconforti/eftar/blob/main/src/Untar.ts#L59)
 
 Since v1.0.0
 
@@ -111,7 +111,7 @@ declare const collectorSink: Sink.Sink<
 >
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L121)
+[Source](https://github.com/leonitousconforti/eftar/blob/main/src/Untar.ts#L121)
 
 Since v1.0.0
 
@@ -136,7 +136,7 @@ declare const extractEntries: <E1, R1>(
 >
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L190)
+[Source](https://github.com/leonitousconforti/eftar/blob/main/src/Untar.ts#L190)
 
 Since v1.0.0
 
@@ -161,6 +161,6 @@ declare const untar: <E1, R1>(
 >
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/tree/main/src/Untar.ts#L142)
+[Source](https://github.com/leonitousconforti/eftar/blob/main/src/Untar.ts#L142)
 
 Since v1.0.0
