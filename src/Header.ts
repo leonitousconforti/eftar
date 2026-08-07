@@ -106,7 +106,7 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
     mtime: Function.pipe(
         Schema.String,
         Schema.check(Schema.isMaxLength(12)),
-        Schema.decodeTo(Schema.NumberFromString),
+        Schema.decodeTo(Schema.FiniteFromString),
         Schema.decode({
             decode: SchemaGetter.transform((n) => parseInt(n.toString(), 8)),
             encode: SchemaGetter.transform((n) => parseInt(n.toString(8))),
@@ -177,7 +177,7 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
     ),
 
     // These fields are not present in the non-full header variant.
-    checksum: HeaderVariants.FieldOnly(["full"])(Schema.NumberFromString),
+    checksum: HeaderVariants.FieldOnly(["full"])(Schema.FiniteFromString),
     padding: HeaderVariants.FieldOnly(["full"])(Schema.Literal("\0".repeat(12))),
     ustar: HeaderVariants.FieldOnly(["full"])(Schema.Literals(["ustar\x20\x20\x00", "ustar\x0000"])),
 }) {
