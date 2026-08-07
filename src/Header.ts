@@ -4,6 +4,7 @@
  * @since 1.0.0
  */
 
+import * as DateTime from "effect/DateTime";
 import * as Effect from "effect/Effect";
 import * as Function from "effect/Function";
 import * as Number from "effect/Number";
@@ -114,11 +115,10 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
             decode: SchemaGetter.transform(Number.multiply(1000)),
             encode: SchemaGetter.transform(Number.divideUnsafe(1000)),
         }),
-        Schema.decodeTo(Schema.Date, {
-            decode: SchemaGetter.transform((n) => new Date(n)),
-            encode: SchemaGetter.transform((date) => date.getTime()),
-        }),
-        Schema.withConstructorDefault(Effect.succeed(new Date()))
+        Schema.decodeTo(Schema.DateTimeUtcFromMillis),
+        // `DateTime.now` reads the Effect Clock, and unlike an eagerly built `Effect.succeed(new
+        // Date())` it is evaluated per construction rather than once when this module loads.
+        Schema.withConstructorDefault(DateTime.now)
     ),
 
     /**

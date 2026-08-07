@@ -8,6 +8,7 @@ import type * as PlatformError from "effect/PlatformError";
 import type * as Schema from "effect/Schema";
 
 import * as Array from "effect/Array";
+import * as DateTime from "effect/DateTime";
 import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";
 import * as Function from "effect/Function";
@@ -205,7 +206,9 @@ const tarEntryFromFilesystem = (
             gid: stat.gid,
             fileSize: Number(stat.size),
             fileMode: parseInt((stat.mode & 0o777).toString(8), 10),
-            ...Option.map(stat.mtime, (t) => ({ mtime: t })).pipe(Option.getOrElse(() => ({}))),
+            ...Option.map(stat.mtime, (t) => ({ mtime: DateTime.fromDateUnsafe(t) })).pipe(
+                Option.getOrElse(() => ({}))
+            ),
         });
         return Tuple.make(header, contents);
     });

@@ -1,4 +1,4 @@
-import { Effect, HashMap, Option, Stream, Tuple, FileSystem, Path } from "effect";
+import { DateTime, Effect, HashMap, Option, Stream, Tuple, FileSystem, Path } from "effect";
 import { ChildProcess } from "effect/unstable/process";
 
 import * as os from "node:os";
@@ -67,7 +67,7 @@ it.live("should tar and untar a tarball", () =>
                         owner: Option.some(user),
                         group: Option.some(group),
                         filename: "./content.txt",
-                        mtime: stat.mtime.pipe(Option.getOrThrow),
+                        mtime: stat.mtime.pipe(Option.getOrThrow, DateTime.fromDateUnsafe),
                         fileMode: parseInt((stat.mode & 0o777).toString(8), 10),
                     },
                     contentString,
