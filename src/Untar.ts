@@ -158,7 +158,7 @@ export const untar = <E1, R1>(
         Stream.grouped(TarCommon.BLOCK_SIZE),
         Stream.map((chunk) => Uint8Array.from(chunk)),
         Stream.aggregateWithin(aggregateBlocksByHeadersSink, Schedule.fixed(Duration.infinity)),
-        Stream.takeWhile(({ endOfArchiveFlag }) => endOfArchiveFlag === false),
+        Stream.takeWhile(({ endOfArchiveFlag }) => !endOfArchiveFlag),
         Stream.filter((x) => filter(x.headerBlock!)),
         Stream.run(collectorSink)
     );
