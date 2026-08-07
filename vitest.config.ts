@@ -1,5 +1,3 @@
-import path from "node:path";
-
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
@@ -7,7 +5,7 @@ export default defineConfig({
         tsconfigPaths: true,
     },
     test: {
-        setupFiles: [path.join(__dirname, "test", "vitest.setup.ts")],
+        setupFiles: ["./test/vitest.setup.ts"],
         fakeTimers: {
             toFake: undefined,
         },
