@@ -188,7 +188,7 @@ export class TarHeader extends HeaderVariants.Class<TarHeader>("TarHeader")({
         const readString = (
             start: number,
             end: number,
-            options?: { skipLeadingNulls?: true; skipTrailingNulls?: true } | undefined
+            options?: { skipLeadingNulls?: true; skipTrailingNulls?: true }
         ): string | undefined => {
             let i: number = start;
             let j: number = end;

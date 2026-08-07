@@ -29,7 +29,7 @@ beforeAll(() =>
         );
 
         const exitCode = yield* command.exitCode;
-        if (exitCode !== 0) return yield* Effect.die(`Command failed with exit code ${exitCode}`);
+        return yield* exitCode === 0 ? Effect.void : Effect.die(`Command failed with exit code ${exitCode}`);
     }).pipe(Effect.provide(NodeServices.layer), Effect.scoped, Effect.runPromise)
 );
 
