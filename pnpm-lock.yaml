@@ -34,17 +34,17 @@ importers:
         specifier: 0.8.9
         version: 0.8.9
       '@effect/docgen':
-        specifier: 4.0.0-beta.104
-        version: 4.0.0-beta.104(ioredis@5.11.1)(tsx@4.23.9)(typescript@7.0.2)
+        specifier: 4.0.0-beta.105
+        version: 4.0.0-beta.105(ioredis@5.11.1)(tsx@4.23.9)(typescript@7.0.2)
       '@effect/platform-node':
-        specifier: 4.0.0-beta.104
-        version: 4.0.0-beta.104(effect@4.0.0-beta.104)(ioredis@5.11.1)
+        specifier: 4.0.0-beta.105
+        version: 4.0.0-beta.105(effect@4.0.0-beta.105)(ioredis@5.11.1)
       '@effect/tsgo':
         specifier: 0.33.0
         version: 0.33.0
       '@effect/vitest':
-        specifier: 4.0.0-beta.104
-        version: 4.0.0-beta.104(effect@4.0.0-beta.104)(vitest@4.1.10(@types/node@25.9.5)(tsx@4.23.9))
+        specifier: 4.0.0-beta.105
+        version: 4.0.0-beta.105(effect@4.0.0-beta.105)(vitest@4.1.10(@types/node@25.9.5)(tsx@4.23.9))
       '@types/node':
         specifier: 25.9.5
         version: 25.9.5
@@ -52,8 +52,8 @@ importers:
         specifier: 0.5.0
         version: 0.5.0(@babel/core@8.0.1)
       effect:
-        specifier: 4.0.0-beta.104
-        version: 4.0.0-beta.104
+        specifier: 4.0.0-beta.105
+        version: 4.0.0-beta.105
       ioredis:
         specifier: 5.11.1
         version: 5.11.1
@@ -265,8 +265,8 @@ packages:
     engines: {node: '>=16.17.1'}
     hasBin: true
 
-  '@effect/docgen@4.0.0-beta.104':
-    resolution: {integrity: sha512-Fx6aMYvKP5BTrS37SuTilKbCrMHoq1t3MAqXU3JIax+9RlDCOQ1eJaxMicj3AwactvSEm7AF9Tt/lG60QW1T6w==}
+  '@effect/docgen@4.0.0-beta.105':
+    resolution: {integrity: sha512-4KJXzchvFp0kS+BJbEP7Oi0MdKjPQ317iVoDE3ATy5joS4pDqwLjW2zTFL4fAgOqkLumcX/+zqW5JqSeIOCvqg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     peerDependencies:
@@ -278,18 +278,18 @@ packages:
     engines: {node: '>=0.10.0'}
     hasBin: true
 
-  '@effect/platform-node-shared@4.0.0-beta.104':
-    resolution: {integrity: sha512-wZQWlreuCfR+Ip6E93h2Wo56lFdBTflzSErFKxvrAW06/ORa7yZMD4oq4Ow5aU5+AlQgomQSEeBKM7uao4ZewQ==}
+  '@effect/platform-node-shared@4.0.0-beta.105':
+    resolution: {integrity: sha512-UfeC8cFm4sP+XW14OO66CcOGJ8PcD102hH0kLwj8xUVL6nYIDGE/SJvlfVmFx+9OWF6rnjfXjMV6vyl6mCdhCQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      effect: ^4.0.0-beta.104
+      effect: ^4.0.0-beta.105
 
-  '@effect/platform-node@4.0.0-beta.104':
-    resolution: {integrity: sha512-edqD0sRzL3Qow26TnD+RuHNVolFB7c1M/xWGzW0TRc7PzXpRWQawM1haMXOrB8W1UXpg8T8jF5MU56vFhPGJyw==}
+  '@effect/platform-node@4.0.0-beta.105':
+    resolution: {integrity: sha512-gOHtgE9PqCT8aiiM0W7ZSbu4M2/jPGfJOKWuyBCxofNV5Np36fFY55FSa1MtyG+vjOjlD5btNY2i6i/SPtRqTA==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      effect: ^4.0.0-beta.104
-      ioredis: ^5.7.0
+      effect: ^4.0.0-beta.105
+      ioredis: '>=5.7.0 <6.0.0'
 
   '@effect/tsgo-darwin-arm64@0.33.0':
     resolution: {integrity: sha512-L2dBd2d+mORd4+v1c43AW7fRkxrO6CNM7ROc7dfy4jqB/3Oeq/PxNIbvnC+k0ST/xWsol2K/j+yg9wHYN8qSZw==}
@@ -330,11 +330,11 @@ packages:
     resolution: {integrity: sha512-08RZaL/eoqbUv4CaRor8rN/qfYFyDKAAnSJze24LcCGVoNFYlQS+/I+LEfDFiDa3jQBPfUv9aUT/qMx8Bd/p5w==}
     hasBin: true
 
-  '@effect/vitest@4.0.0-beta.104':
-    resolution: {integrity: sha512-09AvNl3tJNR7hOEnxE8TqSlBTeqfrWu/s4mIjlv1q6c/r6izkH/qhUrByP87ebbEtCMPJDHHXNcKFs3kEbugbQ==}
+  '@effect/vitest@4.0.0-beta.105':
+    resolution: {integrity: sha512-2t1J/H/+9hAKDC1S3iFyUVZJhdMpKvuggnOGNXPTmxZcVdxG/VkhjQjo7wzOHWs6SZcX8Cr/EsB+uiVAn9G0Ng==}
     peerDependencies:
-      effect: ^4.0.0-beta.104
-      vitest: ^4.1.0
+      effect: ^4.0.0-beta.105
+      vitest: '>=4.1.0 <5.0.0'
 
   '@emnapi/core@1.11.1':
     resolution: {integrity: sha512-RSvbQmHzdKzNsLYa/wHrbc3KN4sYLKAdPZxqiM2HATqv/SBk2/ENSHpvXGaLOMcsAyz0poEGqkmmKYG3OWiJEQ==}
@@ -1445,8 +1445,8 @@ packages:
     resolution: {integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==}
     engines: {node: '>=6.0.0'}
 
-  effect@4.0.0-beta.104:
-    resolution: {integrity: sha512-YSSaaMc8gBoHnabYXlgHpKVctsj4ezTSoojdd8SA3NWHoZ7LMPiUDhCnP1ZSOfQ7ly6P6XLhAw216NfLEHfg2A==}
+  effect@4.0.0-beta.105:
+    resolution: {integrity: sha512-7U5OzWVNlpnZFvXiZfOeu8V+dCQUa3Om569HnYG2Dx8C8V6uoKS920kFJkIDEYVhlSGhzkRqaGKmYY9bPkBMMQ==}
 
   electron-to-chromium@1.5.396:
     resolution: {integrity: sha512-yHiw2Y3C3H9U6TMbOfoWK/BPreiOPXRfTWPBwQBoZG6/8TB6eOPnsy5oaRYuatR7Fw2SJ4kKforgufeo7fq0EQ==}
@@ -2871,14 +2871,14 @@ snapshots:
       micromatch: 4.0.8
       pkg-entry-points: 1.1.2
 
-  '@effect/docgen@4.0.0-beta.104(ioredis@5.11.1)(tsx@4.23.9)(typescript@7.0.2)':
+  '@effect/docgen@4.0.0-beta.105(ioredis@5.11.1)(tsx@4.23.9)(typescript@7.0.2)':
     dependencies:
       '@babel/code-frame': 8.0.0
       '@effect/markdown-toc': 0.1.0
-      '@effect/platform-node': 4.0.0-beta.104(effect@4.0.0-beta.104)(ioredis@5.11.1)
+      '@effect/platform-node': 4.0.0-beta.105(effect@4.0.0-beta.105)(ioredis@5.11.1)
       chalk: 5.6.2
       doctrine: 3.0.0
-      effect: 4.0.0-beta.104
+      effect: 4.0.0-beta.105
       glob: 13.0.6
       prettier: 3.9.6
       ts-morph: 27.0.2
@@ -2905,19 +2905,19 @@ snapshots:
       repeat-string: 1.6.1
       strip-color: 0.1.0
 
-  '@effect/platform-node-shared@4.0.0-beta.104(effect@4.0.0-beta.104)':
+  '@effect/platform-node-shared@4.0.0-beta.105(effect@4.0.0-beta.105)':
     dependencies:
       '@types/ws': 8.18.1
-      effect: 4.0.0-beta.104
+      effect: 4.0.0-beta.105
       ws: 8.21.1
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform-node@4.0.0-beta.104(effect@4.0.0-beta.104)(ioredis@5.11.1)':
+  '@effect/platform-node@4.0.0-beta.105(effect@4.0.0-beta.105)(ioredis@5.11.1)':
     dependencies:
-      '@effect/platform-node-shared': 4.0.0-beta.104(effect@4.0.0-beta.104)
-      effect: 4.0.0-beta.104
+      '@effect/platform-node-shared': 4.0.0-beta.105(effect@4.0.0-beta.105)
+      effect: 4.0.0-beta.105
       ioredis: 5.11.1
       mime: 4.1.0
       undici: 8.9.0
@@ -2956,9 +2956,9 @@ snapshots:
       '@effect/tsgo-win32-arm64': 0.33.0
       '@effect/tsgo-win32-x64': 0.33.0
 
-  '@effect/vitest@4.0.0-beta.104(effect@4.0.0-beta.104)(vitest@4.1.10(@types/node@25.9.5)(tsx@4.23.9))':
+  '@effect/vitest@4.0.0-beta.105(effect@4.0.0-beta.105)(vitest@4.1.10(@types/node@25.9.5)(tsx@4.23.9))':
     dependencies:
-      effect: 4.0.0-beta.104
+      effect: 4.0.0-beta.105
       vitest: 4.1.10(@types/node@25.9.5)(tsx@4.23.9)
 
   '@emnapi/core@1.11.1':
@@ -3762,7 +3762,7 @@ snapshots:
     dependencies:
       esutils: 2.0.3
 
-  effect@4.0.0-beta.104:
+  effect@4.0.0-beta.105:
     dependencies:
       '@standard-schema/spec': 1.1.0
       fast-check: 4.9.0
