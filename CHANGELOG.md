@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2
+
+### Patch Changes
+
+- f80a1e1: Update Effect-TS packages to v4.0.0-beta.105
+
 ## 0.1.1
 
 ### Patch Changes
