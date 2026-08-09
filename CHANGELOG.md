@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3
+
+### Patch Changes
+
+- 518a9e3: Update Effect-TS packages to v4.0.0-beta.106
+
 ## 0.1.2
 
 ### Patch Changes
