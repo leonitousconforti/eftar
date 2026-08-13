@@ -18,10 +18,10 @@
 
 - b2237e7: Reject non-finite numbers in the `TarHeader` `mtime` and `checksum` fields
 
-  Both fields previously decoded through `Schema.NumberFromString`, which accepts `NaN`,
-  `Infinity`, and `-Infinity`. They now use `Schema.FiniteFromString`, so a header whose
-  mtime or checksum string parses to a non-finite value fails to decode instead of
-  producing a nonsensical timestamp or checksum. Valid archives are unaffected.
+    Both fields previously decoded through `Schema.NumberFromString`, which accepts `NaN`,
+    `Infinity`, and `-Infinity`. They now use `Schema.FiniteFromString`, so a header whose
+    mtime or checksum string parses to a non-finite value fails to decode instead of
+    producing a nonsensical timestamp or checksum. Valid archives are unaffected.
 
 ## 0.1.0
 
@@ -29,15 +29,15 @@
 
 - 5b5ab4b: Represent `TarHeader.mtime` as a `DateTime.Utc` instead of a `Date`
 
-  The field now decodes through `Schema.DateTimeUtcFromMillis`, and its constructor default is
-  `DateTime.now`, which reads the Effect Clock. The previous default was
-  `Effect.succeed(new Date())`, which captured a single timestamp when the module was first
-  imported, so every default-constructed header shared that value instead of the time it was
-  actually created.
+    The field now decodes through `Schema.DateTimeUtcFromMillis`, and its constructor default is
+    `DateTime.now`, which reads the Effect Clock. The previous default was
+    `Effect.succeed(new Date())`, which captured a single timestamp when the module was first
+    imported, so every default-constructed header shared that value instead of the time it was
+    actually created.
 
-  The encoded (on-disk) representation is unchanged. Callers passing a `Date` into
-  `TarHeader.make` need `DateTime.fromDateUnsafe`, and callers reading `header.mtime` now get a
-  `DateTime.Utc`.
+    The encoded (on-disk) representation is unchanged. Callers passing a `Date` into
+    `TarHeader.make` need `DateTime.fromDateUnsafe`, and callers reading `header.mtime` now get a
+    `DateTime.Utc`.
 
 ## 0.0.83
 
