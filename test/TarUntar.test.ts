@@ -1,5 +1,5 @@
 import { DateTime, Effect, HashMap, Option, Stream, Tuple, FileSystem, Path } from "effect";
-import { ChildProcess } from "effect/unstable/process";
+import { ChildProcess } from "effect/process";
 
 import * as os from "node:os";
 

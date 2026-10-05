@@ -93,7 +93,7 @@ declare const collectorSink: Sink.Sink<
       readonly linkName: Option<string>
       readonly filenamePrefix: Option<string>
       readonly fileMode: number
-      readonly mtime: Date
+      readonly mtime: Utc
       readonly uid: Option<number>
       readonly gid: Option<number>
       readonly owner: Option<string>

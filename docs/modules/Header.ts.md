@@ -40,7 +40,7 @@ declare const FileTypes: {
 }
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/blob/main/src/Header.ts#L41)
+[Source](https://github.com/leonitousconforti/eftar/blob/main/src/Header.ts#L42)
 
 Since v1.0.0
 
@@ -52,7 +52,7 @@ Since v1.0.0
 declare class TarHeader
 ```
 
-[Source](https://github.com/leonitousconforti/eftar/blob/main/src/Header.ts#L73)
+[Source](https://github.com/leonitousconforti/eftar/blob/main/src/Header.ts#L74)
 
 Since v1.0.0
 

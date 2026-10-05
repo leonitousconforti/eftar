@@ -15,8 +15,8 @@
         "allowImportingTsExtensions": true,
         "types": ["node"],
         "paths": {
-            "@leonitousconforti/eftar": ["../../src/index.ts"],
-            "@leonitousconforti/eftar/*": ["../../src/*.ts"]
+            "eftar": ["../../src/index.ts"],
+            "eftar/*": ["../../src/*.ts"]
         }
     }
 }

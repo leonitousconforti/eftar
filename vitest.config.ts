@@ -7,7 +7,7 @@ export default defineConfig({
     test: {
         setupFiles: ["./test/vitest.setup.ts"],
         fakeTimers: {
-            toFake: undefined,
+            toFake: [],
         },
         sequence: {
             concurrent: true,

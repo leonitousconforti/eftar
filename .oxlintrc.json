@@ -21,6 +21,13 @@
         }
     ],
     "rules": {
+        // `TarHeader#pack` is deliberately exposed as a zero-argument method returning an Effect, so
+        // that adding parameters later is not a breaking change. Worth seeing, not worth failing the
+        // build over.
+        "effecttsgo/lazy-effect": "warn",
+        // `VariantSchema` and `ChildProcess` are the only reasonable way to express the full/non-full
+        // header split and to shell out to system tar in the tests. Both are still marked unstable.
+        "effecttsgo/unstable-api-usage": "off",
         // Import rules
         "typescript/consistent-type-imports": [
             "error",

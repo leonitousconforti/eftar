@@ -10,8 +10,8 @@ import * as Function from "effect/Function";
 import * as Number from "effect/Number";
 import * as Option from "effect/Option";
 import * as Schema from "effect/Schema";
+import * as VariantSchema from "effect/schema/VariantSchema";
 import * as SchemaGetter from "effect/SchemaGetter";
-import * as VariantSchema from "effect/unstable/schema/VariantSchema";
 
 /** @internal */
 export const HeaderVariants = VariantSchema.make({
