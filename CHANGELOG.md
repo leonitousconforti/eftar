@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.6
+
+### Patch Changes
+
+- 30d9dac: Update Effect-TS packages to v4.0.1
+
+    `effect/unstable/*` was flattened in v4.0.1, so `VariantSchema` moved to `effect/schema/VariantSchema` and `ChildProcess` to `effect/process`.
+
+- 30d9dac: Strip `@internal` declarations from the published type definitions
+
+    `tsconfig.build.json` now sets `stripInternal`, so helpers such as `BLOCK_SIZE`, `emptyBlock` and `HeaderVariants` no longer appear in `dist/*.d.ts`. They were never part of the documented API and remain available at runtime.
+
 ## 0.1.5
 
 ### Patch Changes
