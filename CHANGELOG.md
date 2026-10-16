@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.7
+
+### Patch Changes
+
+- 7f367f9: Use UTF-8 byte lengths for string contents in tarballFromMemory to prevent Unicode content from being truncated.
+- 19a16b8: Update Effect-TS packages to v4.0.5
+
 ## 0.1.6
 
 ### Patch Changes
