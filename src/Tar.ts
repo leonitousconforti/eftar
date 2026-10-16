@@ -164,7 +164,7 @@ export const tarballFromMemory = <E1 = never, R1 = never>(
 
             const contentLength = Function.pipe(
                 Match.value(data),
-                Match.when(Predicate.isString, (str) => str.length),
+                Match.when(Predicate.isString, (str) => TarCommon.textEncoder.encode(str).length),
                 Match.when(Predicate.isUint8Array, (bytes) => bytes.length),
                 Match.orElse(([size, _]) => size)
             );
