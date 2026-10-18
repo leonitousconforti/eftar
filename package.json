@@ -71,7 +71,7 @@
         "@effect/build-utils": "0.8.9",
         "@effect/docgen": "4.0.5",
         "@effect/platform-node": "4.0.5",
-        "@effect/tsgo": "0.53.3",
+        "@effect/tsgo": "0.53.4",
         "@effect/vitest": "4.0.5",
         "@types/node": "26.6.5",
         "babel-plugin-annotate-pure-calls": "0.5.0",
