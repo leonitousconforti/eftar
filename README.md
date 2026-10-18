@@ -1,3 +1,5 @@
+This was a fun learning project, and tar encoding/decoding is now in effect v4 https://github.com/Effect-TS/effect/pull/9148
+
 # eftar
 
 [GNU ustar tar](https://www.gnu.org/software/tar/manual/html_node/Standard.html) implementation written using effect-ts
